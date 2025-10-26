@@ -1,0 +1,1176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frequently Asked Questions - Plant Affairs</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .hamburger-line {
+            display: block;
+            height: 3px;
+            width: 25px;
+            background-color: #333;
+            margin: 5px auto;
+            transition: all 0.3s ease-in-out;
+        }
+        
+        .hamburger.active .hamburger-line:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .hamburger.active .hamburger-line:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+        
+        .hamburger.active .hamburger-line:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+        
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+        }
+        
+        .mobile-menu.active {
+            max-height: 500px;
+        }
+        
+        .section-padding {
+            padding: 3rem 1rem;
+        }
+
+        .fade-in {
+            animation: fadeIn 1s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .faq-hero {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.9) 0%, rgba(5, 150, 105, 0.9) 100%), url('https://via.placeholder.com/1920x600?text=Plant+FAQ') center/cover no-repeat;
+        }
+
+        .faq-category-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-bottom: 4px solid transparent;
+        }
+
+        .faq-category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            border-bottom-color: #10b981;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid #e5e7eb;
+            margin-bottom: 1rem;
+        }
+
+        .faq-question {
+            padding: 1.5rem 0;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+        }
+
+        .faq-question i {
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            padding: 0 0 1.5rem;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+        }
+
+        .search-box {
+            position: relative;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #10b981;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6b7280;
+        }
+
+        .category-nav {
+            display: flex;
+            overflow-x: auto;
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .category-nav::-webkit-scrollbar {
+            display: none;
+        }
+
+        .category-nav-item {
+            flex: 0 0 auto;
+            padding: 0.75rem 1.5rem;
+            background-color: white;
+            border-radius: 0.5rem;
+            margin-right: 0.75rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            border: 2px solid transparent;
+        }
+
+        .category-nav-item.active {
+            background-color: #10b981;
+            color: white;
+            border-color: #10b981;
+        }
+
+        .category-nav-item:hover:not(.active) {
+            border-color: #10b981;
+        }
+
+        .help-card {
+            transition: transform 0.3s ease;
+        }
+
+        .help-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .contact-option {
+            display: flex;
+            align-items: center;
+            padding: 1.5rem;
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .contact-option:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            background-color: #d1fae5;
+            border-radius: 50%;
+            margin-right: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .contact-icon i {
+            color: #10b981;
+            font-size: 1.5rem;
+        }
+
+        .popular-question {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            margin-bottom: 0.75rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .popular-question:hover {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .question-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: #f3f4f6;
+            border-radius: 50%;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+
+        .question-icon i {
+            color: #6b7280;
+            font-size: 1rem;
+        }
+
+        .resource-card {
+            transition: transform 0.3s ease;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 3rem 1rem;
+        }
+
+        .no-results i {
+            font-size: 3rem;
+            color: #d1d5db;
+            margin-bottom: 1rem;
+        }
+
+        /* Mobile-specific styles */
+        @media (max-width: 768px) {
+            .section-padding {
+                padding: 2rem 1rem;
+            }
+            
+            .category-nav {
+                margin-bottom: 1.5rem;
+            }
+            
+            .category-nav-item {
+                padding: 0.5rem 1rem;
+                font-size: 0.875rem;
+            }
+            
+            .contact-option {
+                padding: 1rem;
+            }
+            
+            .contact-icon {
+                width: 50px;
+                height: 50px;
+                margin-right: 1rem;
+            }
+            
+            .contact-icon i {
+                font-size: 1.25rem;
+            }
+            
+            .faq-question {
+                padding: 1rem 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .section-padding {
+                padding: 1.5rem 1rem;
+            }
+            
+            .category-nav-item {
+                padding: 0.5rem 0.75rem;
+                font-size: 0.75rem;
+            }
+            
+            .search-input {
+                padding: 0.875rem 0.875rem 0.875rem 2.5rem;
+            }
+            
+            .contact-option {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .contact-icon {
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+        }
+    </style>
+</head>
+<body class="bg-green-50">
+    <!-- Header Section -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <!-- Logo -->
+            <div class="flex items-center">
+                <img src="C:\Users\USER\Documents\plantaffairs\assets\logo.jpg"  alt="Plant Affairs Logo" class="h-10 w-10 mr-2">
+                <span class="text-xl font-bold text-green-700">Plant Affairs</span>
+            </div>
+            
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex space-x-8">
+                <a href="home.html" class="text-green-700 hover:text-green-500 font-medium">Home</a>
+                <a href="categories.html" class="text-green-700 hover:text-green-500 font-medium">Categories</a>
+                <a href="services.html" class="text-green-700 hover:text-green-500 font-medium">Services</a>
+                <a href="about.html" class="text-green-700 hover:text-green-500 font-medium">About</a>
+                <a href="contact.html" class="text-green-700 hover:text-green-500 font-medium">Contact</a>
+                <a href="blog.html" class="text-green-700 hover:text-green-500 font-medium">Blog</a>
+                <a href="gallery.html" class="text-green-700 hover:text-green-500 font-medium">Gallery</a>
+                <a href="testimonials.html" class="text-green-700 hover:text-green-500 font-medium">Testimonials</a>
+                <a href="faq.html" class="text-green-700 hover:text-green-500 font-medium border-b-2 border-green-700">FAQ</a>
+                <a href="care-guides.html" class="text-green-700 hover:text-green-500 font-medium">Care Guides</a>
+            </nav>
+            
+            <!-- Cart and Search -->
+            <div class="hidden md:flex items-center space-x-4">
+                <button class="text-green-700 hover:text-green-500">
+                    <i class="fas fa-search"></i>
+                </button>
+                <button class="text-green-700 hover:text-green-500 relative">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="absolute -top-2 -right-2 bg-green-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">3</span>
+                </button>
+            </div>
+            
+            <!-- Mobile Menu Button -->
+            <button id="hamburger" class="md:hidden hamburger focus:outline-none">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="mobile-menu md:hidden bg-white">
+            <div class="container mx-auto px-4 py-3 flex flex-col space-y-4">
+                <a href="home.html" class="text-green-700 hover:text-green-500 font-medium py-2 border-b">Home</a>
+                <a href="categories.html" class="text-green-700 hover:text-green-500 font-medium py-2 border-b">Categories</a>
+                <a href="services.html" class="text-green-700 hover:text-green-500 font-medium py-2 border-b">Services</a>
+                <a href="about.html" class="text-green-700 hover:text-green-500 font-medium py-2 border-b">About</a>
+                <a href="contact.html" class="text-green-700 hover:text-green-500 font-medium py-2 border-b">Contact</a>
+                <a href="blog.html" class="text-green-700 hover:text-green-500 font-medium py-2 border-b">Blog</a>
+                <a href="gallery.html" class="text-green-700 hover:text-green-500 font-medium py-2 border-b">Gallery</a>
+                <a href="testimonials.html" class="text-green-700 hover:text-green-500 font-medium py-2 border-b">Testimonials</a>
+                <a href="faq.html" class="text-green-700 hover:text-green-500 font-medium py-2 border-b">FAQ</a>
+                <a href="care-guides.html" class="text-green-700 hover:text-green-500 font-medium py-2 border-b">Care Guides</a>
+                <div class="flex justify-between py-2">
+                    <button class="text-green-700 hover:text-green-500">
+                        <i class="fas fa-search"></i> Search
+                    </button>
+                    <button class="text-green-700 hover:text-green-500 relative">
+                        <i class="fas fa-shopping-cart"></i> Cart
+                        <span class="absolute -top-2 -right-2 bg-green-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">3</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- FAQ Page Content - 10 Detailed Sections -->
+    <main>
+        <!-- Section 1: Hero -->
+        <section class="faq-hero text-white section-padding">
+            <div class="container mx-auto px-4 text-center">
+                <h1 class="text-3xl md:text-5xl font-bold mb-4 fade-in">Frequently Asked Questions</h1>
+                <p class="text-lg md:text-xl mb-8 max-w-2xl mx-auto fade-in">Find answers to common questions about plants, care, and our services.</p>
+                <div class="fade-in">
+                    <div class="search-box">
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="text" class="search-input" placeholder="Search for answers...">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Category Navigation -->
+        <section class="section-padding bg-white">
+            <div class="container mx-auto px-4">
+                <div class="category-nav">
+                    <div class="category-nav-item active" data-category="all">All Questions</div>
+                    <div class="category-nav-item" data-category="plant-care">Plant Care</div>
+                    <div class="category-nav-item" data-category="ordering">Ordering & Delivery</div>
+                    <div class="category-nav-item" data-category="services">Our Services</div>
+                    <div class="category-nav-item" data-category="troubleshooting">Troubleshooting</div>
+                    <div class="category-nav-item" data-category="returns">Returns & Guarantees</div>
+                    <div class="category-nav-item" data-category="account">Account & Payment</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Popular Questions -->
+        <section class="section-padding">
+            <div class="container mx-auto px-4">
+                <h2 class="text-2xl md:text-3xl font-bold text-center text-green-800 mb-4">Popular Questions</h2>
+                <p class="text-center text-gray-600 mb-8 max-w-3xl mx-auto">Here are the most commonly asked questions from our customers.</p>
+                
+                <div class="max-w-4xl mx-auto">
+                    <div class="popular-question fade-in" data-question="watering">
+                        <div class="question-icon">
+                            <i class="fas fa-tint"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-green-800">How often should I water my plants?</h3>
+                            <p class="text-sm text-gray-600">Learn about proper watering schedules for different plant types</p>
+                        </div>
+                    </div>
+                    
+                    <div class="popular-question fade-in" data-question="delivery">
+                        <div class="question-icon">
+                            <i class="fas fa-truck"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-green-800">What is your delivery process?</h3>
+                            <p class="text-sm text-gray-600">Information about delivery areas, timing, and costs</p>
+                        </div>
+                    </div>
+                    
+                    <div class="popular-question fade-in" data-question="plant-selection">
+                        <div class="question-icon">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-green-800">Which plants are best for low light conditions?</h3>
+                            <p class="text-sm text-gray-600">Recommendations for plants that thrive in low-light environments</p>
+                        </div>
+                    </div>
+                    
+                    <div class="popular-question fade-in" data-question="pest-control">
+                        <div class="question-icon">
+                            <i class="fas fa-bug"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-green-800">How do I deal with plant pests?</h3>
+                            <p class="text-sm text-gray-600">Natural and effective solutions for common plant pests</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: FAQ Categories -->
+        <section class="section-padding bg-green-100">
+            <div class="container mx-auto px-4">
+                <h2 class="text-2xl md:text-3xl font-bold text-center text-green-800 mb-4">Browse by Category</h2>
+                <p class="text-center text-gray-600 mb-8 max-w-3xl mx-auto">Find answers organized by topic to quickly get the information you need.</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Plant Care -->
+                    <div class="faq-category-card bg-white rounded-lg shadow-md p-6 text-center fade-in">
+                        <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-seedling text-green-600 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-green-800 mb-3">Plant Care</h3>
+                        <p class="text-gray-600 text-sm mb-4">Watering, lighting, fertilizing, and general plant maintenance</p>
+                        <a href="#plant-care" class="text-green-600 font-semibold hover:text-green-800">View Questions →</a>
+                    </div>
+                    
+                    <!-- Ordering & Delivery -->
+                    <div class="faq-category-card bg-white rounded-lg shadow-md p-6 text-center fade-in">
+                        <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-shopping-cart text-green-600 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-green-800 mb-3">Ordering & Delivery</h3>
+                        <p class="text-gray-600 text-sm mb-4">Placing orders, delivery options, timing, and costs</p>
+                        <a href="#ordering" class="text-green-600 font-semibold hover:text-green-800">View Questions →</a>
+                    </div>
+                    
+                    <!-- Our Services -->
+                    <div class="faq-category-card bg-white rounded-lg shadow-md p-6 text-center fade-in">
+                        <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-concierge-bell text-green-600 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-green-800 mb-3">Our Services</h3>
+                        <p class="text-gray-600 text-sm mb-4">Landscaping, maintenance, consultations, and corporate services</p>
+                        <a href="#services" class="text-green-600 font-semibold hover:text-green-800">View Questions →</a>
+                    </div>
+                    
+                    <!-- Troubleshooting -->
+                    <div class="faq-category-card bg-white rounded-lg shadow-md p-6 text-center fade-in">
+                        <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-tools text-green-600 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-green-800 mb-3">Troubleshooting</h3>
+                        <p class="text-gray-600 text-sm mb-4">Solving common plant problems and health issues</p>
+                        <a href="#troubleshooting" class="text-green-600 font-semibold hover:text-green-800">View Questions →</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Plant Care FAQs -->
+        <section id="plant-care" class="section-padding">
+            <div class="container mx-auto px-4">
+                <h2 class="text-2xl md:text-3xl font-bold text-green-800 mb-6">Plant Care Questions</h2>
+                <p class="text-gray-600 mb-8">Everything you need to know about keeping your plants healthy and thriving.</p>
+                
+                <div class="max-w-4xl mx-auto">
+                    <!-- Question 1 -->
+                    <div class="faq-item fade-in" data-category="plant-care">
+                        <div class="faq-question">
+                            <span>How often should I water my indoor plants?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p class="text-gray-600 mb-4">Watering frequency depends on several factors including plant type, pot size, soil mix, light conditions, and season. As a general rule:</p>
+                            <ul class="text-gray-600 list-disc pl-5 space-y-2 mb-4">
+                                <li><strong>Succulents and cacti:</strong> Water every 2-4 weeks, allowing soil to dry completely between waterings</li>
+                                <li><strong>Tropical plants:</strong> Water when the top inch of soil feels dry, typically every 1-2 weeks</li>
+                                <li><strong>Ferns and moisture-loving plants:</strong> Keep soil consistently moist but not waterlogged</li>
+                                <li><strong>Most houseplants:</strong> Water when the top 1-2 inches of soil are dry</li>
+                            </ul>
+                            <p class="text-gray-600">Always check your plant's specific needs and adjust based on your home environment. Overwatering is the most common cause of houseplant death.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Question 2 -->
+                    <div class="faq-item fade-in" data-category="plant-care">
+                        <div class="faq-question">
+                            <span>Which plants are best for low light conditions?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p class="text-gray-600 mb-4">Many plants can thrive in low light conditions. Here are some of the best options:</p>
+                            <ul class="text-gray-600 list-disc pl-5 space-y-2 mb-4">
+                                <li><strong>Snake Plant (Sansevieria):</strong> Extremely tolerant of low light and irregular watering</li>
+                                <li><strong>ZZ Plant (Zamioculcas zamiifolia):</strong> Thrives in low light and requires minimal care</li>
+                                <li><strong>Pothos (Epipremnum aureum):</strong> Adaptable to various light conditions, including low light</li>
+                                <li><strong>Peace Lily (Spathiphyllum):</strong> Prefers low to medium indirect light</li>
+                                <li><strong>Cast Iron Plant (Aspidistra elatior):</strong> As the name suggests, very hardy in low light</li>
+                                <li><strong>Chinese Evergreen (Aglaonema):</strong> Comes in many varieties, all tolerant of low light</li>
+                            </ul>
+                            <p class="text-gray-600">Remember that "low light" doesn't mean no light. Even low-light plants need some natural light to survive.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Question 3 -->
+                    <div class="faq-item fade-in" data-category="plant-care">
+                        <div class="faq-question">
+                            <span>How do I know if my plant needs repotting?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p class="text-gray-600 mb-4">Look for these signs that your plant may need a larger container:</p>
+                            <ul class="text-gray-600 list-disc pl-5 space-y-2 mb-4">
+                                <li><strong>Roots growing through drainage holes</strong> or visible at the soil surface</li>
+                                <li><strong>Soil drying out very quickly</strong> after watering</li>
+                                <li><strong>Slowed growth</strong> despite proper care and growing season</li>
+                                <li><strong>Plant becoming top-heavy</strong> and tipping over easily</li>
+                                <li><strong>Salt and mineral buildup</strong> on the soil surface or pot edges</li>
+                                <li><strong>Water sitting on top of soil</strong> instead of absorbing quickly</li>
+                            </ul>
+                            <p class="text-gray-600">The best time to repot is during the growing season (spring and summer). Choose a pot that is only 1-2 inches larger in diameter than the current one.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Question 4 -->
+                    <div class="faq-item fade-in" data-category="plant-care">
+                        <div class="faq-question">
+                            <span>What's the best way to fertilize my plants?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p class="text-gray-600 mb-4">Proper fertilization is key to healthy plant growth. Follow these guidelines:</p>
+                            <ul class="text-gray-600 list-disc pl-5 space-y-2 mb-4">
+                                <li><strong>Timing:</strong> Fertilize during the active growing season (spring and summer), reduce or stop in fall and winter</li>
+                                <li><strong>Frequency:</strong> Most houseplants benefit from monthly fertilization during growing season</li>
+                                <li><strong>Type:</strong> Use a balanced, water-soluble fertilizer (e.g., 10-10-10) for most plants, or specialized formulas for specific plant types</li>
+                                <li><strong>Application:</strong> Always water plants before fertilizing to prevent root burn</li>
+                                <li><strong>Dilution:</strong> Follow package instructions, and when in doubt, use half the recommended strength</li>
+                            </ul>
+                            <p class="text-gray-600">Signs of over-fertilization include brown leaf tips, yellowing leaves, and salt buildup on soil surface. If you notice these, flush the soil with water to remove excess fertilizer.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: Ordering & Delivery FAQs -->
+        <section id="ordering" class="section-padding bg-green-100">
+            <div class="container mx-auto px-4">
+                <h2 class="text-2xl md:text-3xl font-bold text-green-800 mb-6">Ordering & Delivery Questions</h2>
+                <p class="text-gray-600 mb-8">Information about purchasing plants and getting them delivered to your location.</p>
+                
+                <div class="max-w-4xl mx-auto">
+                    <!-- Question 1 -->
+                    <div class="faq-item fade-in" data-category="ordering">
+                        <div class="faq-question">
+                            <span>What areas in Nigeria do you deliver to?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p class="text-gray-600 mb-4">We currently deliver to all areas within Abuja and surrounding communities. Our primary delivery areas include:</p>
+                            <ul class="text-gray-600 list-disc pl-5 space-y-2 mb-4">
+                                <li>Wuse District (all zones)</li>
+                                <li>Gwarinpa</li>
+                                <li>Maitama</li>
+                                <li>Asokoro</li>
+                                <li>Jabi</li>
+                                <li>Utako</li>
+                                <li>Garki</li>
+                                <li>Central Business District</li>
+                            </ul>
+                            <p class="text-gray-600">For locations outside our primary delivery area, additional delivery charges may apply. We're continuously expanding our delivery network to serve more customers across Nigeria.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Question 2 -->
+                    <div class="faq-item fade-in" data-category="ordering">
+                        <div class="faq-question">
+                            <span>How long does delivery take?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p class="text-gray-600 mb-4">Delivery times vary based on your location and order size:</p>
+                            <ul class="text-gray-600 list-disc pl-5 space-y-2 mb-4">
+                                <li><strong>Within Abuja metropolitan area:</strong> 1-2 business days</li>
+                                <li><strong>Outskirts of Abuja:</strong> 2-3 business days</li>
+                                <li><strong>Large landscaping orders:</strong> 3-5 business days (coordinated in advance)</li>
+                                <li><strong>Custom plant requests:</strong> 5-7 business days (may require special ordering)</li>
+                            </ul>
+                            <p class="text-gray-600">We typically process orders within 24 hours. You'll receive a confirmation email with tracking information once your order ships. For urgent deliveries, please contact our customer service team for expedited options.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Question 3 -->
+                    <div class="faq-item fade-in" data-category="ordering">
+                        <div class="faq-question">
+                            <span>What is your delivery process for live plants?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p class="text-gray-600 mb-4">We take special care to ensure your plants arrive in perfect condition:</p>
+                            <ul class="text-gray-600 list-disc pl-5 space-y-2 mb-4">
+                                <li><strong>Professional packaging:</strong> Plants are securely potted and stabilized to prevent soil spillage</li>
+                                <li><strong>Protective wrapping:</strong> Delicate leaves and stems are protected with specialized plant sleeves</li>
+                                <li><strong>Climate control:</strong> During extreme weather, we use climate-controlled vehicles</li>
+                                <li><strong>Care instructions:</strong> Each delivery includes detailed care instructions specific to your plants</li>
+                                <li><strong>Delivery timing:</strong> We schedule deliveries during cooler parts of the day to reduce plant stress</li>
+                            </ul>
+                            <p class="text-gray-600">Our delivery team is trained in plant handling and will place your plants in your preferred location. We recommend being available during delivery to receive your plants personally.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Question 4 -->
+                    <div class="faq-item fade-in" data-category="ordering">
+                        <div class="faq-question">
+                            <span>Do you offer international shipping?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p class="text-gray-600 mb-4">Currently, we do not offer international shipping for live plants due to phytosanitary regulations and the stress it would cause to the plants. However, we do offer the following:</p>
+                            <ul class="text-gray-600 list-disc pl-5 space-y-2 mb-4">
+                                <li><strong>Plant care products:</strong> We can ship certain gardening tools, fertilizers, and accessories internationally</li>
+                                <li><strong>Digital services:</strong> We offer virtual consultations for international clients</li>
+                                <li><strong>Care guides:</strong> Our digital plant care guides are available worldwide</li>
+                            </ul>
+                            <p class="text-gray-600">We're working on partnerships to potentially expand our live plant delivery in the future. For now, we focus on providing the best service within Nigeria where we can ensure plant health and quality.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 7: Troubleshooting FAQs -->
+        <section id="troubleshooting" class="section-padding">
+            <div class="container mx-auto px-4">
+                <h2 class="text-2xl md:text-3xl font-bold text-green-800 mb-6">Troubleshooting Questions</h2>
+                <p class="text-gray-600 mb-8">Solutions for common plant problems and health issues.</p>
+                
+                <div class="max-w-4xl mx-auto">
+                    <!-- Question 1 -->
+                    <div class="faq-item fade-in" data-category="troubleshooting">
+                        <div class="faq-question">
+                            <span>Why are my plant's leaves turning yellow?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p class="text-gray-600 mb-4">Yellow leaves can indicate several different issues. Here's how to diagnose the problem:</p>
+                            <ul class="text-gray-600 list-disc pl-5 space-y-2 mb-4">
+                                <li><strong>Overwatering:</strong> Most common cause. Leaves turn yellow, may feel soft or mushy. Check soil moisture and reduce watering frequency.</li>
+                                <li><strong>Underwatering:</strong> Leaves turn yellow and crispy, starting from tips. Soil is very dry. Increase watering frequency.</li>
+                                <li><strong>Nutrient deficiency:</strong> Older leaves turn yellow while veins remain green. Apply balanced fertilizer.</li>
+                                <li><strong>Too much direct sun:</strong> Leaves yellow and may have brown spots. Move plant to location with indirect light.</li>
+                                <li><strong>Pest infestation:</strong> Check for tiny insects on leaves and stems. Treat with appropriate insecticide.</li>
+                                <li><strong>Natural aging:</strong> Older leaves naturally yellow and drop as plant grows new ones. This is normal.</li>
+                            </ul>
+                            <p class="text-gray-600">Identify the pattern of yellowing and check your watering habits first. Most yellow leaf issues are related to water management.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Question 2 -->
+                    <div class="faq-item fade-in" data-category="troubleshooting">
+                        <div class="faq-question">
+                            <span>How do I deal with common plant pests?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p class="text-gray-600 mb-4">Here are natural solutions for common houseplant pests:</p>
+                            <ul class="text-gray-600 list-disc pl-5 space-y-2 mb-4">
+                                <li><strong>Spider mites:</strong> Tiny red or brown mites, webbing on leaves. Wipe leaves with damp cloth, spray with neem oil solution, increase humidity.</li>
+                                <li><strong>Mealybugs:</strong> White cottony masses in leaf joints. Dab with cotton swab dipped in rubbing alcohol, then treat with insecticidal soap.</li>
+                                <li><strong>Scale:</strong> Brown or tan bumps on stems and leaves. Scrape off gently, treat with horticultural oil.</li>
+                                <li><strong>Aphids:</strong> Small green or black insects on new growth. Spray with strong water stream, use insecticidal soap.</li>
+                                <li><strong>Fungus gnats:</strong> Small black flies around soil. Let soil dry between waterings, use yellow sticky traps, apply beneficial nematodes.</li>
+                            </ul>
+                            <p class="text-gray-600">For severe infestations, isolate the affected plant to prevent spreading. Always test treatments on a small area first. Prevention through proper care is the best defense against pests.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Question 3 -->
+                    <div class="faq-item fade-in" data-category="troubleshooting">
+                        <div class="faq-question">
+                            <span>What causes brown leaf tips and how can I fix it?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p class="text-gray-600 mb-4">Brown leaf tips are usually caused by environmental factors rather than disease:</p>
+                            <ul class="text-gray-600 list-disc pl-5 space-y-2 mb-4">
+                                <li><strong>Low humidity:</strong> Most common cause. Use a humidifier, pebble tray, or mist plants regularly.</li>
+                                <li><strong>Over-fertilization:</strong> Salt buildup burns leaf tips. Flush soil with water to remove excess salts.</li>
+                                <li><strong>Underwatering:</strong> Consistent dry soil causes tips to brown. Establish a regular watering schedule.</li>
+                                <li><strong>Water quality:</strong> Chemicals in tap water can cause tip burn. Use filtered or distilled water.</li>
+                                <li><strong>Root bound:</strong> Constricted roots can't take up enough water. Repot into larger container.</li>
+                            </ul>
+                            <p class="text-gray-600">You can trim the brown tips with clean scissors, following the natural shape of the leaf. Address the underlying cause to prevent further browning.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 8: Help Resources -->
+        <section class="section-padding bg-green-100">
+            <div class="container mx-auto px-4">
+                <h2 class="text-2xl md:text-3xl font-bold text-center text-green-800 mb-4">Still Need Help?</h2>
+                <p class="text-center text-gray-600 mb-8 max-w-3xl mx-auto">We're here to assist you with any plant-related questions or concerns.</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                    <div class="fade-in">
+                        <h3 class="text-xl font-semibold text-green-800 mb-6">Contact Options</h3>
+                        
+                        <div class="contact-option">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-green-800 mb-1">Call Us</h4>
+                                <p class="text-gray-600 mb-2">Speak directly with our plant experts</p>
+                                <p class="text-green-700 font-semibold">+234 801 234 5678</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-option">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-green-800 mb-1">Email Us</h4>
+                                <p class="text-gray-600 mb-2">Send detailed questions with photos</p>
+                                <p class="text-green-700 font-semibold">help@plantaffairs.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-option">
+                            <div class="contact-icon">
+                                <i class="fas fa-comments"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-green-800 mb-1">Live Chat</h4>
+                                <p class="text-gray-600 mb-2">Instant help during business hours</p>
+                                <p class="text-green-700 font-semibold">Available on our website</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="fade-in">
+                        <h3 class="text-xl font-semibold text-green-800 mb-6">Additional Resources</h3>
+                        
+                        <div class="space-y-4">
+                            <div class="resource-card bg-white rounded-lg shadow-md p-6">
+                                <h4 class="font-semibold text-green-800 mb-2">Plant Care Guides</h4>
+                                <p class="text-gray-600 text-sm mb-3">Detailed care instructions for specific plant types</p>
+                                <a href="care-guides.html" class="text-green-600 font-semibold hover:text-green-800 text-sm">View Guides →</a>
+                            </div>
+                            
+                            <div class="resource-card bg-white rounded-lg shadow-md p-6">
+                                <h4 class="font-semibold text-green-800 mb-2">Blog Articles</h4>
+                                <p class="text-gray-600 text-sm mb-3">Tips, trends, and in-depth plant information</p>
+                                <a href="blog.html" class="text-green-600 font-semibold hover:text-green-800 text-sm">Read Blog →</a>
+                            </div>
+                            
+                            <div class="resource-card bg-white rounded-lg shadow-md p-6">
+                                <h4 class="font-semibold text-green-800 mb-2">Video Tutorials</h4>
+                                <p class="text-gray-600 text-sm mb-3">Step-by-step plant care demonstrations</p>
+                                <a href="https://youtube.com" class="text-green-600 font-semibold hover:text-green-800 text-sm">Watch Videos →</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 9: Ask a Question -->
+        <section class="section-padding">
+            <div class="container mx-auto px-4">
+                <div class="max-w-3xl mx-auto text-center fade-in">
+                    <h2 class="text-2xl md:text-3xl font-bold text-green-800 mb-4">Can't Find Your Answer?</h2>
+                    <p class="text-gray-600 mb-8">Submit your question and our plant experts will respond within 24 hours.</p>
+                    
+                    <div class="bg-white rounded-lg shadow-md p-6 md:p-8">
+                        <form id="question-form">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                                <div class="form-group">
+                                    <label class="block text-left font-medium text-gray-700 mb-2">Your Name</label>
+                                    <input type="text" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent" placeholder="Enter your name" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="block text-left font-medium text-gray-700 mb-2">Email Address</label>
+                                    <input type="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent" placeholder="your.email@example.com" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group mb-6">
+                                <label class="block text-left font-medium text-gray-700 mb-2">Question Category</label>
+                                <select class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                                    <option>Select a category</option>
+                                    <option>Plant Care</option>
+                                    <option>Ordering & Delivery</option>
+                                    <option>Our Services</option>
+                                    <option>Troubleshooting</option>
+                                    <option>Returns & Guarantees</option>
+                                    <option>Other</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group mb-6">
+                                <label class="block text-left font-medium text-gray-700 mb-2">Your Question</label>
+                                <textarea class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent" rows="5" placeholder="Please describe your question in detail..." required></textarea>
+                            </div>
+                            
+                            <div class="form-group mb-6">
+                                <label class="flex items-center text-sm text-gray-600">
+                                    <input type="checkbox" class="rounded border-gray-300 text-green-600 focus:ring-green-500 mr-2" required>
+                                    I agree to the privacy policy and terms of service
+                                </label>
+                            </div>
+                            
+                            <button type="submit" class="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition duration-300 flex items-center justify-center">
+                                <i class="fas fa-paper-plane mr-2"></i>
+                                Submit Question
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 10: Newsletter -->
+        <section class="section-padding bg-green-800 text-white">
+            <div class="container mx-auto px-4 text-center">
+                <h2 class="text-2xl md:text-3xl font-bold mb-4 fade-in">Get Plant Care Tips</h2>
+                <p class="text-green-200 mb-8 max-w-2xl mx-auto fade-in">Subscribe to our newsletter for seasonal plant care advice, new arrivals, and exclusive offers.</p>
+                
+                <div class="max-w-md mx-auto fade-in">
+                    <form class="flex flex-col sm:flex-row gap-4">
+                        <input type="email" placeholder="Your email address" class="flex-grow px-4 py-3 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-green-300">
+                        <button type="submit" class="bg-white text-green-700 px-6 py-3 rounded-lg font-semibold hover:bg-green-100 transition duration-300 whitespace-nowrap">Subscribe</button>
+                    </form>
+                    <p class="text-green-300 text-sm mt-4">We respect your privacy. Unsubscribe at any time.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-green-800 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- Company Info -->
+                <div>
+                    <div class="flex items-center mb-4">
+                        <img src="C:\Users\USER\Documents\plantaffairs\assets\logo.jpg"  alt="Plant Affairs Logo" class="h-8 w-8 mr-2">
+                        <span class="text-xl font-bold">Plant Affairs</span>
+                    </div>
+                    <p class="text-green-200 mb-4">Your trusted partner for all plant needs. Quality plants and professional services.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-green-200 hover:text-white">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-green-200 hover:text-white">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-green-200 hover:text-white">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Quick Links -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="home.html" class="text-green-200 hover:text-white">Home</a></li>
+                        <li><a href="categories.html" class="text-green-200 hover:text-white">Categories</a></li>
+                        <li><a href="services.html" class="text-green-200 hover:text-white">Services</a></li>
+                        <li><a href="about.html" class="text-green-200 hover:text-white">About Us</a></li>
+                        <li><a href="contact.html" class="text-green-200 hover:text-white">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Categories -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Categories</h3>
+                    <ul class="space-y-2">
+                        <li><a href="categories.html#indoor" class="text-green-200 hover:text-white">Indoor Plants</a></li>
+                        <li><a href="categories.html#outdoor" class="text-green-200 hover:text-white">Outdoor Plants</a></li>
+                        <li><a href="categories.html#fruit" class="text-green-200 hover:text-white">Fruit Plants</a></li>
+                        <li><a href="categories.html#garden" class="text-green-200 hover:text-white">Garden Needs</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Contact Info -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Contact Us</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-2"></i>
+                            <span class="text-green-200">123 Green Street, Wuse, Abuja, Nigeria</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone mr-2"></i>
+                            <span class="text-green-200">+234 801 234 5678</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope mr-2"></i>
+                            <span class="text-green-200">info@plantaffairs.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-green-700 mt-8 pt-6 text-center text-green-300">
+                <p>&copy; 2023 Plant Affairs. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        hamburger.addEventListener('click', function() {
+            this.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        });
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const isClickInside = hamburger.contains(event.target) || mobileMenu.contains(event.target);
+            
+            if (!isClickInside && mobileMenu.classList.contains('active')) {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('active');
+            }
+        });
+
+        // FAQ accordion functionality
+        const faqItems = document.querySelectorAll('.faq-item');
+        const popularQuestions = document.querySelectorAll('.popular-question');
+        
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            
+            question.addEventListener('click', function() {
+                // Close all other items
+                faqItems.forEach(otherItem => {
+                    if (otherItem !== item) {
+                        otherItem.classList.remove('active');
+                    }
+                });
+                
+                // Toggle current item
+                item.classList.toggle('active');
+            });
+        });
+
+        // Popular questions functionality
+        popularQuestions.forEach(question => {
+            question.addEventListener('click', function() {
+                const questionType = this.getAttribute('data-question');
+                
+                // Scroll to relevant section and open relevant FAQ
+                if (questionType === 'watering') {
+                    document.querySelector('[data-category="plant-care"]').scrollIntoView({ behavior: 'smooth' });
+                    // Open the watering question
+                    const wateringItem = document.querySelector('.faq-item:nth-child(1)');
+                    faqItems.forEach(item => item.classList.remove('active'));
+                    wateringItem.classList.add('active');
+                }
+                // Add similar functionality for other popular questions
+            });
+        });
+
+        // Category navigation
+        const categoryNavItems = document.querySelectorAll('.category-nav-item');
+        
+        categoryNavItems.forEach(item => {
+            item.addEventListener('click', function() {
+                // Remove active class from all items
+                categoryNavItems.forEach(navItem => navItem.classList.remove('active'));
+                // Add active class to clicked item
+                this.classList.add('active');
+                
+                const category = this.getAttribute('data-category');
+                
+                if (category === 'all') {
+                    // Show all FAQ items
+                    faqItems.forEach(item => {
+                        item.style.display = 'block';
+                    });
+                } else {
+                    // Show only FAQ items with matching category
+                    faqItems.forEach(item => {
+                        if (item.getAttribute('data-category') === category) {
+                            item.style.display = 'block';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                }
+            });
+        });
+
+        // Search functionality
+        const searchInput = document.querySelector('.search-input');
+        
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            
+            if (searchTerm.length < 2) {
+                // Show all items if search term is too short
+                faqItems.forEach(item => {
+                    item.style.display = 'block';
+                });
+                return;
+            }
+            
+            let hasResults = false;
+            
+            // Search through FAQ items
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question span').textContent.toLowerCase();
+                const answer = item.querySelector('.faq-answer').textContent.toLowerCase();
+                
+                if (question.includes(searchTerm) || answer.includes(searchTerm)) {
+                    item.style.display = 'block';
+                    hasResults = true;
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+            
+            // Show no results message if needed
+            const noResults = document.querySelector('.no-results');
+            if (!hasResults) {
+                if (!noResults) {
+                    const noResultsDiv = document.createElement('div');
+                    noResultsDiv.className = 'no-results fade-in';
+                    noResultsDiv.innerHTML = `
+                        <i class="fas fa-search"></i>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">No results found</h3>
+                        <p class="text-gray-600">Try different keywords or browse our categories</p>
+                    `;
+                    document.querySelector('.max-w-4xl.mx-auto').appendChild(noResultsDiv);
+                }
+            } else if (noResults) {
+                noResults.remove();
+            }
+        });
+
+        // Question form submission
+        const questionForm = document.getElementById('question-form');
+        
+        if (questionForm) {
+            questionForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Simple form validation
+                const requiredFields = this.querySelectorAll('[required]');
+                let isValid = true;
+                
+                requiredFields.forEach(field => {
+                    if (!field.value.trim()) {
+                        isValid = false;
+                        field.style.borderColor = '#ef4444';
+                    } else {
+                        field.style.borderColor = '#d1d5db';
+                    }
+                });
+                
+                if (isValid) {
+                    // In a real application, you would send the form data to a server here
+                    alert('Thank you for your question! Our plant experts will respond within 24 hours.');
+                    this.reset();
+                } else {
+                    alert('Please fill in all required fields.');
+                }
+            });
+        }
+
+        // Fade in animation on scroll
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        const fadeInObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeIn 1s ease-in-out forwards';
+                    fadeInObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        fadeElements.forEach(element => {
+            fadeInObserver.observe(element);
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

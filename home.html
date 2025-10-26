@@ -1,0 +1,2435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plant Affairs - Home</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .hamburger-line {
+            display: block;
+            height: 3px;
+            width: 25px;
+            background-color: #333;
+            margin: 5px auto;
+            transition: all 0.3s ease-in-out;
+        }
+        
+        .hamburger.active .hamburger-line:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .hamburger.active .hamburger-line:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+        
+        .hamburger.active .hamburger-line:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+        
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+        }
+        
+        .mobile-menu.active {
+            max-height: 500px;
+        }
+        
+        .plant-card {
+            transition: transform 0.3s ease;
+        }
+        
+        .plant-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .section-padding {
+            padding: 5rem 0;
+        }
+
+        /* New styles for expanded features */
+        .fade-in {
+            animation: fadeIn 1s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .testimonial-slider {
+            overflow: hidden;
+        }
+        
+        .testimonial-slide {
+            display: none;
+        }
+        
+        .testimonial-slide.active {
+            display: block;
+        }
+        
+        .gallery-item {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .gallery-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .accordion-content.active {
+            max-height: 500px;
+        }
+
+        .service-card {
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .plant-care-level {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .care-easy {
+            background-color: #d1fae5;
+            color: #065f46;
+        }
+
+        .care-medium {
+            background-color: #fef3c7;
+            color: #92400e;
+        }
+
+        .care-hard {
+            background-color: #fee2e2;
+            color: #991b1b;
+        }
+
+        .stats-counter {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #065f46;
+        }
+
+        .stats-label {
+            font-size: 1.125rem;
+            color: #374151;
+        }
+
+        .featured-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background-color: #f59e0b;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .price-tag {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #065f46;
+        }
+
+        .original-price {
+            text-decoration: line-through;
+            color: #9ca3af;
+            margin-right: 0.5rem;
+        }
+
+        .discount-badge {
+            background-color: #ef4444;
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
+
+        .plant-size {
+            display: inline-block;
+            background-color: #e5e7eb;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            margin-right: 0.5rem;
+        }
+
+        .plant-size.small {
+            background-color: #dbeafe;
+            color: #1e40af;
+        }
+
+        .plant-size.medium {
+            background-color: #d1fae5;
+            color: #065f46;
+        }
+
+        .plant-size.large {
+            background-color: #fef3c7;
+            color: #92400e;
+        }
+
+        .plant-feature {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        .plant-feature i {
+            margin-right: 0.5rem;
+            color: #10b981;
+            width: 1rem;
+        }
+
+        .quick-view-btn {
+            position: absolute;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            font-weight: 600;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .plant-card:hover .quick-view-btn {
+            opacity: 1;
+        }
+
+        .category-filter {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background-color: #f3f4f6;
+            border-radius: 0.375rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .category-filter.active {
+            background-color: #10b981;
+            color: white;
+        }
+
+        .service-step {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .service-step-number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 3rem;
+            height: 3rem;
+            background-color: #10b981;
+            color: white;
+            border-radius: 50%;
+            font-weight: bold;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+
+        .seasonal-banner {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            border-radius: 1rem;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .seasonal-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://via.placeholder.com/800x400?text=Summer+Plants') center/cover no-repeat;
+            opacity: 0.2;
+        }
+
+        .seasonal-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .countdown-timer {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .countdown-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            min-width: 4rem;
+        }
+
+        .countdown-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .countdown-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+        }
+
+        .plant-care-tip {
+            background-color: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: transform 0.3s ease;
+        }
+
+        .plant-care-tip:hover {
+            transform: translateY(-5px);
+        }
+
+        .blog-card {
+            transition: transform 0.3s ease;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .newsletter-form {
+            background-color: white;
+            border-radius: 0.75rem;
+            padding: 2rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .feature-highlight {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .feature-highlight i {
+            margin-right: 1rem;
+            color: #10b981;
+            font-size: 1.5rem;
+        }
+
+        .plant-filter-sidebar {
+            background-color: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .filter-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .filter-section h3 {
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: #1f2937;
+        }
+
+        .filter-option {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .filter-option input {
+            margin-right: 0.5rem;
+        }
+
+        .price-range {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 0.5rem;
+        }
+
+        .plant-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .plant-detail-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .plant-detail-modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background-color: white;
+            border-radius: 0.75rem;
+            max-width: 800px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #6b7280;
+        }
+
+        .plant-detail-tabs {
+            display: flex;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .plant-detail-tab {
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+        }
+
+        .plant-detail-tab.active {
+            border-bottom-color: #10b981;
+            color: #10b981;
+            font-weight: 600;
+        }
+
+        .plant-detail-content {
+            padding: 1.5rem;
+        }
+
+        .plant-detail-panel {
+            display: none;
+        }
+
+        .plant-detail-panel.active {
+            display: block;
+        }
+
+        .plant-specs {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .plant-spec {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 1rem;
+            background-color: #f9fafb;
+            border-radius: 0.5rem;
+        }
+
+        .plant-spec i {
+            font-size: 1.5rem;
+            color: #10b981;
+            margin-bottom: 0.5rem;
+        }
+
+        .plant-spec-label {
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+
+        .plant-spec-value {
+            font-weight: 600;
+            margin-top: 0.25rem;
+        }
+
+        .care-instruction {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .care-instruction i {
+            margin-right: 1rem;
+            color: #10b981;
+            width: 1.5rem;
+            text-align: center;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            margin-top: 1rem;
+        }
+
+        .testimonial-author img {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 1rem;
+        }
+
+        .service-package {
+            border: 1px solid #e5e7eb;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .service-package.featured {
+            border-color: #10b981;
+            box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.1), 0 4px 6px -2px rgba(16, 185, 129, 0.05);
+            transform: scale(1.05);
+        }
+
+        .service-package-header {
+            background-color: #10b981;
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .service-package.featured .service-package-header {
+            background-color: #059669;
+        }
+
+        .service-package-price {
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 1rem 0;
+        }
+
+        .service-package-features {
+            padding: 1.5rem;
+        }
+
+        .service-feature {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+
+        .service-feature i {
+            margin-right: 0.75rem;
+            color: #10b981;
+        }
+
+        .service-feature.disabled {
+            color: #9ca3af;
+        }
+
+        .service-feature.disabled i {
+            color: #9ca3af;
+        }
+
+        .interactive-plant-guide {
+            background-color: white;
+            border-radius: 0.75rem;
+            padding: 2rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        .guide-step {
+            display: none;
+        }
+
+        .guide-step.active {
+            display: block;
+        }
+
+        .guide-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+
+        .plant-comparison {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .comparison-card {
+            background-color: white;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: transform 0.3s ease;
+        }
+
+        .comparison-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .comparison-header {
+            padding: 1.5rem;
+            text-align: center;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .comparison-features {
+            padding: 1.5rem;
+        }
+
+        .comparison-feature {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .seasonal-plant-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .seasonal-plant-card {
+            background-color: white;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        .seasonal-plant-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .seasonal-tag {
+            position: absolute;
+            top: 0.75rem;
+            left: 0.75rem;
+            background-color: #f59e0b;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .garden-design-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .design-card {
+            border-radius: 0.75rem;
+            overflow: hidden;
+            position: relative;
+            height: 300px;
+        }
+
+        .design-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .design-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            color: white;
+            padding: 1.5rem;
+        }
+
+        .plant-care-schedule {
+            background-color: white;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .schedule-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .schedule-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .schedule-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.5rem;
+            height: 2.5rem;
+            background-color: #d1fae5;
+            color: #065f46;
+            border-radius: 50%;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+
+        .expert-advice-section {
+            background-color: #f0fdf4;
+            border-radius: 0.75rem;
+            padding: 2rem;
+        }
+
+        .expert-card {
+            background-color: white;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .expert-info {
+            padding: 1.5rem;
+        }
+
+        .expert-specialty {
+            display: inline-block;
+            background-color: #e0f2fe;
+            color: #0369a1;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            margin-top: 0.5rem;
+        }
+
+        .community-highlight {
+            background-color: white;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .community-content {
+            padding: 1.5rem;
+        }
+
+        .community-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .community-stat {
+            text-align: center;
+        }
+
+        .community-stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #10b981;
+        }
+
+        .community-stat-label {
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+
+        .plant-of-the-month {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            border-radius: 0.75rem;
+            overflow: hidden;
+            color: white;
+            position: relative;
+        }
+
+        .plant-of-the-month::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://via.placeholder.com/600x400?text=Monstera') center/cover no-repeat;
+            opacity: 0.2;
+        }
+
+        .plant-of-the-month-content {
+            position: relative;
+            z-index: 1;
+            padding: 2rem;
+        }
+
+        .maintenance-reminder {
+            background-color: white;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border-left: 4px solid #10b981;
+        }
+
+        .maintenance-task {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .maintenance-task:last-child {
+            margin-bottom: 0;
+        }
+
+        .maintenance-task i {
+            margin-right: 1rem;
+            color: #10b981;
+            width: 1.5rem;
+            text-align: center;
+        }
+
+        .gift-ideas-section {
+            background-color: #fef7ed;
+            border-radius: 0.75rem;
+            padding: 2rem;
+        }
+
+        .gift-card {
+            background-color: white;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: transform 0.3s ease;
+        }
+
+        .gift-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .gift-content {
+            padding: 1.5rem;
+        }
+
+        .gift-occasion {
+            display: inline-block;
+            background-color: #fef3c7;
+            color: #92400e;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .section-padding {
+                padding: 3rem 0;
+            }
+            
+            .stats-counter {
+                font-size: 2rem;
+            }
+            
+            .plant-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            .service-step {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .service-step-number {
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+            
+            .countdown-timer {
+                gap: 0.5rem;
+            }
+            
+            .countdown-item {
+                min-width: 3rem;
+                padding: 0.5rem;
+            }
+            
+            .countdown-value {
+                font-size: 1.25rem;
+            }
+        }
+    </style>
+</head>
+<body class="bg-green-50">
+    <!-- Header Section -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <!-- Logo -->
+            <div class="flex items-center">
+                <img src="C:\Users\USER\Documents\plantaffairs\assets\logo.jpg" alt="Plant Affairs Logo" class="h-10 w-10 mr-2">
+                <span class="text-xl font-bold text-green-700">Plant Affairs</span>
+            </div>
+            
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex space-x-8">
+                <a href="home.html" class="text-green-700 hover:text-green-500 font-medium border-b-2 border-green-700">Home</a>
+                <a href="categories.html" class="text-green-700 hover:text-green-500 font-medium">Categories</a>
+                <a href="services.html" class="text-green-700 hover:text-green-500 font-medium">Services</a>
+                <a href="about.html" class="text-green-700 hover:text-green-500 font-medium">About</a>
+                <a href="contact.html" class="text-green-700 hover:text-green-500 font-medium">Contact</a>
+                <a href="blog.html" class="text-green-700 hover:text-green-500 font-medium">Blog</a>
+                <a href="gallery.html" class="text-green-700 hover:text-green-500 font-medium">Gallery</a>
+                <a href="testimonials.html" class="text-green-700 hover:text-green-500 font-medium">Testimonials</a>
+                <a href="faq.html" class="text-green-700 hover:text-green-500 font-medium">FAQ</a>
+                <a href="care-guides.html" class="text-green-700 hover:text-green-500 font-medium">Care Guides</a>
+            </nav>
+            
+            <!-- Cart and Search -->
+            <div class="hidden md:flex items-center space-x-4">
+                <button class="text-green-700 hover:text-green-500">
+                    <i class="fas fa-search"></i>
+                </button>
+                <button class="text-green-700 hover:text-green-500 relative">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="absolute -top-2 -right-2 bg-green-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">3</span>
+                </button>
+            </div>
+            
+            <!-- Mobile Menu Button -->
+            <button id="hamburger" class="md:hidden hamburger focus:outline-none">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="mobile-menu md:hidden bg-white">
+            <div class="container mx-auto px-4 py-3 flex flex-col space-y-4">
+                <a href="home.html" class="text-green-700 hover:text-green-500 font-medium py-2 border-b">Home</a>
+                <a href="categories.html" class="text-green-700 hover:text-green-500 font-medium py-2 border-b">Categories</a>
+                <a href="services.html" class="text-green-700 hover:text-green-500 font-medium py-2 border-b">Services</a>
+                <a href="about.html" class="text-green-700 hover:text-green-500 font-medium py-2 border-b">About</a>
+                <a href="contact.html" class="text-green-700 hover:text-green-500 font-medium py-2 border-b">Contact</a>
+                <a href="blog.html" class="text-green-700 hover:text-green-500 font-medium py-2 border-b">Blog</a>
+                <a href="gallery.html" class="text-green-700 hover:text-green-500 font-medium py-2 border-b">Gallery</a>
+                <a href="testimonials.html" class="text-green-700 hover:text-green-500 font-medium py-2 border-b">Testimonials</a>
+                <a href="faq.html" class="text-green-700 hover:text-green-500 font-medium py-2 border-b">FAQ</a>
+                <a href="care-guides.html" class="text-green-700 hover:text-green-500 font-medium py-2 border-b">Care Guides</a>
+                <div class="flex justify-between py-2">
+                    <button class="text-green-700 hover:text-green-500">
+                        <i class="fas fa-search"></i> Search
+                    </button>
+                    <button class="text-green-700 hover:text-green-500 relative">
+                        <i class="fas fa-shopping-cart"></i> Cart
+                        <span class="absolute -top-2 -right-2 bg-green-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">3</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Homepage Content - 10 Detailed Sections -->
+    <main>
+        <!-- Section 1: Enhanced Hero with Interactive Elements -->
+        <section class="bg-green-700 text-white section-padding">
+            <div class="container mx-auto px-4 text-center">
+                <h1 class="text-4xl md:text-6xl font-bold mb-4 fade-in">Welcome to Plant Affairs</h1>
+                <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto fade-in">Your premier destination for premium plants, expert gardening services, and everything you need to create your perfect green space.</p>
+                
+                <!-- Interactive Plant Selector -->
+                <div class="bg-white bg-opacity-10 rounded-xl p-6 mb-8 max-w-2xl mx-auto fade-in">
+                    <h3 class="text-xl font-semibold mb-4">Find Your Perfect Plant</h3>
+                    <div class="flex flex-wrap justify-center gap-4 mb-4">
+                        <button class="bg-white text-green-700 px-4 py-2 rounded-lg font-medium hover:bg-green-100 transition duration-300 plant-selector" data-type="indoor">Indoor Plants</button>
+                        <button class="bg-white text-green-700 px-4 py-2 rounded-lg font-medium hover:bg-green-100 transition duration-300 plant-selector" data-type="outdoor">Outdoor Plants</button>
+                        <button class="bg-white text-green-700 px-4 py-2 rounded-lg font-medium hover:bg-green-100 transition duration-300 plant-selector" data-type="fruit">Fruit Trees</button>
+                        <button class="bg-white text-green-700 px-4 py-2 rounded-lg font-medium hover:bg-green-100 transition duration-300 plant-selector" data-type="low-maintenance">Low Maintenance</button>
+                    </div>
+                    <div id="plant-suggestion" class="text-lg font-medium"></div>
+                </div>
+                
+                <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4 fade-in">
+                    <a href="categories.html" class="bg-white text-green-700 px-8 py-4 rounded-lg font-semibold hover:bg-green-100 transition duration-300 text-lg">Shop Plants</a>
+                    <a href="services.html" class="bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-green-700 transition duration-300 text-lg">Our Services</a>
+                </div>
+                
+                <!-- Quick Stats -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12 max-w-4xl mx-auto">
+                    <div class="text-center">
+                        <div class="stats-counter" id="plants-sold">0</div>
+                        <div class="stats-label">Plants Sold</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="stats-counter" id="happy-customers">0</div>
+                        <div class="stats-label">Happy Customers</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="stats-counter" id="projects-completed">0</div>
+                        <div class="stats-label">Projects Completed</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="stats-counter" id="plant-varieties">0</div>
+                        <div class="stats-label">Plant Varieties</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Enhanced Featured Categories with Filtering -->
+        <section class="section-padding">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl md:text-4xl font-bold text-center text-green-800 mb-4">Explore Our Plant Categories</h2>
+                <p class="text-center text-gray-600 mb-8 max-w-3xl mx-auto">Discover our extensive collection of plants carefully curated for Nigerian homes and gardens. Filter by your preferences to find the perfect green companion.</p>
+                
+                <!-- Category Filters -->
+                <div class="flex flex-wrap justify-center mb-8">
+                    <div class="category-filter active" data-filter="all">All Plants</div>
+                    <div class="category-filter" data-filter="indoor">Indoor</div>
+                    <div class="category-filter" data-filter="outdoor">Outdoor</div>
+                    <div class="category-filter" data-filter="fruit">Fruit Trees</div>
+                    <div class="category-filter" data-filter="flowering">Flowering</div>
+                    <div class="category-filter" data-filter="low-light">Low Light</div>
+                    <div class="category-filter" data-filter="pet-friendly">Pet Friendly</div>
+                    <div class="category-filter" data-filter="air-purifying">Air Purifying</div>
+                </div>
+                
+                <div class="plant-grid">
+                    <!-- Plant 1 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden plant-card" data-categories="indoor low-light air-purifying">
+                        <div class="relative">
+                            <img src="C:\Users\USER\Documents\plantaffairs\assets\snake plant.jpg" alt="Snake Plant" class="w-full h-48 object-cover">
+                            <div class="featured-badge">Bestseller</div>
+                            <button class="quick-view-btn" data-plant="snake-plant">Quick View</button>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-lg font-semibold text-green-800">Snake Plant</h3>
+                                <span class="plant-care-level care-easy">Easy</span>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-3">Excellent air purifier, thrives in low light conditions</p>
+                            
+                            <div class="mb-3">
+                                <span class="plant-size small">Small</span>
+                                <span class="plant-size medium">Medium</span>
+                            </div>
+                            
+                            <div class="plant-features mb-3">
+                                <div class="plant-feature">
+                                    <i class="fas fa-tint"></i>
+                                    <span>Water every 2-3 weeks</span>
+                                </div>
+                                <div class="plant-feature">
+                                    <i class="fas fa-sun"></i>
+                                    <span>Low to bright indirect light</span>
+                                </div>
+                                <div class="plant-feature">
+                                    <i class="fas fa-wind"></i>
+                                    <span>Purifies air</span>
+                                </div>
+                            </div>
+                            
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <span class="price-tag">₦5,500</span>
+                                    <span class="original-price">₦6,500</span>
+                                    <span class="discount-badge">15% OFF</span>
+                                </div>
+                                <button class="bg-green-600 text-white px-3 py-2 rounded hover:bg-green-700 transition duration-300 flex items-center">
+                                    <i class="fas fa-cart-plus mr-1"></i>
+                                    <span>Add to Cart</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Plant 2 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden plant-card" data-categories="indoor flowering">
+                        <div class="relative">
+                            <img src="C:\Users\USER\Documents\plantaffairs\assets\Peace-lilies-indoor-plants-.jpg.webp" alt="Peace Lily" class="w-full h-48 object-cover">
+                            <button class="quick-view-btn" data-plant="peace-lily">Quick View</button>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-lg font-semibold text-green-800">Peace Lily</h3>
+                                <span class="plant-care-level care-medium">Medium</span>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-3">Elegant flowering plant, perfect for home or office</p>
+                            
+                            <div class="mb-3">
+                                <span class="plant-size medium">Medium</span>
+                                <span class="plant-size large">Large</span>
+                            </div>
+                            
+                            <div class="plant-features mb-3">
+                                <div class="plant-feature">
+                                    <i class="fas fa-tint"></i>
+                                    <span>Water weekly</span>
+                                </div>
+                                <div class="plant-feature">
+                                    <i class="fas fa-sun"></i>
+                                    <span>Medium to low light</span>
+                                </div>
+                                <div class="plant-feature">
+                                    <i class="fas fa-wind"></i>
+                                    <span>Purifies air</span>
+                                </div>
+                            </div>
+                            
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <span class="price-tag">₦7,200</span>
+                                </div>
+                                <button class="bg-green-600 text-white px-3 py-2 rounded hover:bg-green-700 transition duration-300 flex items-center">
+                                    <i class="fas fa-cart-plus mr-1"></i>
+                                    <span>Add to Cart</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Additional plants would continue here... -->
+                    
+                    <!-- Plant 3 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden plant-card" data-categories="outdoor fruit">
+                        <div class="relative">
+                            <img src="C:\Users\USER\Documents\plantaffairs\assets\meyer_lemon_bush.webp" alt="Lemon Tree" class="w-full h-48 object-cover">
+                            <div class="featured-badge">New</div>
+                            <button class="quick-view-btn" data-plant="lemon-tree">Quick View</button>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-lg font-semibold text-green-800">Lemon Tree</h3>
+                                <span class="plant-care-level care-medium">Medium</span>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-3">Produces fresh lemons, perfect for Nigerian climate</p>
+                            
+                            <div class="mb-3">
+                                <span class="plant-size large">Large</span>
+                            </div>
+                            
+                            <div class="plant-features mb-3">
+                                <div class="plant-feature">
+                                    <i class="fas fa-tint"></i>
+                                    <span>Water 2-3 times weekly</span>
+                                </div>
+                                <div class="plant-feature">
+                                    <i class="fas fa-sun"></i>
+                                    <span>Full sun</span>
+                                </div>
+                                <div class="plant-feature">
+                                    <i class="fas fa-apple-alt"></i>
+                                    <span>Fruit bearing</span>
+                                </div>
+                            </div>
+                            
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <span class="price-tag">₦12,000</span>
+                                </div>
+                                <button class="bg-green-600 text-white px-3 py-2 rounded hover:bg-green-700 transition duration-300 flex items-center">
+                                    <i class="fas fa-cart-plus mr-1"></i>
+                                    <span>Add to Cart</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Plant 4 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden plant-card" data-categories="outdoor flowering">
+                        <div class="relative">
+                            <img src="C:\Users\USER\Documents\plantaffairs\assets\rose bushes.webp" alt="Rose Bush" class="w-full h-48 object-cover">
+                            <button class="quick-view-btn" data-plant="rose-bush">Quick View</button>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-lg font-semibold text-green-800">Rose Bush</h3>
+                                <span class="plant-care-level care-hard">Hard</span>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-3">Beautiful flowering plant for garden decoration</p>
+                            
+                            <div class="mb-3">
+                                <span class="plant-size medium">Medium</span>
+                            </div>
+                            
+                            <div class="plant-features mb-3">
+                                <div class="plant-feature">
+                                    <i class="fas fa-tint"></i>
+                                    <span>Water 2-3 times weekly</span>
+                                </div>
+                                <div class="plant-feature">
+                                    <i class="fas fa-sun"></i>
+                                    <span>Full sun</span>
+                                </div>
+                                <div class="plant-feature">
+                                    <i class="fas fa-flower"></i>
+                                    <span>Blooms repeatedly</span>
+                                </div>
+                            </div>
+                            
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <span class="price-tag">₦6,800</span>
+                                    <span class="original-price">₦8,500</span>
+                                    <span class="discount-badge">20% OFF</span>
+                                </div>
+                                <button class="bg-green-600 text-white px-3 py-2 rounded hover:bg-green-700 transition duration-300 flex items-center">
+                                    <i class="fas fa-cart-plus mr-1"></i>
+                                    <span>Add to Cart</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-8">
+                    <a href="categories.html" class="bg-green-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-green-700 transition duration-300 inline-flex items-center">
+                        <span>View All Plants</span>
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Enhanced Services Overview -->
+        <section class="section-padding bg-green-100">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl md:text-4xl font-bold text-center text-green-800 mb-4">Our Professional Services</h2>
+                <p class="text-center text-gray-600 mb-12 max-w-3xl mx-auto">From plant selection to complete garden transformation, our expert team provides comprehensive services to meet all your gardening needs.</p>
+                
+                <!-- Service Steps -->
+                <div class="max-w-4xl mx-auto mb-12">
+                    <h3 class="text-2xl font-semibold text-center text-green-800 mb-6">How Our Service Works</h3>
+                    <div class="service-step">
+                        <div class="service-step-number">1</div>
+                        <div>
+                            <h4 class="text-xl font-semibold text-green-800 mb-2">Consultation & Assessment</h4>
+                            <p class="text-gray-600">We begin with a detailed consultation to understand your space, preferences, and requirements. Our experts assess light conditions, soil quality, and environmental factors.</p>
+                        </div>
+                    </div>
+                    <div class="service-step">
+                        <div class="service-step-number">2</div>
+                        <div>
+                            <h4 class="text-xl font-semibold text-green-800 mb-2">Customized Plan</h4>
+                            <p class="text-gray-600">Based on our assessment, we create a tailored plan including plant selection, layout design, and maintenance schedule specifically for your space and needs.</p>
+                        </div>
+                    </div>
+                    <div class="service-step">
+                        <div class="service-step-number">3</div>
+                        <div>
+                            <h4 class="text-xl font-semibold text-green-800 mb-2">Implementation</h4>
+                            <p class="text-gray-600">Our skilled team brings the plan to life with professional installation, ensuring each plant is properly positioned and cared for from day one.</p>
+                        </div>
+                    </div>
+                    <div class="service-step">
+                        <div class="service-step-number">4</div>
+                        <div>
+                            <h4 class="text-xl font-semibold text-green-800 mb-2">Ongoing Support</h4>
+                            <p class="text-gray-600">We provide continuous care guidance and maintenance services to ensure your plants thrive long-term, with regular check-ins and adjustments as needed.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Service Packages -->
+                <h3 class="text-2xl font-semibold text-center text-green-800 mb-6">Our Service Packages</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                    <!-- Basic Package -->
+                    <div class="service-package">
+                        <div class="service-package-header">
+                            <h4 class="text-xl font-semibold">Starter Package</h4>
+                            <p class="opacity-90">Perfect for small spaces</p>
+                        </div>
+                        <div class="service-package-price">₦25,000</div>
+                        <div class="service-package-features">
+                            <div class="service-feature">
+                                <i class="fas fa-check"></i>
+                                <span>5 plant selections</span>
+                            </div>
+                            <div class="service-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Basic placement guidance</span>
+                            </div>
+                            <div class="service-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Initial care instructions</span>
+                            </div>
+                            <div class="service-feature disabled">
+                                <i class="fas fa-times"></i>
+                                <span class="opacity-50">Soil testing</span>
+                            </div>
+                            <div class="service-feature disabled">
+                                <i class="fas fa-times"></i>
+                                <span class="opacity-50">Follow-up visits</span>
+                            </div>
+                            <button class="w-full bg-gray-200 text-gray-700 py-2 rounded mt-4">Select Plan</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Premium Package -->
+                    <div class="service-package featured">
+                        <div class="service-package-header">
+                            <h4 class="text-xl font-semibold">Premium Package</h4>
+                            <p class="opacity-90">Most Popular</p>
+                        </div>
+                        <div class="service-package-price">₦55,000</div>
+                        <div class="service-package-features">
+                            <div class="service-feature">
+                                <i class="fas fa-check"></i>
+                                <span>15 plant selections</span>
+                            </div>
+                            <div class="service-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Custom layout design</span>
+                            </div>
+                            <div class="service-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Detailed care plan</span>
+                            </div>
+                            <div class="service-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Soil testing & amendments</span>
+                            </div>
+                            <div class="service-feature">
+                                <i class="fas fa-check"></i>
+                                <span>2 follow-up visits</span>
+                            </div>
+                            <button class="w-full bg-green-600 text-white py-2 rounded mt-4 hover:bg-green-700 transition duration-300">Select Plan</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Ultimate Package -->
+                    <div class="service-package">
+                        <div class="service-package-header">
+                            <h4 class="text-xl font-semibold">Ultimate Package</h4>
+                            <p class="opacity-90">Complete transformation</p>
+                        </div>
+                        <div class="service-package-price">₦95,000</div>
+                        <div class="service-package-features">
+                            <div class="service-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Unlimited plant selections</span>
+                            </div>
+                            <div class="service-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Full landscape design</span>
+                            </div>
+                            <div class="service-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Comprehensive care schedule</span>
+                            </div>
+                            <div class="service-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Advanced soil analysis</span>
+                            </div>
+                            <div class="service-feature">
+                                <i class="fas fa-check"></i>
+                                <span>6 months of maintenance</span>
+                            </div>
+                            <button class="w-full bg-gray-200 text-gray-700 py-2 rounded mt-4">Select Plan</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-8">
+                    <a href="services.html" class="bg-green-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-green-700 transition duration-300 inline-flex items-center">
+                        <span>View All Services</span>
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Seasonal Specials with Countdown Timer -->
+        <section class="section-padding">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl md:text-4xl font-bold text-center text-green-800 mb-4">Seasonal Specials</h2>
+                <p class="text-center text-gray-600 mb-8 max-w-3xl mx-auto">Take advantage of our limited-time offers on seasonal plants and gardening essentials. These specials are available for a short time only!</p>
+                
+                <div class="seasonal-banner p-8 mb-12">
+                    <div class="seasonal-content text-white text-center">
+                        <h3 class="text-2xl md:text-3xl font-bold mb-4">Summer Plant Sale!</h3>
+                        <p class="text-xl mb-6 max-w-2xl mx-auto">Get up to 30% off on selected outdoor plants and gardening tools. Perfect time to transform your garden!</p>
+                        
+                        <div class="countdown-timer">
+                            <div class="countdown-item">
+                                <div class="countdown-value" id="countdown-days">07</div>
+                                <div class="countdown-label">Days</div>
+                            </div>
+                            <div class="countdown-item">
+                                <div class="countdown-value" id="countdown-hours">12</div>
+                                <div class="countdown-label">Hours</div>
+                            </div>
+                            <div class="countdown-item">
+                                <div class="countdown-value" id="countdown-minutes">45</div>
+                                <div class="countdown-label">Minutes</div>
+                            </div>
+                            <div class="countdown-item">
+                                <div class="countdown-value" id="countdown-seconds">30</div>
+                                <div class="countdown-label">Seconds</div>
+                            </div>
+                        </div>
+                        
+                        <a href="#" class="inline-block bg-white text-green-700 px-6 py-3 rounded-lg font-semibold hover:bg-green-100 transition duration-300 mt-6">Shop the Sale</a>
+                    </div>
+                </div>
+                
+                <div class="seasonal-plant-grid">
+                    <!-- Seasonal Plant 1 -->
+                    <div class="seasonal-plant-card">
+                        <div class="seasonal-tag">Summer Special</div>
+                        <img src="C:\Users\USER\Documents\plantaffairs\assets\Hibiscus-Rosa-Sinensis-Growing-in-the-Garden.jpg" alt="Hibiscus" class="w-full h-40 object-cover">
+                        <div class="p-4">
+                            <h3 class="font-semibold text-green-800 mb-1">Hibiscus</h3>
+                            <p class="text-gray-600 text-sm mb-2">Vibrant flowering shrub</p>
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <span class="price-tag">₦4,500</span>
+                                    <span class="original-price">₦6,000</span>
+                                </div>
+                                <button class="bg-green-600 text-white px-2 py-1 rounded text-sm hover:bg-green-700 transition duration-300">
+                                    <i class="fas fa-cart-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Additional seasonal plants would continue here... -->
+                    
+                    <!-- Seasonal Plant 2 -->
+                    <div class="seasonal-plant-card">
+                        <div class="seasonal-tag">Summer Special</div>
+                        <img src="C:\Users\USER\Documents\plantaffairs\assets\Bougainvillea.webp" alt="Bougainvillea" class="w-full h-40 object-cover">
+                        <div class="p-4">
+                            <h3 class="font-semibold text-green-800 mb-1">Bougainvillea</h3>
+                            <p class="text-gray-600 text-sm mb-2">Colorful climbing plant</p>
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <span class="price-tag">₦3,800</span>
+                                    <span class="original-price">₦5,500</span>
+                                </div>
+                                <button class="bg-green-600 text-white px-2 py-1 rounded text-sm hover:bg-green-700 transition duration-300">
+                                    <i class="fas fa-cart-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Seasonal Plant 3 -->
+                    <div class="seasonal-plant-card">
+                        <div class="seasonal-tag">Summer Special</div>
+                        <img src="C:\Users\USER\Documents\plantaffairs\assets\sunflower.webp" alt="Sunflower" class="w-full h-40 object-cover">
+                        <div class="p-4">
+                            <h3 class="font-semibold text-green-800 mb-1">Sunflower</h3>
+                            <p class="text-gray-600 text-sm mb-2">Bright and cheerful annual</p>
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <span class="price-tag">₦2,500</span>
+                                    <span class="original-price">₦3,500</span>
+                                </div>
+                                <button class="bg-green-600 text-white px-2 py-1 rounded text-sm hover:bg-green-700 transition duration-300">
+                                    <i class="fas fa-cart-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Seasonal Plant 4 -->
+                    <div class="seasonal-plant-card">
+                        <div class="seasonal-tag">Summer Special</div>
+                        <img src="C:\Users\USER\Documents\plantaffairs\assets\zinnia-candy-cane4.webp" alt="Zinnia" class="w-full h-40 object-cover">
+                        <div class="p-4">
+                            <h3 class="font-semibold text-green-800 mb-1">Zinnia</h3>
+                            <p class="text-gray-600 text-sm mb-2">Easy-to-grow colorful flowers</p>
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <span class="price-tag">₦1,800</span>
+                                    <span class="original-price">₦2,500</span>
+                                </div>
+                                <button class="bg-green-600 text-white px-2 py-1 rounded text-sm hover:bg-green-700 transition duration-300">
+                                    <i class="fas fa-cart-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Interactive Plant Care Guide -->
+        <section class="section-padding bg-green-100">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl md:text-4xl font-bold text-center text-green-800 mb-4">Interactive Plant Care Guide</h2>
+                <p class="text-center text-gray-600 mb-8 max-w-3xl mx-auto">Not sure how to care for your plants? Use our interactive guide to get personalized care instructions based on your specific plants and environment.</p>
+                
+                <div class="interactive-plant-guide max-w-4xl mx-auto">
+                    <div class="guide-step active" id="step-1">
+                        <h3 class="text-xl font-semibold text-green-800 mb-4">What type of plant do you have?</h3>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                            <button class="bg-white border border-green-200 rounded-lg p-4 text-center hover:bg-green-50 transition duration-300 plant-type-selector" data-type="indoor-foliage">
+                                <i class="fas fa-leaf text-2xl text-green-600 mb-2"></i>
+                                <div>Indoor Foliage</div>
+                            </button>
+                            <button class="bg-white border border-green-200 rounded-lg p-4 text-center hover:bg-green-50 transition duration-300 plant-type-selector" data-type="flowering">
+                                <i class="fas fa-flower text-2xl text-green-600 mb-2"></i>
+                                <div>Flowering Plants</div>
+                            </button>
+                            <button class="bg-white border border-green-200 rounded-lg p-4 text-center hover:bg-green-50 transition duration-300 plant-type-selector" data-type="succulents">
+                                <i class="fas fa-seedling text-2xl text-green-600 mb-2"></i>
+                                <div>Succulents</div>
+                            </button>
+                            <button class="bg-white border border-green-200 rounded-lg p-4 text-center hover:bg-green-50 transition duration-300 plant-type-selector" data-type="outdoor">
+                                <i class="fas fa-tree text-2xl text-green-600 mb-2"></i>
+                                <div>Outdoor Plants</div>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="guide-step" id="step-2">
+                        <h3 class="text-xl font-semibold text-green-800 mb-4">How much light does your plant receive?</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                            <button class="bg-white border border-green-200 rounded-lg p-4 text-center hover:bg-green-50 transition duration-300 light-selector" data-light="low">
+                                <i class="fas fa-moon text-2xl text-green-600 mb-2"></i>
+                                <div class="font-semibold">Low Light</div>
+                                <div class="text-sm text-gray-600">North-facing windows, far from windows</div>
+                            </button>
+                            <button class="bg-white border border-green-200 rounded-lg p-4 text-center hover:bg-green-50 transition duration-300 light-selector" data-light="medium">
+                                <i class="fas fa-cloud-sun text-2xl text-green-600 mb-2"></i>
+                                <div class="font-semibold">Medium Light</div>
+                                <div class="text-sm text-gray-600">East/West windows, filtered light</div>
+                            </button>
+                            <button class="bg-white border border-green-200 rounded-lg p-4 text-center hover:bg-green-50 transition duration-300 light-selector" data-light="bright">
+                                <i class="fas fa-sun text-2xl text-green-600 mb-2"></i>
+                                <div class="font-semibold">Bright Light</div>
+                                <div class="text-sm text-gray-600">South-facing windows, direct light</div>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="guide-step" id="step-3">
+                        <h3 class="text-xl font-semibold text-green-800 mb-4">Your Personalized Care Plan</h3>
+                        <div class="bg-green-50 rounded-lg p-6 mb-6">
+                            <h4 class="text-lg font-semibold text-green-800 mb-4">Based on your selections, here's your care guide:</h4>
+                            <div id="care-plan-content">
+                                <!-- Dynamic content will be inserted here -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="guide-navigation">
+                        <button class="bg-gray-300 text-gray-700 px-4 py-2 rounded-lg font-medium hover:bg-gray-400 transition duration-300" id="prev-step" disabled>Previous</button>
+                        <button class="bg-green-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-green-700 transition duration-300" id="next-step">Next</button>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-8">
+                    <a href="care-guides.html" class="bg-green-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-green-700 transition duration-300 inline-flex items-center">
+                        <span>View All Care Guides</span>
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: Plant Comparison Tool -->
+        <section class="section-padding">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl md:text-4xl font-bold text-center text-green-800 mb-4">Plant Comparison Tool</h2>
+                <p class="text-center text-gray-600 mb-8 max-w-3xl mx-auto">Not sure which plant is right for you? Compare different options side by side to make the best choice for your space and lifestyle.</p>
+                
+                <div class="plant-comparison">
+                    <!-- Plant Comparison 1 -->
+                    <div class="comparison-card">
+                        <div class="comparison-header">
+                            <img src="C:\Users\USER\Documents\plantaffairs\assets\snake plant.jpg" alt="Snake Plant" class="w-24 h-24 object-cover rounded-full mx-auto mb-4">
+                            <h3 class="text-xl font-semibold text-green-800">Snake Plant</h3>
+                            <div class="plant-care-level care-easy mt-2">Easy Care</div>
+                        </div>
+                        <div class="comparison-features">
+                            <div class="comparison-feature">
+                                <span>Light Requirements</span>
+                                <span>Low to Bright</span>
+                            </div>
+                            <div class="comparison-feature">
+                                <span>Water Needs</span>
+                                <span>Low</span>
+                            </div>
+                            <div class="comparison-feature">
+                                <span>Pet Friendly</span>
+                                <span>No</span>
+                            </div>
+                            <div class="comparison-feature">
+                                <span>Air Purifying</span>
+                                <span>Yes</span>
+                            </div>
+                            <div class="comparison-feature">
+                                <span>Price</span>
+                                <span class="price-tag">₦5,500</span>
+                            </div>
+                            <button class="w-full bg-green-600 text-white py-2 rounded mt-4 hover:bg-green-700 transition duration-300">Select This Plant</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Plant Comparison 2 -->
+                    <div class="comparison-card">
+                        <div class="comparison-header">
+                            <img src="C:\Users\USER\Documents\plantaffairs\assets\Zamioculcas-zamiifolia-akebono-768x768.jpg.webp" alt="ZZ Plant" class="w-24 h-24 object-cover rounded-full mx-auto mb-4">
+                            <h3 class="text-xl font-semibold text-green-800">ZZ Plant</h3>
+                            <div class="plant-care-level care-easy mt-2">Easy Care</div>
+                        </div>
+                        <div class="comparison-features">
+                            <div class="comparison-feature">
+                                <span>Light Requirements</span>
+                                <span>Low to Medium</span>
+                            </div>
+                            <div class="comparison-feature">
+                                <span>Water Needs</span>
+                                <span>Low</span>
+                            </div>
+                            <div class="comparison-feature">
+                                <span>Pet Friendly</span>
+                                <span>No</span>
+                            </div>
+                            <div class="comparison-feature">
+                                <span>Air Purifying</span>
+                                <span>Yes</span>
+                            </div>
+                            <div class="comparison-feature">
+                                <span>Price</span>
+                                <span class="price-tag">₦6,200</span>
+                            </div>
+                            <button class="w-full bg-green-600 text-white py-2 rounded mt-4 hover:bg-green-700 transition duration-300">Select This Plant</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Plant Comparison 3 -->
+                    <div class="comparison-card">
+                        <div class="comparison-header">
+                            <img src="C:\Users\USER\Documents\plantaffairs\assets\spider-plant-easy-care-960x960.jpg.webp" alt="Spider Plant" class="w-24 h-24 object-cover rounded-full mx-auto mb-4">
+                            <h3 class="text-xl font-semibold text-green-800">Spider Plant</h3>
+                            <div class="plant-care-level care-easy mt-2">Easy Care</div>
+                        </div>
+                        <div class="comparison-features">
+                            <div class="comparison-feature">
+                                <span>Light Requirements</span>
+                                <span>Medium to Bright</span>
+                            </div>
+                            <div class="comparison-feature">
+                                <span>Water Needs</span>
+                                <span>Medium</span>
+                            </div>
+                            <div class="comparison-feature">
+                                <span>Pet Friendly</span>
+                                <span>Yes</span>
+                            </div>
+                            <div class="comparison-feature">
+                                <span>Air Purifying</span>
+                                <span>Yes</span>
+                            </div>
+                            <div class="comparison-feature">
+                                <span>Price</span>
+                                <span class="price-tag">₦4,800</span>
+                            </div>
+                            <button class="w-full bg-green-600 text-white py-2 rounded mt-4 hover:bg-green-700 transition duration-300">Select This Plant</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-8">
+                    <a href="categories.html" class="bg-green-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-green-700 transition duration-300 inline-flex items-center">
+                        <span>Compare More Plants</span>
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 7: Garden Design Showcase -->
+        <section class="section-padding bg-green-100">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl md:text-4xl font-bold text-center text-green-800 mb-4">Garden Design Showcase</h2>
+                <p class="text-center text-gray-600 mb-8 max-w-3xl mx-auto">Get inspired by our completed garden projects. From small balconies to expansive landscapes, see how we've transformed spaces with plants.</p>
+                
+                <div class="garden-design-showcase mb-8">
+                    <!-- Design 1 -->
+                    <div class="design-card">
+                        <img src="C:\Users\USER\Documents\plantaffairs\assets\balcony-garden-service.png.png" alt="Modern Balcony Garden">
+                        <div class="design-overlay">
+                            <h3 class="text-xl font-semibold">Modern Balcony Garden</h3>
+                            <p class="text-sm">Compact urban space transformed with vertical planters</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Design 2 -->
+                    <div class="design-card">
+                        <img src="C:\Users\USER\Documents\plantaffairs\assets\garden-two.webp" alt="Tropical Backyard">
+                        <div class="design-overlay">
+                            <h3 class="text-xl font-semibold">Tropical Backyard Oasis</h3>
+                            <p class="text-sm">Lush greenery creating a private retreat</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Design 3 -->
+                    <div class="design-card">
+                        <img src="C:\Users\USER\Documents\plantaffairs\assets\formal-garden.jpg" alt="Formal Garden">
+                        <div class="design-overlay">
+                            <h3 class="text-xl font-semibold">Elegant Formal Garden</h3>
+                            <p class="text-sm">Structured design with symmetrical plantings</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center">
+                    <a href="gallery.html" class="bg-green-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-green-700 transition duration-300 inline-flex items-center">
+                        <span>View Our Portfolio</span>
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 8: Plant Care Schedule -->
+        <section class="section-padding">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl md:text-4xl font-bold text-center text-green-800 mb-4">Monthly Plant Care Schedule</h2>
+                <p class="text-center text-gray-600 mb-8 max-w-3xl mx-auto">Stay on top of your plant care with our monthly guide. These are general recommendations - adjust based on your specific plants and conditions.</p>
+                
+                <div class="plant-care-schedule max-w-4xl mx-auto">
+                    <h3 class="text-xl font-semibold text-green-800 mb-4">July Plant Care Tasks</h3>
+                    
+                    <div class="schedule-item">
+                        <div class="schedule-icon">
+                            <i class="fas fa-tint"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-green-800">Increase Watering Frequency</h4>
+                            <p class="text-gray-600">With higher temperatures, most plants will need more frequent watering. Check soil moisture regularly.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="schedule-item">
+                        <div class="schedule-icon">
+                            <i class="fas fa-cut"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-green-800">Prune Spring Flowering Shrubs</h4>
+                            <p class="text-gray-600">Trim back shrubs that bloomed in spring to encourage new growth and better flowering next year.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="schedule-item">
+                        <div class="schedule-icon">
+                            <i class="fas fa-bug"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-green-800">Pest Monitoring</h4>
+                            <p class="text-gray-600">Keep an eye out for common summer pests like aphids and spider mites. Treat early to prevent infestations.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="schedule-item">
+                        <div class="schedule-icon">
+                            <i class="fas fa-seedling"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-green-800">Fertilize Container Plants</h4>
+                            <p class="text-gray-600">Plants in containers benefit from regular feeding during their active growth period.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="schedule-item">
+                        <div class="schedule-icon">
+                            <i class="fas fa-cloud-sun"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-green-800">Provide Shade for Sensitive Plants</h4>
+                            <p class="text-gray-600">Some plants may need protection from intense midday sun during heatwaves.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-8">
+                    <a href="care-guides.html" class="bg-green-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-green-700 transition duration-300 inline-flex items-center">
+                        <span>Get Detailed Monthly Guide</span>
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 9: Expert Advice Section -->
+        <section class="section-padding bg-green-100">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl md:text-4xl font-bold text-center text-green-800 mb-4">Expert Advice & Tips</h2>
+                <p class="text-center text-gray-600 mb-8 max-w-3xl mx-auto">Learn from our team of horticulture experts. Get professional tips to help your plants thrive in the Nigerian climate.</p>
+                
+                <div class="expert-advice-section max-w-5xl mx-auto mb-8">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                            <h3 class="text-2xl font-semibold text-green-800 mb-4">Meet Our Experts</h3>
+                            
+                            <div class="expert-card mb-6">
+                                <img src="C:\Users\USER\Documents\plantaffairs\assets\boss\leo.jpeg" alt="Plant Expert" class="w-full h-40 object-cover">
+                                <div class="expert-info">
+                                    <h4 class="text-xl font-semibold text-green-800">Dr. Adeola Johnson</h4>
+                                    <p class="text-gray-600 mb-2">PhD in Horticulture, 15 years experience</p>
+                                    <span class="expert-specialty">Tropical Plants & Soil Science</span>
+                                </div>
+                            </div>
+                            
+                            <div class="expert-card">
+                                <img src="C:\Users\USER\Documents\plantaffairs\assets\boss\leo.jpeg" alt="Garden Designer" class="w-full h-40 object-cover">
+                                <div class="expert-info">
+                                    <h4 class="text-xl font-semibold text-green-800">Chinedu Okoro</h4>
+                                    <p class="text-gray-600 mb-2">Landscape Architect, 12 years experience</p>
+                                    <span class="expert-specialty">Sustainable Garden Design</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h3 class="text-2xl font-semibold text-green-800 mb-4">This Month's Expert Tip</h3>
+                            <div class="bg-white rounded-lg p-6 mb-6">
+                                <h4 class="text-lg font-semibold text-green-800 mb-2">Watering in the Nigerian Heat</h4>
+                                <p class="text-gray-600 mb-4">During hot periods, water your plants early in the morning or late in the evening to reduce evaporation. Focus water at the base of plants rather than on leaves to prevent fungal diseases.</p>
+                                <div class="flex items-center text-sm text-gray-500">
+                                    <i class="fas fa-user mr-2"></i>
+                                    <span>By Dr. Adeola Johnson</span>
+                                </div>
+                            </div>
+                            
+                            <h4 class="text-lg font-semibold text-green-800 mb-3">Common Questions</h4>
+                            <div class="space-y-4">
+                                <div class="bg-white rounded-lg p-4">
+                                    <h5 class="font-semibold text-green-800 mb-1">Why are my plant's leaves turning yellow?</h5>
+                                    <p class="text-sm text-gray-600">Yellow leaves can indicate overwatering, underwatering, or nutrient deficiencies. Check soil moisture and consider a balanced fertilizer.</p>
+                                </div>
+                                <div class="bg-white rounded-lg p-4">
+                                    <h5 class="font-semibold text-green-800 mb-1">How often should I repot my plants?</h5>
+                                    <p class="text-sm text-gray-600">Most plants need repotting every 1-2 years. Look for roots growing through drainage holes or soil that dries out very quickly.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center">
+                    <a href="blog.html" class="bg-green-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-green-700 transition duration-300 inline-flex items-center">
+                        <span>More Expert Advice</span>
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 10: Community & Newsletter -->
+        <section class="section-padding">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl md:text-4xl font-bold text-center text-green-800 mb-4">Join Our Plant Community</h2>
+                <p class="text-center text-gray-600 mb-8 max-w-3xl mx-auto">Connect with fellow plant lovers, share experiences, and get exclusive access to tips, promotions, and new plant arrivals.</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto mb-8">
+                    <div class="community-highlight">
+                        <img src="C:\Users\USER\Documents\plantaffairs\assets\boss\leo.jpeg" alt="Plant Community" class="w-full h-48 object-cover">
+                        <div class="community-content">
+                            <h3 class="text-xl font-semibold text-green-800 mb-2">Plant Lovers Community</h3>
+                            <p class="text-gray-600 mb-4">Join our growing community of plant enthusiasts. Share photos, ask questions, and learn from others' experiences.</p>
+                            
+                            <div class="community-stats">
+                                <div class="community-stat">
+                                    <div class="community-stat-value">2.5K+</div>
+                                    <div class="community-stat-label">Members</div>
+                                </div>
+                                <div class="community-stat">
+                                    <div class="community-stat-value">500+</div>
+                                    <div class="community-stat-label">Discussions</div>
+                                </div>
+                                <div class="community-stat">
+                                    <div class="community-stat-value">50+</div>
+                                    <div class="community-stat-label">Experts</div>
+                                </div>
+                            </div>
+                            
+                            <button class="w-full bg-green-600 text-white py-2 rounded mt-4 hover:bg-green-700 transition duration-300">Join Community</button>
+                        </div>
+                    </div>
+                    
+                    <div class="newsletter-form">
+                        <h3 class="text-xl font-semibold text-green-800 mb-2">Subscribe to Our Newsletter</h3>
+                        <p class="text-gray-600 mb-4">Get plant care tips, exclusive offers, and updates on new arrivals delivered to your inbox.</p>
+                        
+                        <form class="space-y-4">
+                            <div>
+                                <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Your Name</label>
+                                <input type="text" id="name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent" placeholder="Enter your name">
+                            </div>
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                                <input type="email" id="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent" placeholder="Enter your email">
+                            </div>
+                            <div>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="rounded border-gray-300 text-green-600 focus:ring-green-500">
+                                    <span class="ml-2 text-sm text-gray-600">I agree to receive plant care tips and promotional emails</span>
+                                </label>
+                            </div>
+                            <button type="submit" class="w-full bg-green-600 text-white py-2 rounded-lg font-semibold hover:bg-green-700 transition duration-300">Subscribe Now</button>
+                        </form>
+                        
+                        <p class="text-xs text-gray-500 mt-4">We respect your privacy. Unsubscribe at any time.</p>
+                    </div>
+                </div>
+                
+                <div class="text-center">
+                    <div class="inline-flex space-x-4">
+                        <a href="#" class="text-green-700 hover:text-green-500">
+                            <i class="fab fa-facebook-f text-2xl"></i>
+                        </a>
+                        <a href="#" class="text-green-700 hover:text-green-500">
+                            <i class="fab fa-instagram text-2xl"></i>
+                        </a>
+                        <a href="#" class="text-green-700 hover:text-green-500">
+                            <i class="fab fa-twitter text-2xl"></i>
+                        </a>
+                        <a href="#" class="text-green-700 hover:text-green-500">
+                            <i class="fab fa-pinterest text-2xl"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-green-800 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- Company Info -->
+                <div>
+                    <div class="flex items-center mb-4">
+                        <img src="C:\Users\USER\Documents\plantaffairs\assets\logo.jpg" alt="Plant Affairs Logo" class="h-8 w-8 mr-2">
+                        <span class="text-xl font-bold">Plant Affairs</span>
+                    </div>
+                    <p class="text-green-200 mb-4">Your trusted partner for all plant needs. Quality plants and professional services.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-green-200 hover:text-white">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-green-200 hover:text-white">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-green-200 hover:text-white">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Quick Links -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="home.html" class="text-green-200 hover:text-white">Home</a></li>
+                        <li><a href="categories.html" class="text-green-200 hover:text-white">Categories</a></li>
+                        <li><a href="services.html" class="text-green-200 hover:text-white">Services</a></li>
+                        <li><a href="about.html" class="text-green-200 hover:text-white">About Us</a></li>
+                        <li><a href="contact.html" class="text-green-200 hover:text-white">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Categories -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Categories</h3>
+                    <ul class="space-y-2">
+                        <li><a href="categories.html#indoor" class="text-green-200 hover:text-white">Indoor Plants</a></li>
+                        <li><a href="categories.html#outdoor" class="text-green-200 hover:text-white">Outdoor Plants</a></li>
+                        <li><a href="categories.html#fruit" class="text-green-200 hover:text-white">Fruit Plants</a></li>
+                        <li><a href="categories.html#garden" class="text-green-200 hover:text-white">Garden Needs</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Contact Info -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Contact Us</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-2"></i>
+                            <span class="text-green-200">123 Green Street, Wuse, Abuja, Nigeria</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone mr-2"></i>
+                            <span class="text-green-200">+234 801 234 5678</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope mr-2"></i>
+                            <span class="text-green-200">info@plantaffairs.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-green-700 mt-8 pt-6 text-center text-green-300">
+                <p>&copy; 2023 Plant Affairs. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Plant Detail Modal -->
+    <div class="plant-detail-modal" id="plant-modal">
+        <div class="modal-content">
+            <button class="close-modal" id="close-modal">&times;</button>
+            <div id="modal-content">
+                <!-- Dynamic content will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mobile menu toggle
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        hamburger.addEventListener('click', function() {
+            this.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        });
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const isClickInside = hamburger.contains(event.target) || mobileMenu.contains(event.target);
+            
+            if (!isClickInside && mobileMenu.classList.contains('active')) {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('active');
+            }
+        });
+
+        // Plant selector in hero section
+        const plantSelectors = document.querySelectorAll('.plant-selector');
+        const plantSuggestion = document.getElementById('plant-suggestion');
+        
+        const plantSuggestions = {
+            indoor: "Perfect for indoor spaces! We recommend Snake Plants, ZZ Plants, or Peace Lilies for low-light areas.",
+            outdoor: "Great choice! Consider Hibiscus, Bougainvillea, or Frangipani for beautiful outdoor blooms.",
+            fruit: "Excellent! Mango, Citrus, or Avocado trees thrive in Nigerian climate and provide delicious fruits.",
+            'low-maintenance': "Ideal for busy plant parents! Snake Plants, ZZ Plants, or Pothos require minimal care."
+        };
+        
+        plantSelectors.forEach(selector => {
+            selector.addEventListener('click', function() {
+                const plantType = this.getAttribute('data-type');
+                plantSuggestion.textContent = plantSuggestions[plantType] || "Great choice! Browse our collection to find the perfect plants for your space.";
+            });
+        });
+
+        // Animated counters
+        function animateCounter(element, target, duration) {
+            let start = 0;
+            const increment = target / (duration / 16); // 60fps
+            const timer = setInterval(() => {
+                start += increment;
+                if (start >= target) {
+                    element.textContent = target.toLocaleString();
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(start).toLocaleString();
+                }
+            }, 16);
+        }
+
+        // Start counters when they come into view
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounter(document.getElementById('plants-sold'), 12500, 2000);
+                    animateCounter(document.getElementById('happy-customers'), 8400, 2000);
+                    animateCounter(document.getElementById('projects-completed'), 3200, 2000);
+                    animateCounter(document.getElementById('plant-varieties'), 450, 2000);
+                    observer.unobserve(entry.target);
+                }
+            });
+        });
+
+        observer.observe(document.querySelector('.bg-green-700'));
+
+        // Category filtering
+        const categoryFilters = document.querySelectorAll('.category-filter');
+        const plantCards = document.querySelectorAll('.plant-card');
+        
+        categoryFilters.forEach(filter => {
+            filter.addEventListener('click', function() {
+                // Remove active class from all filters
+                categoryFilters.forEach(f => f.classList.remove('active'));
+                // Add active class to clicked filter
+                this.classList.add('active');
+                
+                const filterValue = this.getAttribute('data-filter');
+                
+                plantCards.forEach(card => {
+                    if (filterValue === 'all') {
+                        card.style.display = 'block';
+                    } else {
+                        const categories = card.getAttribute('data-categories');
+                        if (categories && categories.includes(filterValue)) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    }
+                });
+            });
+        });
+
+        // Countdown timer
+        function updateCountdown() {
+            const now = new Date();
+            const targetDate = new Date(now);
+            targetDate.setDate(now.getDate() + 7); // 7 days from now
+            
+            const timeDiff = targetDate - now;
+            
+            const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+            
+            document.getElementById('countdown-days').textContent = days.toString().padStart(2, '0');
+            document.getElementById('countdown-hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('countdown-minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('countdown-seconds').textContent = seconds.toString().padStart(2, '0');
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // Interactive plant care guide
+        const guideSteps = document.querySelectorAll('.guide-step');
+        const prevButton = document.getElementById('prev-step');
+        const nextButton = document.getElementById('next-step');
+        let currentStep = 0;
+
+        function showStep(stepIndex) {
+            guideSteps.forEach((step, index) => {
+                if (index === stepIndex) {
+                    step.classList.add('active');
+                } else {
+                    step.classList.remove('active');
+                }
+            });
+            
+            // Update button states
+            prevButton.disabled = stepIndex === 0;
+            
+            if (stepIndex === guideSteps.length - 1) {
+                nextButton.textContent = 'Restart';
+            } else {
+                nextButton.textContent = 'Next';
+            }
+            
+            currentStep = stepIndex;
+        }
+
+        prevButton.addEventListener('click', () => {
+            if (currentStep > 0) {
+                showStep(currentStep - 1);
+            }
+        });
+
+        nextButton.addEventListener('click', () => {
+            if (currentStep < guideSteps.length - 1) {
+                showStep(currentStep + 1);
+            } else {
+                // Restart the guide
+                showStep(0);
+            }
+        });
+
+        // Plant type selection in guide
+        const plantTypeSelectors = document.querySelectorAll('.plant-type-selector');
+        const lightSelectors = document.querySelectorAll('.light-selector');
+        const carePlanContent = document.getElementById('care-plan-content');
+        
+        let selectedPlantType = '';
+        let selectedLight = '';
+        
+        plantTypeSelectors.forEach(selector => {
+            selector.addEventListener('click', function() {
+                selectedPlantType = this.getAttribute('data-type');
+                showStep(1);
+            });
+        });
+        
+        lightSelectors.forEach(selector => {
+            selector.addEventListener('click', function() {
+                selectedLight = this.getAttribute('data-light');
+                
+                // Generate care plan based on selections
+                let carePlan = '';
+                
+                if (selectedPlantType === 'indoor-foliage' && selectedLight === 'low') {
+                    carePlan = `
+                        <div class="space-y-4">
+                            <div class="care-instruction">
+                                <i class="fas fa-tint"></i>
+                                <div>
+                                    <h5 class="font-semibold">Watering</h5>
+                                    <p>Water when the top 2 inches of soil feel dry. Typically every 2-3 weeks.</p>
+                                </div>
+                            </div>
+                            <div class="care-instruction">
+                                <i class="fas fa-sun"></i>
+                                <div>
+                                    <h5 class="font-semibold">Light</h5>
+                                    <p>Place in low to medium indirect light. Avoid direct sunlight.</p>
+                                </div>
+                            </div>
+                            <div class="care-instruction">
+                                <i class="fas fa-temperature-low"></i>
+                                <div>
+                                    <h5 class="font-semibold">Temperature</h5>
+                                    <p>Keep between 18-24°C. Avoid cold drafts and heating vents.</p>
+                                </div>
+                            </div>
+                            <div class="care-instruction">
+                                <i class="fas fa-spray-can"></i>
+                                <div>
+                                    <h5 class="font-semibold">Fertilizing</h5>
+                                    <p>Use balanced liquid fertilizer monthly during growing season (spring-summer).</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-6 p-4 bg-green-100 rounded-lg">
+                            <h5 class="font-semibold text-green-800 mb-2">Recommended Plants:</h5>
+                            <p>Snake Plant, ZZ Plant, Pothos, Peace Lily</p>
+                        </div>
+                    `;
+                }
+                // Additional care plans for other combinations would go here
+                
+                carePlanContent.innerHTML = carePlan;
+                showStep(2);
+            });
+        });
+
+        // Quick view modal
+        const quickViewButtons = document.querySelectorAll('.quick-view-btn');
+        const plantModal = document.getElementById('plant-modal');
+        const closeModal = document.getElementById('close-modal');
+        const modalContent = document.getElementById('modal-content');
+        
+        const plantDetails = {
+            'snake-plant': {
+                name: 'Snake Plant',
+                latin: 'Sansevieria trifasciata',
+                price: '₦5,500',
+                description: 'The Snake Plant is one of the most popular and hardy indoor plants. It features tall, upright leaves with striking patterns that resemble snake skin. Excellent for beginners and low-light conditions.',
+                care: {
+                    light: 'Low to bright indirect light',
+                    water: 'Every 2-3 weeks, allow soil to dry completely between waterings',
+                    temperature: '15-29°C',
+                    humidity: 'Average household humidity',
+                    fertilizer: 'Monthly during growing season with balanced fertilizer'
+                },
+                benefits: [
+                    'Excellent air purifier, removes toxins like formaldehyde and benzene',
+                    'Releases oxygen at night, making it ideal for bedrooms',
+                    'Very low maintenance and drought tolerant',
+                    'Pet-friendly (non-toxic to cats and dogs)'
+                ],
+                sizes: [
+                    { size: 'Small', price: '₦3,500', pot: '15cm' },
+                    { size: 'Medium', price: '₦5,500', pot: '20cm' },
+                    { size: 'Large', price: '₦8,500', pot: '25cm' }
+                ]
+            }
+            // Additional plant details would be defined here
+        };
+        
+        quickViewButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const plantId = this.getAttribute('data-plant');
+                const plant = plantDetails[plantId];
+                
+                if (plant) {
+                    modalContent.innerHTML = `
+                        <div class="plant-detail-tabs">
+                            <div class="plant-detail-tab active" data-tab="overview">Overview</div>
+                            <div class="plant-detail-tab" data-tab="care">Care Guide</div>
+                            <div class="plant-detail-tab" data-tab="sizes">Sizes & Pricing</div>
+                        </div>
+                        
+                        <div class="plant-detail-content">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                <div>
+                                    <img src="https://via.placeholder.com/400x300?text=${plant.name}" alt="${plant.name}" class="w-full rounded-lg">
+                                </div>
+                                <div>
+                                    <h2 class="text-2xl font-bold text-green-800 mb-2">${plant.name}</h2>
+                                    <p class="text-gray-600 italic mb-4">${plant.latin}</p>
+                                    <p class="text-gray-700 mb-6">${plant.description}</p>
+                                    
+                                    <div class="flex items-center mb-6">
+                                        <span class="text-2xl font-bold text-green-700 mr-4">${plant.price}</span>
+                                        <button class="bg-green-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-green-700 transition duration-300 flex items-center">
+                                            <i class="fas fa-cart-plus mr-2"></i>
+                                            Add to Cart
+                                        </button>
+                                    </div>
+                                    
+                                    <div class="plant-specs">
+                                        <div class="plant-spec">
+                                            <i class="fas fa-sun"></i>
+                                            <div class="plant-spec-label">Light</div>
+                                            <div class="plant-spec-value">Low to Bright</div>
+                                        </div>
+                                        <div class="plant-spec">
+                                            <i class="fas fa-tint"></i>
+                                            <div class="plant-spec-label">Water</div>
+                                            <div class="plant-spec-value">Low</div>
+                                        </div>
+                                        <div class="plant-spec">
+                                            <i class="fas fa-leaf"></i>
+                                            <div class="plant-spec-label">Care Level</div>
+                                            <div class="plant-spec-value">Easy</div>
+                                        </div>
+                                        <div class="plant-spec">
+                                            <i class="fas fa-paw"></i>
+                                            <div class="plant-spec-label">Pet Friendly</div>
+                                            <div class="plant-spec-value">Yes</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="plant-detail-panel active" id="overview-panel">
+                                <h3 class="text-xl font-semibold text-green-800 mt-8 mb-4">Plant Benefits</h3>
+                                <ul class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    ${plant.benefits.map(benefit => `<li class="flex items-start">
+                                        <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                        <span>${benefit}</span>
+                                    </li>`).join('')}
+                                </ul>
+                            </div>
+                            
+                            <div class="plant-detail-panel" id="care-panel">
+                                <h3 class="text-xl font-semibold text-green-800 mt-8 mb-4">Care Instructions</h3>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <h4 class="font-semibold text-green-700 mb-2">Light Requirements</h4>
+                                        <p class="mb-4">${plant.care.light}</p>
+                                        
+                                        <h4 class="font-semibold text-green-700 mb-2">Watering</h4>
+                                        <p class="mb-4">${plant.care.water}</p>
+                                        
+                                        <h4 class="font-semibold text-green-700 mb-2">Temperature</h4>
+                                        <p>${plant.care.temperature}</p>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-green-700 mb-2">Humidity</h4>
+                                        <p class="mb-4">${plant.care.humidity}</p>
+                                        
+                                        <h4 class="font-semibold text-green-700 mb-2">Fertilizing</h4>
+                                        <p class="mb-4">${plant.care.fertilizer}</p>
+                                        
+                                        <h4 class="font-semibold text-green-700 mb-2">Additional Tips</h4>
+                                        <p>Wipe leaves occasionally with a damp cloth to remove dust. Repot every 2-3 years or when roots outgrow the container.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="plant-detail-panel" id="sizes-panel">
+                                <h3 class="text-xl font-semibold text-green-800 mt-8 mb-4">Available Sizes</h3>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                    ${plant.sizes.map(size => `
+                                        <div class="border border-green-200 rounded-lg p-4 text-center">
+                                            <h4 class="font-semibold text-green-800 mb-2">${size.size} Size</h4>
+                                            <p class="text-gray-600 mb-2">Pot: ${size.pot}</p>
+                                            <p class="text-xl font-bold text-green-700 mb-4">${size.price}</p>
+                                            <button class="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700 transition duration-300">
+                                                Select This Size
+                                            </button>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    
+                    // Add tab functionality
+                    const tabs = modalContent.querySelectorAll('.plant-detail-tab');
+                    const panels = modalContent.querySelectorAll('.plant-detail-panel');
+                    
+                    tabs.forEach(tab => {
+                        tab.addEventListener('click', function() {
+                            const tabName = this.getAttribute('data-tab');
+                            
+                            // Update active tab
+                            tabs.forEach(t => t.classList.remove('active'));
+                            this.classList.add('active');
+                            
+                            // Show corresponding panel
+                            panels.forEach(panel => {
+                                if (panel.id === `${tabName}-panel`) {
+                                    panel.classList.add('active');
+                                } else {
+                                    panel.classList.remove('active');
+                                }
+                            });
+                        });
+                    });
+                    
+                    plantModal.classList.add('active');
+                }
+            });
+        });
+        
+        closeModal.addEventListener('click', () => {
+            plantModal.classList.remove('active');
+        });
+        
+        // Close modal when clicking outside
+        plantModal.addEventListener('click', (e) => {
+            if (e.target === plantModal) {
+                plantModal.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>

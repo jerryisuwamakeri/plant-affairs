@@ -1,0 +1,1223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Plant Affairs</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .hamburger-line {
+            display: block;
+            height: 3px;
+            width: 25px;
+            background-color: #333;
+            margin: 5px auto;
+            transition: all 0.3s ease-in-out;
+        }
+        
+        .hamburger.active .hamburger-line:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .hamburger.active .hamburger-line:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+        
+        .hamburger.active .hamburger-line:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+        
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+        }
+        
+        .mobile-menu.active {
+            max-height: 500px;
+        }
+        
+        .section-padding {
+            padding: 3rem 1rem;
+        }
+
+        .fade-in {
+            animation: fadeIn 1s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .contact-hero {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.9) 0%, rgba(5, 150, 105, 0.9) 100%), url('https://via.placeholder.com/1920x600?text=Plant+Contact') center/cover no-repeat;
+        }
+
+        .contact-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-bottom: 4px solid transparent;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            border-bottom-color: #10b981;
+        }
+
+        .contact-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 70px;
+            height: 70px;
+            background-color: #d1fae5;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+        }
+
+        .contact-icon i {
+            font-size: 2rem;
+            color: #10b981;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background-color: #d1fae5;
+            border-radius: 50%;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+
+        .info-icon i {
+            color: #10b981;
+            font-size: 1.25rem;
+        }
+
+        .contact-form {
+            background-color: white;
+            border-radius: 0.75rem;
+            padding: 2rem;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #374151;
+        }
+
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: #10b981;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .map-container {
+            border-radius: 0.75rem;
+            overflow: hidden;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            height: 400px;
+        }
+
+        .team-card {
+            transition: transform 0.3s ease;
+        }
+
+        .team-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .faq-item {
+            border-bottom: 1px solid #e5e7eb;
+            margin-bottom: 1rem;
+        }
+
+        .faq-question {
+            padding: 1.5rem 0;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+        }
+
+        .faq-question i {
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            padding: 0 0 1.5rem;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background-color: #f3f4f6;
+            border-radius: 50%;
+            margin: 0 0.5rem;
+            color: #374151;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background-color: #10b981;
+            color: white;
+        }
+
+        .service-area {
+            display: inline-flex;
+            align-items: center;
+            background-color: #f3f4f6;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .service-area i {
+            margin-right: 0.5rem;
+            color: #6b7280;
+        }
+
+        .hours-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .hours-item:last-child {
+            border-bottom: none;
+        }
+
+        .testimonial-card {
+            background-color: white;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            margin-top: 1rem;
+        }
+
+        .testimonial-author img {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 1rem;
+        }
+
+        .emergency-badge {
+            display: inline-flex;
+            align-items: center;
+            background-color: #fef3c7;
+            color: #92400e;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .emergency-badge i {
+            margin-right: 0.5rem;
+        }
+
+        /* Mobile-specific styles */
+        @media (max-width: 768px) {
+            .section-padding {
+                padding: 2rem 1rem;
+            }
+            
+            .contact-icon {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .contact-icon i {
+                font-size: 1.75rem;
+            }
+            
+            .contact-form {
+                padding: 1.5rem;
+            }
+            
+            .map-container {
+                height: 300px;
+            }
+            
+            .info-item {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .info-icon {
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+            
+            .social-link {
+                width: 45px;
+                height: 45px;
+                margin: 0 0.25rem;
+            }
+            
+            .hours-item {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .section-padding {
+                padding: 1.5rem 1rem;
+            }
+            
+            .contact-form {
+                padding: 1rem;
+            }
+            
+            .contact-icon {
+                width: 50px;
+                height: 50px;
+            }
+            
+            .contact-icon i {
+                font-size: 1.5rem;
+            }
+            
+            .form-input, .form-select, .form-textarea {
+                padding: 0.625rem 0.875rem;
+            }
+        }
+    </style>
+</head>
+<body class="bg-green-50">
+    <!-- Header Section -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <!-- Logo -->
+            <div class="flex items-center">
+                <img src="C:\Users\USER\Documents\plantaffairs\assets\logo.jpg" alt="Plant Affairs Logo" class="h-10 w-10 mr-2">
+                <span class="text-xl font-bold text-green-700">Plant Affairs</span>
+            </div>
+            
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex space-x-8">
+                <a href="home.html" class="text-green-700 hover:text-green-500 font-medium">Home</a>
+                <a href="categories.html" class="text-green-700 hover:text-green-500 font-medium">Categories</a>
+                <a href="services.html" class="text-green-700 hover:text-green-500 font-medium">Services</a>
+                <a href="about.html" class="text-green-700 hover:text-green-500 font-medium">About</a>
+                <a href="contact.html" class="text-green-700 hover:text-green-500 font-medium border-b-2 border-green-700">Contact</a>
+                <a href="blog.html" class="text-green-700 hover:text-green-500 font-medium">Blog</a>
+                <a href="gallery.html" class="text-green-700 hover:text-green-500 font-medium">Gallery</a>
+                <a href="testimonials.html" class="text-green-700 hover:text-green-500 font-medium">Testimonials</a>
+                <a href="faq.html" class="text-green-700 hover:text-green-500 font-medium">FAQ</a>
+                <a href="care-guides.html" class="text-green-700 hover:text-green-500 font-medium">Care Guides</a>
+            </nav>
+            
+            <!-- Cart and Search -->
+            <div class="hidden md:flex items-center space-x-4">
+                <button class="text-green-700 hover:text-green-500">
+                    <i class="fas fa-search"></i>
+                </button>
+                <button class="text-green-700 hover:text-green-500 relative">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="absolute -top-2 -right-2 bg-green-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">3</span>
+                </button>
+            </div>
+            
+            <!-- Mobile Menu Button -->
+            <button id="hamburger" class="md:hidden hamburger focus:outline-none">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="mobile-menu md:hidden bg-white">
+            <div class="container mx-auto px-4 py-3 flex flex-col space-y-4">
+                <a href="home.html" class="text-green-700 hover:text-green-500 font-medium py-2 border-b">Home</a>
+                <a href="categories.html" class="text-green-700 hover:text-green-500 font-medium py-2 border-b">Categories</a>
+                <a href="services.html" class="text-green-700 hover:text-green-500 font-medium py-2 border-b">Services</a>
+                <a href="about.html" class="text-green-700 hover:text-green-500 font-medium py-2 border-b">About</a>
+                <a href="contact.html" class="text-green-700 hover:text-green-500 font-medium py-2 border-b">Contact</a>
+                <a href="blog.html" class="text-green-700 hover:text-green-500 font-medium py-2 border-b">Blog</a>
+                <a href="gallery.html" class="text-green-700 hover:text-green-500 font-medium py-2 border-b">Gallery</a>
+                <a href="testimonials.html" class="text-green-700 hover:text-green-500 font-medium py-2 border-b">Testimonials</a>
+                <a href="faq.html" class="text-green-700 hover:text-green-500 font-medium py-2 border-b">FAQ</a>
+                <a href="care-guides.html" class="text-green-700 hover:text-green-500 font-medium py-2 border-b">Care Guides</a>
+                <div class="flex justify-between py-2">
+                    <button class="text-green-700 hover:text-green-500">
+                        <i class="fas fa-search"></i> Search
+                    </button>
+                    <button class="text-green-700 hover:text-green-500 relative">
+                        <i class="fas fa-shopping-cart"></i> Cart
+                        <span class="absolute -top-2 -right-2 bg-green-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">3</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contact Page Content - 10 Detailed Sections -->
+    <main>
+        <!-- Section 1: Hero -->
+        <section class="contact-hero text-white section-padding">
+            <div class="container mx-auto px-4 text-center">
+                <h1 class="text-3xl md:text-5xl font-bold mb-4 fade-in">Get In Touch</h1>
+                <p class="text-lg md:text-xl mb-8 max-w-2xl mx-auto fade-in">We're here to help with all your plant needs. Reach out to us for consultations, questions, or service requests.</p>
+                <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4 fade-in">
+                    <a href="#contact-form" class="bg-white text-green-700 px-4 md:px-6 py-3 rounded-lg font-semibold hover:bg-green-100 transition duration-300">Send Message</a>
+                    <a href="#locations" class="bg-transparent border-2 border-white text-white px-4 md:px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-green-700 transition duration-300">Visit Us</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Contact Methods -->
+        <section class="section-padding">
+            <div class="container mx-auto px-4">
+                <h2 class="text-2xl md:text-3xl font-bold text-center text-green-800 mb-4">How to Reach Us</h2>
+                <p class="text-center text-gray-600 mb-8 max-w-3xl mx-auto">Choose the most convenient way to get in touch with our plant experts.</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+                    <!-- Phone -->
+                    <div class="contact-card bg-white rounded-lg shadow-md p-6 text-center fade-in">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-green-800 mb-3">Call Us</h3>
+                        <p class="text-gray-600 mb-4">Speak directly with our plant specialists</p>
+                        <div class="text-green-700 font-semibold text-lg mb-2">+234 801 234 5678</div>
+                        <div class="text-green-700 font-semibold text-lg mb-4">+234 802 345 6789</div>
+                        <p class="text-sm text-gray-500">Mon-Fri: 8am-6pm | Sat: 9am-4pm</p>
+                    </div>
+                    
+                    <!-- Email -->
+                    <div class="contact-card bg-white rounded-lg shadow-md p-6 text-center fade-in">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-green-800 mb-3">Email Us</h3>
+                        <p class="text-gray-600 mb-4">Send us your questions and requests</p>
+                        <div class="text-green-700 font-semibold text-lg mb-2">info@plantaffairs.com</div>
+                        <div class="text-green-700 font-semibold text-lg mb-4">support@plantaffairs.com</div>
+                        <p class="text-sm text-gray-500">We respond within 24 hours</p>
+                    </div>
+                    
+                    <!-- Visit -->
+                    <div class="contact-card bg-white rounded-lg shadow-md p-6 text-center fade-in">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-green-800 mb-3">Visit Us</h3>
+                        <p class="text-gray-600 mb-4">Come see our plants in person</p>
+                        <div class="text-green-700 font-semibold text-lg mb-2">123 Green Street</div>
+                        <div class="text-green-700 font-semibold text-lg mb-4">Wuse, Abuja</div>
+                        <p class="text-sm text-gray-500">Mon-Sat: 9am-6pm | Sun: 11am-4pm</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Contact Form -->
+        <section id="contact-form" class="section-padding bg-green-100">
+            <div class="container mx-auto px-4">
+                <h2 class="text-2xl md:text-3xl font-bold text-center text-green-800 mb-4">Send Us a Message</h2>
+                <p class="text-center text-gray-600 mb-8 max-w-3xl mx-auto">Fill out the form below and we'll get back to you as soon as possible.</p>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                    <div class="lg:col-span-2 fade-in">
+                        <div class="contact-form">
+                            <form id="main-contact-form">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div class="form-group">
+                                        <label class="form-label">First Name *</label>
+                                        <input type="text" class="form-input" placeholder="Your first name" required>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label class="form-label">Last Name *</label>
+                                        <input type="text" class="form-input" placeholder="Your last name" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Email Address *</label>
+                                        <input type="email" class="form-input" placeholder="your.email@example.com" required>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label class="form-label">Phone Number</label>
+                                        <input type="tel" class="form-input" placeholder="+234 800 000 0000">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label">Subject *</label>
+                                    <select class="form-select" required>
+                                        <option value="">Select a subject</option>
+                                        <option value="general">General Inquiry</option>
+                                        <option value="consultation">Plant Consultation</option>
+                                        <option value="service">Service Request</option>
+                                        <option value="maintenance">Maintenance Service</option>
+                                        <option value="corporate">Corporate Services</option>
+                                        <option value="complaint">Complaint</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label">Message *</label>
+                                    <textarea class="form-textarea" placeholder="Please describe your inquiry in detail..." required></textarea>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="flex items-center">
+                                        <input type="checkbox" class="rounded border-gray-300 text-green-600 focus:ring-green-500" required>
+                                        <span class="ml-2 text-sm text-gray-600">I agree to the <a href="#" class="text-green-600 hover:text-green-800">privacy policy</a> and <a href="#" class="text-green-600 hover:text-green-800">terms of service</a></span>
+                                    </label>
+                                </div>
+                                
+                                <button type="submit" class="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition duration-300 flex items-center justify-center">
+                                    <i class="fas fa-paper-plane mr-2"></i>
+                                    Send Message
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    
+                    <div class="fade-in">
+                        <h3 class="text-xl font-semibold text-green-800 mb-6">Why Contact Us?</h3>
+                        
+                        <div class="space-y-6 mb-8">
+                            <div class="info-item">
+                                <div class="info-icon">
+                                    <i class="fas fa-lightbulb"></i>
+                                </div>
+                                <div>
+                                    <h5 class="font-semibold text-green-800">Expert Advice</h5>
+                                    <p class="text-gray-600">Get personalized recommendations from our plant specialists.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="info-item">
+                                <div class="info-icon">
+                                    <i class="fas fa-clipboard-check"></i>
+                                </div>
+                                <div>
+                                    <h5 class="font-semibold text-green-800">Free Consultation</h5>
+                                    <p class="text-gray-600">First-time consultations are always free with no obligation.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="info-item">
+                                <div class="info-icon">
+                                    <i class="fas fa-tachometer-alt"></i>
+                                </div>
+                                <div>
+                                    <h5 class="font-semibold text-green-800">Quick Response</h5>
+                                    <p class="text-gray-600">We typically respond to inquiries within 2-4 business hours.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="info-item">
+                                <div class="info-icon">
+                                    <i class="fas fa-shield-alt"></i>
+                                </div>
+                                <div>
+                                    <h5 class="font-semibold text-green-800">Satisfaction Guarantee</h5>
+                                    <p class="text-gray-600">We stand behind our services with a 100% satisfaction guarantee.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="emergency-badge">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span>Plant Emergency? Call us immediately!</span>
+                        </div>
+                        
+                        <div class="bg-green-50 rounded-lg p-4">
+                            <h4 class="font-semibold text-green-800 mb-2">Response Time</h4>
+                            <ul class="text-sm text-gray-600 space-y-1">
+                                <li>• Email: Within 24 hours</li>
+                                <li>• Phone: During business hours</li>
+                                <li>• WhatsApp: Within 2 hours</li>
+                                <li>• Contact Form: Within 4 hours</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Locations & Map -->
+        <section id="locations" class="section-padding">
+            <div class="container mx-auto px-4">
+                <h2 class="text-2xl md:text-3xl font-bold text-center text-green-800 mb-4">Our Locations</h2>
+                <p class="text-center text-gray-600 mb-8 max-w-3xl mx-auto">Visit us at our conveniently located nurseries in Abuja.</p>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+                    <div class="fade-in">
+                        <div class="map-container">
+                            <!-- Embedded map placeholder -->
+                            <div class="w-full h-full bg-gray-200 flex items-center justify-center">
+                                <div class="text-center p-4">
+                                    <i class="fas fa-map-marked-alt text-4xl text-green-600 mb-4"></i>
+                                    <h3 class="text-xl font-semibold text-green-800 mb-2">Interactive Map</h3>
+                                    <p class="text-gray-600">Map would be embedded here</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="fade-in">
+                        <h3 class="text-xl font-semibold text-green-800 mb-6">Our Nurseries</h3>
+                        
+                        <div class="space-y-6">
+                            <!-- Main Location -->
+                            <div class="bg-white rounded-lg shadow-md p-6">
+                                <h4 class="text-lg font-semibold text-green-800 mb-2">Main Nursery - Wuse</h4>
+                                <div class="flex items-start mb-3">
+                                    <i class="fas fa-map-marker-alt text-green-600 mt-1 mr-3"></i>
+                                    <p class="text-gray-600">123 Green Street, Wuse District, Abuja, Nigeria</p>
+                                </div>
+                                
+                                <div class="flex items-center mb-3">
+                                    <i class="fas fa-phone text-green-600 mr-3"></i>
+                                    <p class="text-gray-600">+234 801 234 5678</p>
+                                </div>
+                                
+                                <div class="flex items-center mb-4">
+                                    <i class="fas fa-envelope text-green-600 mr-3"></i>
+                                    <p class="text-gray-600">wuse@plantaffairs.com</p>
+                                </div>
+                                
+                                <div class="flex flex-wrap">
+                                    <span class="service-area"><i class="fas fa-tree"></i> Largest Selection</span>
+                                    <span class="service-area"><i class="fas fa-coffee"></i> Café</span>
+                                    <span class="service-area"><i class="fas fa-parking"></i> Free Parking</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Second Location -->
+                            <div class="bg-white rounded-lg shadow-md p-6">
+                                <h4 class="text-lg font-semibold text-green-800 mb-2">Gwarinpa Branch</h4>
+                                <div class="flex items-start mb-3">
+                                    <i class="fas fa-map-marker-alt text-green-600 mt-1 mr-3"></i>
+                                    <p class="text-gray-600">45 Garden Avenue, Gwarinpa, Abuja, Nigeria</p>
+                                </div>
+                                
+                                <div class="flex items-center mb-3">
+                                    <i class="fas fa-phone text-green-600 mr-3"></i>
+                                    <p class="text-gray-600">+234 802 345 6789</p>
+                                </div>
+                                
+                                <div class="flex items-center mb-4">
+                                    <i class="fas fa-envelope text-green-600 mr-3"></i>
+                                    <p class="text-gray-600">gwarinpa@plantaffairs.com</p>
+                                </div>
+                                
+                                <div class="flex flex-wrap">
+                                    <span class="service-area"><i class="fas fa-seedling"></i> Specialty Plants</span>
+                                    <span class="service-area"><i class="fas fa-tools"></i> Garden Supplies</span>
+                                    <span class="service-area"><i class="fas fa-parking"></i> Free Parking</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Business Hours -->
+        <section class="section-padding bg-green-100">
+            <div class="container mx-auto px-4">
+                <h2 class="text-2xl md:text-3xl font-bold text-center text-green-800 mb-4">Business Hours</h2>
+                <p class="text-center text-gray-600 mb-8 max-w-3xl mx-auto">Visit us during our operating hours or schedule an appointment for personalized service.</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                    <div class="fade-in">
+                        <div class="bg-white rounded-lg shadow-md p-6">
+                            <h3 class="text-xl font-semibold text-green-800 mb-6 text-center">Nursery Hours</h3>
+                            
+                            <div class="space-y-2">
+                                <div class="hours-item">
+                                    <span class="font-medium">Monday - Friday</span>
+                                    <span>8:00 AM - 6:00 PM</span>
+                                </div>
+                                <div class="hours-item">
+                                    <span class="font-medium">Saturday</span>
+                                    <span>9:00 AM - 4:00 PM</span>
+                                </div>
+                                <div class="hours-item">
+                                    <span class="font-medium">Sunday</span>
+                                    <span>11:00 AM - 4:00 PM</span>
+                                </div>
+                                <div class="hours-item">
+                                    <span class="font-medium">Public Holidays</span>
+                                    <span>10:00 AM - 3:00 PM</span>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-6 p-4 bg-green-50 rounded-lg">
+                                <h4 class="font-semibold text-green-800 mb-2">After-Hours Emergency</h4>
+                                <p class="text-sm text-gray-600">For plant emergencies outside business hours, call our emergency line: <span class="font-semibold">+234 803 456 7890</span></p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="fade-in">
+                        <div class="bg-white rounded-lg shadow-md p-6">
+                            <h3 class="text-xl font-semibold text-green-800 mb-6 text-center">Service Hours</h3>
+                            
+                            <div class="space-y-4">
+                                <div>
+                                    <h4 class="font-semibold text-green-800 mb-2">Consultations</h4>
+                                    <p class="text-gray-600">By appointment only, Monday to Saturday</p>
+                                </div>
+                                
+                                <div>
+                                    <h4 class="font-semibold text-green-800 mb-2">Landscaping Services</h4>
+                                    <p class="text-gray-600">Monday to Friday: 7:00 AM - 5:00 PM</p>
+                                </div>
+                                
+                                <div>
+                                    <h4 class="font-semibold text-green-800 mb-2">Maintenance Services</h4>
+                                    <p class="text-gray-600">Monday to Saturday: 7:00 AM - 4:00 PM</p>
+                                </div>
+                                
+                                <div>
+                                    <h4 class="font-semibold text-green-800 mb-2">Delivery Services</h4>
+                                    <p class="text-gray-600">Monday to Saturday: 9:00 AM - 5:00 PM</p>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-6 p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                                <h4 class="font-semibold text-yellow-800 mb-2">Holiday Schedule</h4>
+                                <p class="text-sm text-yellow-700">We are closed on Christmas Day, New Year's Day, and Easter Sunday. Limited hours on other major holidays.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: Team Contact -->
+        <section class="section-padding">
+            <div class="container mx-auto px-4">
+                <h2 class="text-2xl md:text-3xl font-bold text-center text-green-800 mb-4">Contact Our Team</h2>
+                <p class="text-center text-gray-600 mb-8 max-w-3xl mx-auto">Get in touch with the right person for your specific needs.</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+                    <!-- Team Member 1 -->
+                    <div class="team-card bg-white rounded-lg shadow-md p-6 text-center fade-in">
+                        <img src="C:\Users\USER\Documents\plantaffairs\assets\boss\leo.jpg" alt="Customer Service" class="w-24 h-24 rounded-full mx-auto mb-4 object-cover">
+                        <h3 class="text-xl font-semibold text-green-800 mb-1">Customer Service</h3>
+                        <p class="text-green-600 font-medium mb-3">General Inquiries</p>
+                        <p class="text-gray-600 text-sm mb-4">For general questions, orders, and account assistance</p>
+                        <div class="text-green-700 font-semibold mb-2">service@plantaffairs.com</div>
+                        <div class="text-green-700 font-semibold mb-4">+234 801 234 5678</div>
+                        <button class="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700 transition duration-300">Send Message</button>
+                    </div>
+                    
+                    <!-- Team Member 2 -->
+                    <div class="team-card bg-white rounded-lg shadow-md p-6 text-center fade-in">
+                        <img src="C:\Users\USER\Documents\plantaffairs\assets\boss\leo.jpg" alt="Landscaping Specialist" class="w-24 h-24 rounded-full mx-auto mb-4 object-cover">
+                        <h3 class="text-xl font-semibold text-green-800 mb-1">Landscaping Team</h3>
+                        <p class="text-green-600 font-medium mb-3">Design & Installation</p>
+                        <p class="text-gray-600 text-sm mb-4">For landscape design consultations and project inquiries</p>
+                        <div class="text-green-700 font-semibold mb-2">landscaping@plantaffairs.com</div>
+                        <div class="text-green-700 font-semibold mb-4">+234 802 345 6789</div>
+                        <button class="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700 transition duration-300">Send Message</button>
+                    </div>
+                    
+                    <!-- Team Member 3 -->
+                    <div class="team-card bg-white rounded-lg shadow-md p-6 text-center fade-in">
+                        <img src="C:\Users\USER\Documents\plantaffairs\assets\boss\leo.jpg" alt="Maintenance Specialist" class="w-24 h-24 rounded-full mx-auto mb-4 object-cover">
+                        <h3 class="text-xl font-semibold text-green-800 mb-1">Maintenance Team</h3>
+                        <p class="text-green-600 font-medium mb-3">Garden Care</p>
+                        <p class="text-gray-600 text-sm mb-4">For ongoing maintenance services and plant health issues</p>
+                        <div class="text-green-700 font-semibold mb-2">maintenance@plantaffairs.com</div>
+                        <div class="text-green-700 font-semibold mb-4">+234 803 456 7890</div>
+                        <button class="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700 transition duration-300">Send Message</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 7: FAQ -->
+        <section class="section-padding bg-green-100">
+            <div class="container mx-auto px-4">
+                <h2 class="text-2xl md:text-3xl font-bold text-center text-green-800 mb-4">Frequently Asked Questions</h2>
+                <p class="text-center text-gray-600 mb-8 max-w-3xl mx-auto">Quick answers to common questions about contacting us and our services.</p>
+                
+                <div class="max-w-3xl mx-auto">
+                    <div class="faq-item fade-in">
+                        <div class="faq-question">
+                            <span>What's the best way to contact you for urgent plant issues?</span>
+                            <i class="fas fa-chevron-down ml-2"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p class="text-gray-600">For urgent plant health issues, we recommend calling our main line at +234 801 234 5678 during business hours. For after-hours emergencies, use our emergency line at +234 803 456 7890.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item fade-in">
+                        <div class="faq-question">
+                            <span>Do you offer virtual consultations?</span>
+                            <i class="fas fa-chevron-down ml-2"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p class="text-gray-600">Yes, we offer virtual consultations via video call for customers who cannot visit our nursery in person. These sessions include plant assessment, care recommendations, and design advice. Book through our website or by phone.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item fade-in">
+                        <div class="faq-question">
+                            <span>How quickly do you respond to contact form submissions?</span>
+                            <i class="fas fa-chevron-down ml-2"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p class="text-gray-600">We typically respond to contact form submissions within 4 hours during business hours. For inquiries submitted outside business hours, we respond by the next business day.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item fade-in">
+                        <div class="faq-question">
+                            <span>Can I visit your nursery without an appointment?</span>
+                            <i class="fas fa-chevron-down ml-2"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p class="text-gray-600">Yes, our nurseries are open to the public during business hours. However, for personalized consultations with our specialists, we recommend scheduling an appointment to ensure availability.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item fade-in">
+                        <div class="faq-question">
+                            <span>Do you service areas outside Abuja?</span>
+                            <i class="fas fa-chevron-down ml-2"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p class="text-gray-600">While our physical nurseries are in Abuja, we offer nationwide delivery for plants and supplies. For landscaping services, we primarily serve the Abuja area but may consider projects in neighboring states depending on scope.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-8 fade-in">
+                    <p class="text-gray-600">Have more questions? <a href="faq.html" class="text-green-600 font-semibold hover:text-green-800">Visit our full FAQ page</a></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 8: Testimonials -->
+        <section class="section-padding">
+            <div class="container mx-auto px-4">
+                <h2 class="text-2xl md:text-3xl font-bold text-center text-green-800 mb-4">What Our Customers Say</h2>
+                <p class="text-center text-gray-600 mb-8 max-w-3xl mx-auto">Hear from customers who have experienced our exceptional service.</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+                    <!-- Testimonial 1 -->
+                    <div class="testimonial-card fade-in">
+                        <div class="flex items-center mb-4">
+                            <div class="text-yellow-400 mr-2">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 italic mb-4">"The customer service at Plant Affairs is exceptional. They helped me choose the perfect plants for my balcony and even followed up to ensure they were thriving."</p>
+                        <div class="testimonial-author">
+                            <img src="C:\Users\USER\Documents\plantaffairs\assets\boss\leo.jpg" alt="Amina Bello">
+                            <div>
+                                <h4 class="font-semibold text-green-800">Amina Bello</h4>
+                                <p class="text-sm text-gray-500">Gwarinpa, Abuja</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Testimonial 2 -->
+                    <div class="testimonial-card fade-in">
+                        <div class="flex items-center mb-4">
+                            <div class="text-yellow-400 mr-2">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 italic mb-4">"I had a plant emergency on a weekend and their emergency line was a lifesaver. They walked me through saving my favorite fiddle leaf fig tree."</p>
+                        <div class="testimonial-author">
+                            <img src="C:\Users\USER\Documents\plantaffairs\assets\boss\leo.jpg" alt="Chinedu Okoro">
+                            <div>
+                                <h4 class="font-semibold text-green-800">Chinedu Okoro</h4>
+                                <p class="text-sm text-gray-500">Maitama, Abuja</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Testimonial 3 -->
+                    <div class="testimonial-card fade-in">
+                        <div class="flex items-center mb-4">
+                            <div class="text-yellow-400 mr-2">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 italic mb-4">"The landscaping team transformed our backyard beyond our expectations. Their communication throughout the project was excellent."</p>
+                        <div class="testimonial-author">
+                            <img src="C:\Users\USER\Documents\plantaffairs\assets\boss\leo.jpg" alt="Mr. & Mrs. Adekunle">
+                            <div>
+                                <h4 class="font-semibold text-green-800">Mr. & Mrs. Adekunle</h4>
+                                <p class="text-sm text-gray-500">Asokoro, Abuja</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 9: Social Media -->
+        <section class="section-padding bg-green-100">
+            <div class="container mx-auto px-4">
+                <h2 class="text-2xl md:text-3xl font-bold text-center text-green-800 mb-4">Connect With Us</h2>
+                <p class="text-center text-gray-600 mb-8 max-w-3xl mx-auto">Follow us on social media for plant tips, updates, and behind-the-scenes content.</p>
+                
+                <div class="max-w-2xl mx-auto text-center fade-in">
+                    <div class="flex justify-center mb-8">
+                        <a href="#" class="social-link">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-pinterest"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-xl font-semibold text-green-800 mb-4">Join Our Community</h3>
+                        <p class="text-gray-600 mb-4">Get daily plant care tips, see new arrivals, and connect with fellow plant lovers.</p>
+                        
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <input type="email" placeholder="Your email address" class="flex-grow px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                            <button class="bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 transition duration-300 whitespace-nowrap">Subscribe</button>
+                        </div>
+                        
+                        <p class="text-xs text-gray-500 mt-4">By subscribing, you agree to our Privacy Policy and consent to receive plant care updates.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 10: Quick Contact -->
+        <section class="section-padding">
+            <div class="container mx-auto px-4">
+                <h2 class="text-2xl md:text-3xl font-bold text-center text-green-800 mb-4">Still Have Questions?</h2>
+                <p class="text-center text-gray-600 mb-8 max-w-3xl mx-auto">We're here to help. Choose the contact method that works best for you.</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                    <div class="fade-in">
+                        <div class="bg-white rounded-lg shadow-md p-6 text-center">
+                            <h3 class="text-xl font-semibold text-green-800 mb-4">Quick Contact Options</h3>
+                            
+                            <div class="space-y-4">
+                                <a href="tel:+2348012345678" class="flex items-center justify-center bg-green-600 text-white py-3 px-4 rounded-lg hover:bg-green-700 transition duration-300">
+                                    <i class="fas fa-phone mr-3"></i>
+                                    <span>Call Us Now</span>
+                                </a>
+                                
+                                <a href="https://wa.me/2348012345678" class="flex items-center justify-center bg-green-500 text-white py-3 px-4 rounded-lg hover:bg-green-600 transition duration-300">
+                                    <i class="fab fa-whatsapp mr-3"></i>
+                                    <span>WhatsApp Message</span>
+                                </a>
+                                
+                                <a href="mailto:info@plantaffairs.com" class="flex items-center justify-center bg-green-700 text-white py-3 px-4 rounded-lg hover:bg-green-800 transition duration-300">
+                                    <i class="fas fa-envelope mr-3"></i>
+                                    <span>Send Email</span>
+                                </a>
+                                
+                                <a href="#contact-form" class="flex items-center justify-center bg-gray-800 text-white py-3 px-4 rounded-lg hover:bg-gray-900 transition duration-300">
+                                    <i class="fas fa-comment-alt mr-3"></i>
+                                    <span>Contact Form</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="fade-in">
+                        <div class="bg-white rounded-lg shadow-md p-6">
+                            <h3 class="text-xl font-semibold text-green-800 mb-4">Visit Our Nursery</h3>
+                            <p class="text-gray-600 mb-4">Experience our plants in person and get expert advice from our team.</p>
+                            
+                            <div class="space-y-3 mb-6">
+                                <div class="flex items-center">
+                                    <i class="fas fa-map-marker-alt text-green-600 mr-3"></i>
+                                    <span class="text-gray-600">123 Green Street, Wuse, Abuja</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="fas fa-clock text-green-600 mr-3"></i>
+                                    <span class="text-gray-600">Mon-Sat: 8am-6pm | Sun: 11am-4pm</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="fas fa-parking text-green-600 mr-3"></i>
+                                    <span class="text-gray-600">Free parking available</span>
+                                </div>
+                            </div>
+                            
+                            <a href="#locations" class="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition duration-300 flex items-center justify-center">
+                                <i class="fas fa-directions mr-2"></i>
+                                Get Directions
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-green-800 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- Company Info -->
+                <div>
+                    <div class="flex items-center mb-4">
+                        <img src="C:\Users\USER\Documents\plantaffairs\assets\logo.jpg" alt="Plant Affairs Logo" class="h-8 w-8 mr-2">
+                        <span class="text-xl font-bold">Plant Affairs</span>
+                    </div>
+                    <p class="text-green-200 mb-4">Your trusted partner for all plant needs. Quality plants and professional services.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-green-200 hover:text-white">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-green-200 hover:text-white">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-green-200 hover:text-white">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Quick Links -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="home.html" class="text-green-200 hover:text-white">Home</a></li>
+                        <li><a href="categories.html" class="text-green-200 hover:text-white">Categories</a></li>
+                        <li><a href="services.html" class="text-green-200 hover:text-white">Services</a></li>
+                        <li><a href="about.html" class="text-green-200 hover:text-white">About Us</a></li>
+                        <li><a href="contact.html" class="text-green-200 hover:text-white">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Categories -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Categories</h3>
+                    <ul class="space-y-2">
+                        <li><a href="categories.html#indoor" class="text-green-200 hover:text-white">Indoor Plants</a></li>
+                        <li><a href="categories.html#outdoor" class="text-green-200 hover:text-white">Outdoor Plants</a></li>
+                        <li><a href="categories.html#fruit" class="text-green-200 hover:text-white">Fruit Plants</a></li>
+                        <li><a href="categories.html#garden" class="text-green-200 hover:text-white">Garden Needs</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Contact Info -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Contact Us</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-2"></i>
+                            <span class="text-green-200">123 Green Street, Wuse, Abuja, Nigeria</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone mr-2"></i>
+                            <span class="text-green-200">+234 801 234 5678</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope mr-2"></i>
+                            <span class="text-green-200">info@plantaffairs.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-green-700 mt-8 pt-6 text-center text-green-300">
+                <p>&copy; 2023 Plant Affairs. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        hamburger.addEventListener('click', function() {
+            this.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        });
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const isClickInside = hamburger.contains(event.target) || mobileMenu.contains(event.target);
+            
+            if (!isClickInside && mobileMenu.classList.contains('active')) {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('active');
+            }
+        });
+
+        // FAQ accordion
+        const faqItems = document.querySelectorAll('.faq-item');
+        
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            
+            question.addEventListener('click', function() {
+                // Close all other items
+                faqItems.forEach(otherItem => {
+                    if (otherItem !== item) {
+                        otherItem.classList.remove('active');
+                    }
+                });
+                
+                // Toggle current item
+                item.classList.toggle('active');
+            });
+        });
+
+        // Fade in animation on scroll
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        const fadeInObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeIn 1s ease-in-out forwards';
+                    fadeInObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        fadeElements.forEach(element => {
+            fadeInObserver.observe(element);
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Contact form submission
+        const contactForm = document.getElementById('main-contact-form');
+        
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Simple form validation
+                const requiredFields = this.querySelectorAll('[required]');
+                let isValid = true;
+                
+                requiredFields.forEach(field => {
+                    if (!field.value.trim()) {
+                        isValid = false;
+                        field.style.borderColor = '#ef4444';
+                    } else {
+                        field.style.borderColor = '#d1d5db';
+                    }
+                });
+                
+                if (isValid) {
+                    // In a real application, you would send the form data to a server here
+                    alert('Thank you for your message! We will get back to you soon.');
+                    this.reset();
+                } else {
+                    alert('Please fill in all required fields.');
+                }
+            });
+        }
+    </script>
+</body>
+</html>

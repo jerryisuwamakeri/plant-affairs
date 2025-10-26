@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testimonials - Plant Affairs</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .hamburger-line {
+            display: block;
+            height: 3px;
+            width: 25px;
+            background-color: #333;
+            margin: 5px auto;
+            transition: all 0.3s ease-in-out;
+        }
+        
+        .hamburger.active .hamburger-line:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .hamburger.active .hamburger-line:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+        
+        .hamburger.active .hamburger-line:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+        
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+        }
+        
+        .mobile-menu.active {
+            max-height: 500px;
+        }
+        
+        .section-padding {
+            padding: 5rem 0;
+        }
+
+        .fade-in {
+            animation: fadeIn 1s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .testimonial-card {
+            transition: transform 0.3s ease;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .stats-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #065f46;
+            line-height: 1;
+        }
+
+        .stats-label {
+            font-size: 1.125rem;
+            color: #374151;
+        }
+
+        .impact-card {
+            transition: transform 0.3s ease;
+        }
+
+        .impact-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .testimonial-slider {
+            overflow: hidden;
+            position: relative;
+        }
+
+        .testimonial-slide {
+            display: none;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .testimonial-slide.active {
+            display: block;
+        }
+
+        .testimonial-nav {
+            display: flex;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .testimonial-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #d1d5db;
+            margin: 0 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .testimonial-dot.active {
+            background-color: #10b981;
+        }
+
+        .rating-stars {
+            color: #fbbf24;
+        }
+
+        .service-tag {
+            display: inline-flex;
+            align-items: center;
+            background-color: #d1fae5;
+            color: #065f46;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .service-tag i {
+            margin-right: 0.5rem;
+        }
+
+        .company-value {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .company-value i {
+            margin-right: 1rem;
+            color: #10b981;
+            font-size: 1.5rem;
+            width: 2rem;
+            text-align: center;
+        }
+
+        .impact-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #10b981;
+            line-height: 1;
+        }
+
+        .impact-label {
+            font-size: 1rem;
+            color: #6b7280;
+        }
+
+        .category-badge {
+            display: inline-flex;
+            align-items: center;
+            background-color: white;
+            border: 1px solid #e5e7eb;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            margin-right: 1rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .category-badge:hover, .category-badge.active {
+            border-color: #10b981;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            background-color: #f0fdf4;
+        }
+
+        .video-testimonial {
+            position: relative;
+            overflow: hidden;
+            border-radius: 0.5rem;
+        }
+
+        .video-testimonial::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.7));
+            z-index: 1;
+        }
+
+        .video-play-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 70px;
+            height: 70px;
+            background-color: rgba(16, 185, 129, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .video-play-btn:hover {
+            background-color: rgba(16, 185, 129, 1);
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        .video-play-btn i {
+            color: white;
+            font-size: 1.5rem;
+            margin-left: 4px;
+        }
+
+        @media (max-width: 768px) {
+            .section-padding {
+                padding: 3rem 0;
+            }
+            
+            .stats-number {
+                font-size: 2.5rem;
+            }
+            
+            .testimonial-card {
+                margin-bottom: 2rem;
+            }
+        }
+    </style>
+</head>
+<body class="bg-green-50">
+    <!-- Header Section -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <!-- Logo -->
+            <div class="flex items-center">
+                <img src="C:\Users\USER\Documents\plantaffairs\assets\logo.jpg" alt="Plant Affairs Logo" class="h-10 w-10 mr-2">
+                <span class="text-xl font-bold text-green-700">Plant Affairs</span>
+            </div>
+            
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex space-x-8">
+                <a href="home.html" class="text-green-700 hover:text-green-500 font-medium">Home</a>
+                <a href="categories.html" class="text-green-700 hover:text-green-500 font-medium">Categories</a>
+                <a href="services.html" class="text-green-700 hover:text-green-500 font-medium">Services</a>
+                <a href="about.html" class="text-green-700 hover:text-green-500 font-medium">About</a>
+                <a href="contact.html" class="text-green-700 hover:text-green-500 font-medium">Contact</a>
+                <a href="blog.html" class="text-green-700 hover:text-green-500 font-medium">Blog</a>
+                <a href="gallery.html" class="text-green-700 hover:text-green-500 font-medium">Gallery</a>
+                <a href="testimonials.html" class="text-green-700 hover:text-green-500 font-medium border-b-2 border-green-700">Testimonials</a>
+                <a href="faq.html" class="text-green-700 hover:text-green-500 font-medium">FAQ</a>
+                <a href="care-guides.html" class="text-green-700 hover:text-green-500 font-medium">Care Guides</a>
+            </nav>
+            
+            <!-- Cart and Search -->
+            <div class="hidden md:flex items-center space-x-4">
+                <button class="text-green-700 hover:text-green-500">
+                    <i class="fas fa-search"></i>
+                </button>
+                <button class="text-green-700 hover:text-green-500 relative">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="absolute -top-2 -right-2 bg-green-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">3</span>
+                </button>
+            </div>
+            
+            <!-- Mobile Menu Button -->
+            <button id="hamburger" class="md:hidden hamburger focus:outline-none">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="mobile-menu md:hidden bg-white">
+            <div class="container mx-auto px-4 py-3 flex flex-col space-y-4">
+                <a href="home.html" class="text-green-700 hover:text-green-500 font-medium py-2 border-b">Home</a>
+                <a href="categories.html" class="text-green-700 hover:text-green-500 font-medium py-2 border-b">Categories</a>
+                <a href="services.html" class="text-green-700 hover:text-green-500 font-medium py-2 border-b">Services</a>
+                <a href="about.html" class="text-green-700 hover:text-green-500 font-medium py-2 border-b">About</a>
+                <a href="contact.html" class="text-green-700 hover:text-green-500 font-medium py-2 border-b">Contact</a>
+                <a href="blog.html" class="text-green-700 hover:text-green-500 font-medium py-2 border-b">Blog</a>
+                <a href="gallery.html" class="text-green-700 hover:text-green-500 font-medium py-2 border-b">Gallery</a>
+                <a href="testimonials.html" class="text-green-700 hover:text-green-500 font-medium py-2 border-b">Testimonials</a>
+                <a href="faq.html" class="text-green-700 hover:text-green-500 font-medium py-2 border-b">FAQ</a>
+                <a href="care-guides.html" class="text-green-700 hover:text-green-500 font-medium py-2 border-b">Care Guides</a>
+                <div class="flex justify-between py-2">
+                    <button class="text-green-700 hover:text-green-500">
+                        <i class="fas fa-search"></i> Search
+                    </button>
+                    <button class="text-green-700 hover:text-green-500 relative">
+                        <i class="fas fa-shopping-cart"></i> Cart
+                        <span class="absolute -top-2 -right-2 bg-green-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">3</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Testimonials Page Content - 10 Detailed Sections -->
+    <main>
+        <!-- Section 1: Hero -->
+        <section class="bg-green-700 text-white section-padding">
+            <div class="container mx-auto px-4 text-center">
+                <h1 class="text-4xl md:text-5xl font-bold mb-4 fade-in">Customer Testimonials</h1>
+                <p class="text-xl mb-8 max-w-2xl mx-auto fade-in">Discover what our customers are saying about their experiences with Plant Affairs across Nigeria.</p>
+                <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4 fade-in">
+                    <a href="#featured" class="bg-white text-green-700 px-6 py-3 rounded-lg font-semibold hover:bg-green-100 transition duration-300">Read Stories</a>
+                    <a href="#share" class="bg-transparent border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-green-700 transition duration-300">Share Your Story</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Testimonial Stats -->
+        <section class="section-padding">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center text-green-800 mb-12">Why Customers Love Plant Affairs</h2>
+                
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
+                    <div class="impact-card bg-white p-6 rounded-lg shadow-md text-center fade-in">
+                        <div class="impact-number">98%</div>
+                        <div class="impact-label">Satisfaction Rate</div>
+                    </div>
+                    <div class="impact-card bg-white p-6 rounded-lg shadow-md text-center fade-in">
+                        <div class="impact-number">4.9</div>
+                        <div class="impact-label">Average Rating</div>
+                    </div>
+                    <div class="impact-card bg-white p-6 rounded-lg shadow-md text-center fade-in">
+                        <div class="impact-number">2,500+</div>
+                        <div class="impact-label">Happy Customers</div>
+                    </div>
+                    <div class="impact-card bg-white p-6 rounded-lg shadow-md text-center fade-in">
+                        <div class="impact-number">85%</div>
+                        <div class="impact-label">Repeat Customers</div>
+                    </div>
+                </div>
+                
+                <div class="text-center fade-in">
+                    <p class="text-gray-600 max-w-3xl mx-auto">We take pride in delivering exceptional service and quality plants to our customers across Nigeria. Our commitment to customer satisfaction has earned us recognition as Abuja's premier plant destination.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Testimonial Categories -->
+        <section class="section-padding bg-green-100">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center text-green-800 mb-8">Browse Testimonials</h2>
+                <p class="text-center text-gray-600 mb-12 max-w-3xl mx-auto">Filter testimonials by service type to find experiences most relevant to your needs.</p>
+                
+                <div class="flex flex-wrap justify-center mb-12">
+                    <div class="category-badge active" data-category="all">
+                        <i class="fas fa-th-large text-green-600"></i>
+                        <span>All Testimonials</span>
+                    </div>
+                    <div class="category-badge" data-category="landscaping">
+                        <i class="fas fa-tree text-green-600"></i>
+                        <span>Landscaping</span>
+                    </div>
+                    <div class="category-badge" data-category="indoor">
+                        <i class="fas fa-home text-green-600"></i>
+                        <span>Indoor Plants</span>
+                    </div>
+                    <div class="category-badge" data-category="office">
+                        <i class="fas fa-building text-green-600"></i>
+                        <span>Office Plants</span>
+                    </div>
+                    <div class="category-badge" data-category="maintenance">
+                        <i class="fas fa-tools text-green-600"></i>
+                        <span>Maintenance</span>
+                    </div>
+                    <div class="category-badge" data-category="consultation">
+                        <i class="fas fa-comments text-green-600"></i>
+                        <span>Consultation</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Featured Testimonials -->
+        <section id="featured" class="section-padding">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center text-green-800 mb-12">Featured Testimonials</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="testimonials-grid">
+                    <!-- Testimonial 1 -->
+                    <div class="testimonial-card bg-white rounded-lg shadow-md overflow-hidden fade-in" data-category="landscaping">
+                        <div class="p-6">
+                            <div class="flex items-center mb-4">
+                                <div class="rating-stars mr-2">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="service-tag"><i class="fas fa-tree"></i> Landscaping</span>
+                            </div>
+                            <p class="text-gray-600 italic mb-6">"Plant Affairs completely transformed our backyard into a beautiful oasis. Their team was professional, knowledgeable, and delivered beyond our expectations. The plants they selected have thrived in Abuja's climate."</p>
+                            <div class="flex items-center">
+                                <div class="w-12 h-12 bg-green-200 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-user text-green-700"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-green-800">Mr. & Mrs. Adebayo</h4>
+                                    <p class="text-sm text-gray-500">Maitama, Abuja</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Testimonial 2 -->
+                    <div class="testimonial-card bg-white rounded-lg shadow-md overflow-hidden fade-in" data-category="indoor">
+                        <div class="p-6">
+                            <div class="flex items-center mb-4">
+                                <div class="rating-stars mr-2">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="service-tag"><i class="fas fa-home"></i> Indoor Plants</span>
+                            </div>
+                            <p class="text-gray-600 italic mb-6">"As a beginner plant parent, I was nervous about keeping plants alive. The team at Plant Affairs guided me to the perfect low-maintenance plants and provided clear care instructions. Six months later, all my plants are thriving!"</p>
+                            <div class="flex items-center">
+                                <div class="w-12 h-12 bg-green-200 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-user text-green-700"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-green-800">Tunde Williams</h4>
+                                    <p class="text-sm text-gray-500">Gwarinpa, Abuja</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Testimonial 3 -->
+                    <div class="testimonial-card bg-white rounded-lg shadow-md overflow-hidden fade-in" data-category="office">
+                        <div class="p-6">
+                            <div class="flex items-center mb-4">
+                                <div class="rating-stars mr-2">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                                <span class="service-tag"><i class="fas fa-building"></i> Office Plants</span>
+                            </div>
+                            <p class="text-gray-600 italic mb-6">"The corporate landscaping service transformed our office environment. Employees are happier and more productive surrounded by beautiful greenery. The maintenance team keeps everything looking perfect with minimal disruption."</p>
+                            <div class="flex items-center">
+                                <div class="w-12 h-12 bg-green-200 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-user text-green-700"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-green-800">Ngozi Okonjo</h4>
+                                    <p class="text-sm text-gray-500">Business Owner, Lagos</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Testimonial 4 -->
+                    <div class="testimonial-card bg-white rounded-lg shadow-md overflow-hidden fade-in" data-category="maintenance">
+                        <div class="p-6">
+                            <div class="flex items-center mb-4">
+                                <div class="rating-stars mr-2">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="service-tag"><i class="fas fa-tools"></i> Maintenance</span>
+                            </div>
+                            <p class="text-gray-600 italic mb-6">"The plant maintenance service has been a lifesaver for our busy household. They come monthly to check on our plants, and everything has been thriving under their care. Worth every naira!"</p>
+                            <div class="flex items-center">
+                                <div class="w-12 h-12 bg-green-200 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-user text-green-700"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-green-800">Chinwe Okafor</h4>
+                                    <p class="text-sm text-gray-500">Asokoro, Abuja</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Testimonial 5 -->
+                    <div class="testimonial-card bg-white rounded-lg shadow-md overflow-hidden fade-in" data-category="consultation">
+                        <div class="p-6">
+                            <div class="flex items-center mb-4">
+                                <div class="rating-stars mr-2">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="service-tag"><i class="fas fa-comments"></i> Consultation</span>
+                            </div>
+                            <p class="text-gray-600 italic mb-6">"The plant consultation service helped me identify exactly what was wrong with my struggling plants. Their expert advice saved my favorite fiddle leaf fig tree! I highly recommend their consultation services."</p>
+                            <div class="flex items-center">
+                                <div class="w-12 h-12 bg-green-200 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-user text-green-700"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-green-800">Amina Sani</h4>
+                                    <p class="text-sm text-gray-500">Kano</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Testimonial 6 -->
+                    <div class="testimonial-card bg-white rounded-lg shadow-md overflow-hidden fade-in" data-category="landscaping">
+                        <div class="p-6">
+                            <div class="flex items-center mb-4">
+                                <div class="rating-stars mr-2">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="service-tag"><i class="fas fa-tree"></i> Landscaping</span>
+                            </div>
+                            <p class="text-gray-600 italic mb-6">"Our hotel entrance has never looked better! The landscaping team created a stunning first impression for our guests with native plants that thrive in our climate. Professional service from start to finish."</p>
+                            <div class="flex items-center">
+                                <div class="w-12 h-12 bg-green-200 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-user text-green-700"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-green-800">Hotel Manager</h4>
+                                    <p class="text-sm text-gray-500">Port Harcourt</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Video Testimonials -->
+        <section class="section-padding bg-green-100">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center text-green-800 mb-12">Video Testimonials</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                    <div class="fade-in">
+                        <div class="video-testimonial">
+                            <img src="https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Customer testimonial" class="w-full h-64 object-cover">
+                            <div class="video-play-btn">
+                                <i class="fas fa-play"></i>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <h3 class="text-xl font-semibold text-green-800 mb-2">Residential Garden Transformation</h3>
+                            <p class="text-gray-600">Mr. & Mrs. Adebayo share their experience with their complete backyard makeover in Maitama, Abuja.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="fade-in">
+                        <div class="video-testimonial">
+                            <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Customer testimonial" class="w-full h-64 object-cover">
+                            <div class="video-play-btn">
+                                <i class="fas fa-play"></i>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <h3 class="text-xl font-semibold text-green-800 mb-2">Office Greening Project</h3>
+                            <p class="text-gray-600">Ngozi Okonjo discusses the impact of plants on employee wellbeing in their Lagos office.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: Testimonial Slider -->
+        <section class="section-padding">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center text-green-800 mb-12">What Our Customers Say</h2>
+                
+                <div class="testimonial-slider max-w-4xl mx-auto">
+                    <div class="testimonial-slide active">
+                        <div class="bg-white p-8 rounded-lg shadow-md">
+                            <div class="flex items-center mb-6">
+                                <div class="rating-stars mr-2">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 text-lg italic mb-6">"Plant Affairs transformed our barren backyard into a lush oasis. Their team was professional, knowledgeable, and delivered beyond our expectations. The plants they selected have thrived in Abuja's climate."</p>
+                            <div class="flex items-center">
+                                <div class="w-12 h-12 bg-green-200 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-user text-green-700"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-green-800">Mr. & Mrs. Adebayo</h4>
+                                    <p class="text-sm text-gray-500">Maitama, Abuja</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-slide">
+                        <div class="bg-white p-8 rounded-lg shadow-md">
+                            <div class="flex items-center mb-6">
+                                <div class="rating-stars mr-2">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 text-lg italic mb-6">"As a beginner plant parent, I was nervous about keeping plants alive. The team at Plant Affairs guided me to the perfect low-maintenance plants and provided clear care instructions. Six months later, all my plants are thriving!"</p>
+                            <div class="flex items-center">
+                                <div class="w-12 h-12 bg-green-200 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-user text-green-700"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-green-800">Tunde Williams</h4>
+                                    <p class="text-sm text-gray-500">Gwarinpa, Abuja</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-slide">
+                        <div class="bg-white p-8 rounded-lg shadow-md">
+                            <div class="flex items-center mb-6">
+                                <div class="rating-stars mr-2">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 text-lg italic mb-6">"The corporate landscaping service transformed our office environment. Employees are happier and more productive surrounded by beautiful greenery. The maintenance team keeps everything looking perfect with minimal disruption."</p>
+                            <div class="flex items-center">
+                                <div class="w-12 h-12 bg-green-200 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-user text-green-700"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-green-800">Ngozi Okonjo</h4>
+                                    <p class="text-sm text-gray-500">Business Owner, Lagos</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-nav">
+                    <div class="testimonial-dot active" data-slide="0"></div>
+                    <div class="testimonial-dot" data-slide="1"></div>
+                    <div class="testimonial-dot" data-slide="2"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 7: Customer Stories -->
+        <section class="section-padding bg-green-100">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center text-green-800 mb-12">Customer Success Stories</h2>
+                
+                <div class="max-w-5xl mx-auto">
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden mb-12 fade-in">
+                        <div class="md:flex">
+                            <div class="md:w-1/3">
+                                <img src="https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Before and After" class="w-full h-64 md:h-full object-cover">
+                            </div>
+                            <div class="md:w-2/3 p-8">
+                                <h3 class="text-2xl font-bold text-green-800 mb-4">From Concrete to Oasis: The Adebayo Family Story</h3>
+                                <p class="text-gray-600 mb-4">The Adebayo family had a barren concrete backyard that was unusable during Abuja's hot seasons. They dreamed of a green space where their children could play and they could entertain guests.</p>
+                                <p class="text-gray-600 mb-6">Plant Affairs transformed their 500sqm space into a lush garden with native plants, a water feature, and shaded seating areas. The project was completed in just 6 weeks.</p>
+                                
+                                <div class="flex items-center">
+                                    <div class="w-12 h-12 bg-green-200 rounded-full flex items-center justify-center mr-4">
+                                        <i class="fas fa-user text-green-700"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-green-800">Mr. & Mrs. Adebayo</h4>
+                                        <p class="text-sm text-gray-500">Maitama, Abuja</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden fade-in">
+                        <div class="md:flex flex-row-reverse">
+                            <div class="md:w-1/3">
+                                <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Office Transformation" class="w-full h-64 md:h-full object-cover">
+                            </div>
+                            <div class="md:w-2/3 p-8">
+                                <h3 class="text-2xl font-bold text-green-800 mb-4">Greening the Workplace: Corporate Office Transformation</h3>
+                                <p class="text-gray-600 mb-4">A leading corporate office in Lagos was experiencing low employee morale and high stress levels. Management decided to invest in office greening to improve the work environment.</p>
+                                <p class="text-gray-600 mb-6">Plant Affairs installed air-purifying plants throughout all 10 floors of the building. Post-installation surveys showed a 30% increase in employee satisfaction and a noticeable improvement in air quality.</p>
+                                
+                                <div class="flex items-center">
+                                    <div class="w-12 h-12 bg-green-200 rounded-full flex items-center justify-center mr-4">
+                                        <i class="fas fa-user text-green-700"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-green-800">Ngozi Okonjo</h4>
+                                        <p class="text-sm text-gray-500">Business Owner, Lagos</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 8: Review Platforms -->
+        <section class="section-padding">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center text-green-800 mb-12">Find Us On Review Platforms</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center fade-in">
+                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fab fa-google text-blue-600 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-green-800 mb-2">Google Reviews</h3>
+                        <div class="rating-stars mb-2">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <p class="text-gray-600 mb-4">4.8/5 from 350+ reviews</p>
+                        <a href="#" class="text-green-600 font-semibold hover:text-green-800 inline-flex items-center">
+                            <span>Read Reviews</span>
+                            <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                    
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center fade-in">
+                        <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fab fa-facebook text-orange-600 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-green-800 mb-2">Facebook Reviews</h3>
+                        <div class="rating-stars mb-2">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="text-gray-600 mb-4">5.0/5 from 200+ reviews</p>
+                        <a href="#" class="text-green-600 font-semibold hover:text-green-800 inline-flex items-center">
+                            <span>Read Reviews</span>
+                            <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                    
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center fade-in">
+                        <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-star text-purple-600 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-green-800 mb-2">Trustpilot</h3>
+                        <div class="rating-stars mb-2">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <p class="text-gray-600 mb-4">4.7/5 from 150+ reviews</p>
+                        <a href="#" class="text-green-600 font-semibold hover:text-green-800 inline-flex items-center">
+                            <span>Read Reviews</span>
+                            <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 9: Share Your Story -->
+        <section id="share" class="section-padding bg-green-100">
+            <div class="container mx-auto px-4">
+                <div class="max-w-3xl mx-auto text-center fade-in">
+                    <h2 class="text-3xl font-bold text-green-800 mb-4">Share Your Plant Affairs Story</h2>
+                    <p class="text-gray-600 mb-8">We love hearing from our customers! Share your experience with Plant Affairs and help others discover the joy of plants.</p>
+                    <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                        <a href="contact.html" class="bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 transition duration-300">Share Your Story</a>
+                        <a href="gallery.html" class="bg-transparent border-2 border-green-600 text-green-600 px-6 py-3 rounded-lg font-semibold hover:bg-green-600 hover:text-white transition duration-300">View Our Gallery</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 10: Call to Action -->
+        <section class="section-padding">
+            <div class="container mx-auto px-4">
+                <div class="bg-green-700 text-white rounded-lg shadow-lg p-8 md:p-12 text-center fade-in">
+                    <h2 class="text-3xl font-bold mb-4">Ready to Experience Plant Affairs?</h2>
+                    <p class="text-xl mb-8 max-w-2xl mx-auto">Join thousands of satisfied customers across Nigeria who have transformed their spaces with our plants and services.</p>
+                    <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                        <a href="contact.html" class="bg-white text-green-700 px-6 py-3 rounded-lg font-semibold hover:bg-green-100 transition duration-300">Get Started Today</a>
+                        <a href="services.html" class="bg-transparent border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-green-700 transition duration-300">View Our Services</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-green-800 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- Company Info -->
+                <div>
+                    <div class="flex items-center mb-4">
+                        <img src="C:\Users\USER\Documents\plantaffairs\assets\logo.jpg" alt="Plant Affairs Logo" class="h-8 w-8 mr-2">
+                        <span class="text-xl font-bold">Plant Affairs</span>
+                    </div>
+                    <p class="text-green-200 mb-4">Your trusted partner for all plant needs. Quality plants and professional services.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-green-200 hover:text-white">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-green-200 hover:text-white">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-green-200 hover:text-white">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Quick Links -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="home.html" class="text-green-200 hover:text-white">Home</a></li>
+                        <li><a href="categories.html" class="text-green-200 hover:text-white">Categories</a></li>
+                        <li><a href="services.html" class="text-green-200 hover:text-white">Services</a></li>
+                        <li><a href="about.html" class="text-green-200 hover:text-white">About Us</a></li>
+                        <li><a href="contact.html" class="text-green-200 hover:text-white">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Categories -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Categories</h3>
+                    <ul class="space-y-2">
+                        <li><a href="categories.html#indoor" class="text-green-200 hover:text-white">Indoor Plants</a></li>
+                        <li><a href="categories.html#outdoor" class="text-green-200 hover:text-white">Outdoor Plants</a></li>
+                        <li><a href="categories.html#fruit" class="text-green-200 hover:text-white">Fruit Plants</a></li>
+                        <li><a href="categories.html#garden" class="text-green-200 hover:text-white">Garden Needs</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Contact Info -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Contact Us</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-2"></i>
+                            <span class="text-green-200">123 Green Street, Wuse, Abuja, Nigeria</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone mr-2"></i>
+                            <span class="text-green-200">+234 801 234 5678</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope mr-2"></i>
+                            <span class="text-green-200">info@plantaffairs.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-green-700 mt-8 pt-6 text-center text-green-300">
+                <p>&copy; 2023 Plant Affairs. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        hamburger.addEventListener('click', function() {
+            this.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        });
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const isClickInside = hamburger.contains(event.target) || mobileMenu.contains(event.target);
+            
+            if (!isClickInside && mobileMenu.classList.contains('active')) {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('active');
+            }
+        });
+
+        // Category filtering
+        document.querySelectorAll('.category-badge').forEach(badge => {
+            badge.addEventListener('click', function() {
+                // Remove active class from all badges
+                document.querySelectorAll('.category-badge').forEach(item => {
+                    item.classList.remove('active');
+                });
+                
+                // Add active class to clicked badge
+                this.classList.add('active');
+                
+                const category = this.getAttribute('data-category');
+                
+                // Show/hide testimonials based on category
+                document.querySelectorAll('.testimonial-card').forEach(card => {
+                    if (category === 'all' || card.getAttribute('data-category') === category) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Testimonial slider
+        const testimonialSlides = document.querySelectorAll('.testimonial-slide');
+        const testimonialDots = document.querySelectorAll('.testimonial-dot');
+        let currentTestimonial = 0;
+
+        function showTestimonial(index) {
+            testimonialSlides.forEach(slide => slide.classList.remove('active'));
+            testimonialDots.forEach(dot => dot.classList.remove('active'));
+            
+            testimonialSlides[index].classList.add('active');
+            testimonialDots[index].classList.add('active');
+            
+            currentTestimonial = index;
+        }
+
+        testimonialDots.forEach(dot => {
+            dot.addEventListener('click', function() {
+                const slideIndex = parseInt(this.getAttribute('data-slide'));
+                showTestimonial(slideIndex);
+            });
+        });
+
+        // Auto-advance testimonials
+        setInterval(() => {
+            currentTestimonial = (currentTestimonial + 1) % testimonialSlides.length;
+            showTestimonial(currentTestimonial);
+        }, 5000);
+
+        // Video play buttons
+        document.querySelectorAll('.video-play-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                alert('Video testimonial would play here. In a real implementation, this would open a video player.');
+            });
+        });
+
+        // Fade in animation on scroll
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        const fadeInObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeIn 1s ease-in-out forwards';
+                    fadeInObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        fadeElements.forEach(element => {
+            fadeInObserver.observe(element);
+        });
+    </script>
+</body>
+</html>

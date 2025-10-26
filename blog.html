@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - Plant Affairs</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .hamburger-line {
+            display: block;
+            height: 3px;
+            width: 25px;
+            background-color: #333;
+            margin: 5px auto;
+            transition: all 0.3s ease-in-out;
+        }
+        
+        .hamburger.active .hamburger-line:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .hamburger.active .hamburger-line:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+        
+        .hamburger.active .hamburger-line:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+        
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+        }
+        
+        .mobile-menu.active {
+            max-height: 500px;
+        }
+        
+        .section-padding {
+            padding: 5rem 0;
+        }
+
+        .fade-in {
+            animation: fadeIn 1s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .blog-card {
+            transition: transform 0.3s ease;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .blog-img {
+            transition: transform 0.5s ease;
+        }
+
+        .blog-card:hover .blog-img {
+            transform: scale(1.05);
+        }
+
+        .category-badge {
+            display: inline-flex;
+            align-items: center;
+            background-color: white;
+            border: 1px solid #e5e7eb;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            margin-right: 1rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .category-badge:hover, .category-badge.active {
+            border-color: #10b981;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            background-color: #f0fdf4;
+        }
+
+        .stats-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #065f46;
+            line-height: 1;
+        }
+
+        .stats-label {
+            font-size: 1.125rem;
+            color: #374151;
+        }
+
+        .impact-card {
+            transition: transform 0.3s ease;
+        }
+
+        .impact-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .blog-tag {
+            display: inline-flex;
+            align-items: center;
+            background-color: #d1fae5;
+            color: #065f46;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .blog-tag i {
+            margin-right: 0.5rem;
+        }
+
+        .company-value {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .company-value i {
+            margin-right: 1rem;
+            color: #10b981;
+            font-size: 1.5rem;
+            width: 2rem;
+            text-align: center;
+        }
+
+        .impact-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #10b981;
+            line-height: 1;
+        }
+
+        .impact-label {
+            font-size: 1rem;
+            color: #6b7280;
+        }
+
+        .featured-post {
+            position: relative;
+            overflow: hidden;
+            border-radius: 0.5rem;
+            height: 500px;
+        }
+
+        .featured-post::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.7));
+            z-index: 1;
+        }
+
+        .featured-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 2rem;
+            z-index: 2;
+            color: white;
+        }
+
+        .newsletter-box {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .read-time {
+            display: inline-flex;
+            align-items: center;
+            color: #6b7280;
+            font-size: 0.875rem;
+        }
+
+        @media (max-width: 768px) {
+            .section-padding {
+                padding: 3rem 0;
+            }
+            
+            .stats-number {
+                font-size: 2.5rem;
+            }
+            
+            .blog-card {
+                margin-bottom: 2rem;
+            }
+            
+            .featured-post {
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-green-50">
+    <!-- Header Section -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <!-- Logo -->
+            <div class="flex items-center">
+                <img src="C:\Users\USER\Documents\plantaffairs\assets\logo.jpg" alt="Plant Affairs Logo" class="h-10 w-10 mr-2">
+                <span class="text-xl font-bold text-green-700">Plant Affairs</span>
+            </div>
+            
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex space-x-8">
+                <a href="home.html" class="text-green-700 hover:text-green-500 font-medium">Home</a>
+                <a href="categories.html" class="text-green-700 hover:text-green-500 font-medium">Categories</a>
+                <a href="services.html" class="text-green-700 hover:text-green-500 font-medium">Services</a>
+                <a href="about.html" class="text-green-700 hover:text-green-500 font-medium">About</a>
+                <a href="contact.html" class="text-green-700 hover:text-green-500 font-medium">Contact</a>
+                <a href="blog.html" class="text-green-700 hover:text-green-500 font-medium border-b-2 border-green-700">Blog</a>
+                <a href="gallery.html" class="text-green-700 hover:text-green-500 font-medium">Gallery</a>
+                <a href="testimonials.html" class="text-green-700 hover:text-green-500 font-medium">Testimonials</a>
+                <a href="faq.html" class="text-green-700 hover:text-green-500 font-medium">FAQ</a>
+                <a href="care-guides.html" class="text-green-700 hover:text-green-500 font-medium">Care Guides</a>
+            </nav>
+            
+            <!-- Cart and Search -->
+            <div class="hidden md:flex items-center space-x-4">
+                <button class="text-green-700 hover:text-green-500">
+                    <i class="fas fa-search"></i>
+                </button>
+                <button class="text-green-700 hover:text-green-500 relative">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="absolute -top-2 -right-2 bg-green-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">3</span>
+                </button>
+            </div>
+            
+            <!-- Mobile Menu Button -->
+            <button id="hamburger" class="md:hidden hamburger focus:outline-none">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="mobile-menu md:hidden bg-white">
+            <div class="container mx-auto px-4 py-3 flex flex-col space-y-4">
+                <a href="home.html" class="text-green-700 hover:text-green-500 font-medium py-2 border-b">Home</a>
+                <a href="categories.html" class="text-green-700 hover:text-green-500 font-medium py-2 border-b">Categories</a>
+                <a href="services.html" class="text-green-700 hover:text-green-500 font-medium py-2 border-b">Services</a>
+                <a href="about.html" class="text-green-700 hover:text-green-500 font-medium py-2 border-b">About</a>
+                <a href="contact.html" class="text-green-700 hover:text-green-500 font-medium py-2 border-b">Contact</a>
+                <a href="blog.html" class="text-green-700 hover:text-green-500 font-medium py-2 border-b">Blog</a>
+                <a href="gallery.html" class="text-green-700 hover:text-green-500 font-medium py-2 border-b">Gallery</a>
+                <a href="testimonials.html" class="text-green-700 hover:text-green-500 font-medium py-2 border-b">Testimonials</a>
+                <a href="faq.html" class="text-green-700 hover:text-green-500 font-medium py-2 border-b">FAQ</a>
+                <a href="care-guides.html" class="text-green-700 hover:text-green-500 font-medium py-2 border-b">Care Guides</a>
+                <div class="flex justify-between py-2">
+                    <button class="text-green-700 hover:text-green-500">
+                        <i class="fas fa-search"></i> Search
+                    </button>
+                    <button class="text-green-700 hover:text-green-500 relative">
+                        <i class="fas fa-shopping-cart"></i> Cart
+                        <span class="absolute -top-2 -right-2 bg-green-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">3</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Blog Page Content - 10 Detailed Sections -->
+    <main>
+        <!-- Section 1: Hero -->
+        <section class="bg-green-700 text-white section-padding">
+            <div class="container mx-auto px-4 text-center">
+                <h1 class="text-4xl md:text-5xl font-bold mb-4 fade-in">Plant Affairs Blog</h1>
+                <p class="text-xl mb-8 max-w-2xl mx-auto fade-in">Expert plant care advice, gardening tips, and inspiration for plant lovers across Nigeria.</p>
+                <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4 fade-in">
+                    <a href="#featured" class="bg-white text-green-700 px-6 py-3 rounded-lg font-semibold hover:bg-green-100 transition duration-300">Featured Posts</a>
+                    <a href="#categories" class="bg-transparent border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-green-700 transition duration-300">Browse Categories</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Featured Post -->
+        <section id="featured" class="section-padding">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center text-green-800 mb-12">Featured Post</h2>
+                
+                <div class="featured-post fade-in">
+                    <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Featured Post" class="w-full h-full object-cover">
+                    <div class="featured-content">
+                        <span class="blog-tag bg-white text-green-700"><i class="fas fa-leaf"></i> Seasonal Care</span>
+                        <h3 class="text-2xl md:text-3xl font-bold mb-4">Preparing Your Garden for Nigeria's Rainy Season</h3>
+                        <p class="text-lg mb-4 max-w-2xl">Essential tips to protect your plants and ensure thriving growth during the heavy rainfall months in Nigeria.</p>
+                        <div class="flex items-center">
+                            <div class="flex items-center mr-6">
+                                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="Author" class="author-avatar mr-3">
+                                <div>
+                                    <p class="font-semibold">Chinedu Okoro</p>
+                                    <p class="text-sm text-green-200">Head Horticulturist</p>
+                                </div>
+                            </div>
+                            <div class="read-time">
+                                <i class="fas fa-clock mr-1"></i>
+                                <span>8 min read</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Blog Categories -->
+        <section id="categories" class="section-padding bg-green-100">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center text-green-800 mb-8">Browse Blog Categories</h2>
+                <p class="text-center text-gray-600 mb-12 max-w-3xl mx-auto">Find articles that match your interests and gardening needs.</p>
+                
+                <div class="flex flex-wrap justify-center mb-12">
+                    <div class="category-badge active" data-category="all">
+                        <i class="fas fa-th-large text-green-600"></i>
+                        <span>All Articles</span>
+                    </div>
+                    <div class="category-badge" data-category="care">
+                        <i class="fas fa-seedling text-green-600"></i>
+                        <span>Plant Care</span>
+                    </div>
+                    <div class="category-badge" data-category="seasonal">
+                        <i class="fas fa-cloud-sun text-green-600"></i>
+                        <span>Seasonal Tips</span>
+                    </div>
+                    <div class="category-badge" data-category="design">
+                        <i class="fas fa-palette text-green-600"></i>
+                        <span>Garden Design</span>
+                    </div>
+                    <div class="category-badge" data-category="diy">
+                        <i class="fas fa-tools text-green-600"></i>
+                        <span>DIY Projects</span>
+                    </div>
+                    <div class="category-badge" data-category="problems">
+                        <i class="fas fa-bug text-green-600"></i>
+                        <span>Problem Solving</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Recent Articles -->
+        <section class="section-padding">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center text-green-800 mb-12">Recent Articles</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="blog-grid">
+                    <!-- Article 1 -->
+                    <div class="blog-card bg-white rounded-lg shadow-md overflow-hidden fade-in" data-category="care">
+                        <div class="relative overflow-hidden">
+                            <img src="C:\Users\USER\Documents\plantaffairs\assets\snake plant.jpg" alt="Snake Plant Care" class="w-full h-48 object-cover blog-img">
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-center mb-3">
+                                <span class="blog-tag"><i class="fas fa-seedling"></i> Plant Care</span>
+                                <div class="read-time">
+                                    <i class="fas fa-clock mr-1"></i>
+                                    <span>5 min</span>
+                                </div>
+                            </div>
+                            <h3 class="text-xl font-semibold text-green-800 mb-3">The Ultimate Snake Plant Care Guide for Nigerian Homes</h3>
+                            <p class="text-gray-600 text-sm mb-4">Learn how to keep your snake plant thriving in Nigeria's climate with these simple care tips.</p>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <img src="C:\Users\USER\Documents\plantaffairs\assets\Bougainvillea.webp" alt="Author" class="w-8 h-8 rounded-full mr-2">
+                                    <span class="text-sm text-gray-600">Amina Okoro</span>
+                                </div>
+                                <a href="#" class="text-green-600 font-semibold hover:text-green-800 text-sm">Read More →</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Article 2 -->
+                    <div class="blog-card bg-white rounded-lg shadow-md overflow-hidden fade-in" data-category="seasonal">
+                        <div class="relative overflow-hidden">
+                            <img src="C:\Users\USER\Documents\plantaffairs\assets\Bougainvillea.webp" alt="Rainy Season" class="w-full h-48 object-cover blog-img">
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-center mb-3">
+                                <span class="blog-tag"><i class="fas fa-cloud-sun"></i> Seasonal Tips</span>
+                                <div class="read-time">
+                                    <i class="fas fa-clock mr-1"></i>
+                                    <span>7 min</span>
+                                </div>
+                            </div>
+                            <h3 class="text-xl font-semibold text-green-800 mb-3">Managing Plant Diseases During Nigeria's Rainy Season</h3>
+                            <p class="text-gray-600 text-sm mb-4">Protect your plants from common fungal diseases that thrive in humid conditions.</p>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <img src="C:\Users\USER\Documents\plantaffairs\assets\Bougainvillea.webp" alt="Author" class="w-8 h-8 rounded-full mr-2">
+                                    <span class="text-sm text-gray-600">Tunde Adeyemi</span>
+                                </div>
+                                <a href="#" class="text-green-600 font-semibold hover:text-green-800 text-sm">Read More →</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Article 3 -->
+                    <div class="blog-card bg-white rounded-lg shadow-md overflow-hidden fade-in" data-category="design">
+                        <div class="relative overflow-hidden">
+                            <img src="C:\Users\USER\Documents\plantaffairs\assets\Bougainvillea.webp" alt="Balcony Garden" class="w-full h-48 object-cover blog-img">
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-center mb-3">
+                                <span class="blog-tag"><i class="fas fa-palette"></i> Garden Design</span>
+                                <div class="read-time">
+                                    <i class="fas fa-clock mr-1"></i>
+                                    <span>10 min</span>
+                                </div>
+                            </div>
+                            <h3 class="text-xl font-semibold text-green-800 mb-3">Creating a Beautiful Balcony Garden in Small Nigerian Apartments</h3>
+                            <p class="text-gray-600 text-sm mb-4">Maximize your limited space with these creative balcony gardening ideas.</p>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <img src="C:\Users\USER\Documents\plantaffairs\assets\Bougainvillea.webp" alt="Author" class="w-8 h-8 rounded-full mr-2">
+                                    <span class="text-sm text-gray-600">Ngozi Eze</span>
+                                </div>
+                                <a href="#" class="text-green-600 font-semibold hover:text-green-800 text-sm">Read More →</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Article 4 -->
+                    <div class="blog-card bg-white rounded-lg shadow-md overflow-hidden fade-in" data-category="diy">
+                        <div class="relative overflow-hidden">
+                            <img src="C:\Users\USER\Documents\plantaffairs\assets\Bougainvillea.webp" alt="DIY Planter" class="w-full h-48 object-cover blog-img">
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-center mb-3">
+                                <span class="blog-tag"><i class="fas fa-tools"></i> DIY Projects</span>
+                                <div class="read-time">
+                                    <i class="fas fa-clock mr-1"></i>
+                                    <span>6 min</span>
+                                </div>
+                            </div>
+                            <h3 class="text-xl font-semibold text-green-800 mb-3">5 Easy DIY Planters Using Recycled Materials</h3>
+                            <p class="text-gray-600 text-sm mb-4">Transform everyday items into beautiful plant containers with these simple projects.</p>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <img src="C:\Users\USER\Documents\plantaffairs\assets\Bougainvillea.webp" alt="Author" class="w-8 h-8 rounded-full mr-2">
+                                    <span class="text-sm text-gray-600">Tunde Adeyemi</span>
+                                </div>
+                                <a href="#" class="text-green-600 font-semibold hover:text-green-800 text-sm">Read More →</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Article 5 -->
+                    <div class="blog-card bg-white rounded-lg shadow-md overflow-hidden fade-in" data-category="problems">
+                        <div class="relative overflow-hidden">
+                            <img src="C:\Users\USER\Documents\plantaffairs\assets\Bougainvillea.webp" alt="Plant Problems" class="w-full h-48 object-cover blog-img">
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-center mb-3">
+                                <span class="blog-tag"><i class="fas fa-bug"></i> Problem Solving</span>
+                                <div class="read-time">
+                                    <i class="fas fa-clock mr-1"></i>
+                                    <span>8 min</span>
+                                </div>
+                            </div>
+                            <h3 class="text-xl font-semibold text-green-800 mb-3">Solving Common Plant Problems in Nigeria's Climate</h3>
+                            <p class="text-gray-600 text-sm mb-4">Identify and fix issues like yellow leaves, pests, and poor growth in your plants.</p>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <img src="C:\Users\USER\Documents\plantaffairs\assets\Bougainvillea.webp" alt="Author" class="w-8 h-8 rounded-full mr-2">
+                                    <span class="text-sm text-gray-600">Chinedu Okoro</span>
+                                </div>
+                                <a href="#" class="text-green-600 font-semibold hover:text-green-800 text-sm">Read More →</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Article 6 -->
+                    <div class="blog-card bg-white rounded-lg shadow-md overflow-hidden fade-in" data-category="care">
+                        <div class="relative overflow-hidden">
+                            <img src="C:\Users\USER\Documents\plantaffairs\assets\Bougainvillea.webp" alt="Succulent Care" class="w-full h-48 object-cover blog-img">
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-center mb-3">
+                                <span class="blog-tag"><i class="fas fa-seedling"></i> Plant Care</span>
+                                <div class="read-time">
+                                    <i class="fas fa-clock mr-1"></i>
+                                    <span>5 min</span>
+                                </div>
+                            </div>
+                            <h3 class="text-xl font-semibold text-green-800 mb-3">Growing Succulents Successfully in Nigeria's Humid Climate</h3>
+                            <p class="text-gray-600 text-sm mb-4">Adapt your succulent care routine for optimal growth in Nigerian conditions.</p>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <img src="C:\Users\USER\Documents\plantaffairs\assets\Bougainvillea.webp" alt="Author" class="w-8 h-8 rounded-full mr-2">
+                                    <span class="text-sm text-gray-600">Ngozi Eze</span>
+                                </div>
+                                <a href="#" class="text-green-600 font-semibold hover:text-green-800 text-sm">Read More →</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-12 fade-in">
+                    <a href="#" class="bg-green-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-green-700 transition duration-300 inline-flex items-center">
+                        <span>Load More Articles</span>
+                        <i class="fas fa-arrow-down ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Popular Articles -->
+        <section class="section-padding bg-green-100">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center text-green-800 mb-12">Most Popular Articles</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden fade-in">
+                        <div class="md:flex">
+                            <div class="md:w-2/5">
+                                <img src="C:\Users\USER\Documents\plantaffairs\assets\Bougainvillea.webp" alt="Popular Article" class="w-full h-48 md:h-full object-cover">
+                            </div>
+                            <div class="md:w-3/5 p-6">
+                                <span class="blog-tag"><i class="fas fa-seedling"></i> Plant Care</span>
+                                <h3 class="text-xl font-semibold text-green-800 mb-3 mt-2">10 Hard-to-Kill Plants for Nigerian Beginners</h3>
+                                <p class="text-gray-600 text-sm mb-4">Discover resilient plants that can withstand beginner mistakes and Nigeria's climate.</p>
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <i class="fas fa-eye text-gray-400 mr-1"></i>
+                                        <span class="text-sm text-gray-600">2.5K views</span>
+                                    </div>
+                                    <a href="#" class="text-green-600 font-semibold hover:text-green-800 text-sm">Read More →</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden fade-in">
+                        <div class="md:flex">
+                            <div class="md:w-2/5">
+                                <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Popular Article" class="w-full h-48 md:h-full object-cover">
+                            </div>
+                            <div class="md:w-3/5 p-6">
+                                <span class="blog-tag"><i class="fas fa-palette"></i> Garden Design</span>
+                                <h3 class="text-xl font-semibold text-green-800 mb-3 mt-2">Creating an Indoor Jungle in Your Nigerian Home</h3>
+                                <p class="text-gray-600 text-sm mb-4">Transform your living space with these indoor plant arrangement ideas.</p>
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <i class="fas fa-eye text-gray-400 mr-1"></i>
+                                        <span class="text-sm text-gray-600">1.8K views</span>
+                                    </div>
+                                    <a href="#" class="text-green-600 font-semibold hover:text-green-800 text-sm">Read More →</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: Blog Stats -->
+        <section class="section-padding">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center text-green-800 mb-12">Our Blog in Numbers</h2>
+                
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
+                    <div class="impact-card bg-white p-6 rounded-lg shadow-md text-center fade-in">
+                        <div class="impact-number">150+</div>
+                        <div class="impact-label">Articles Published</div>
+                    </div>
+                    <div class="impact-card bg-white p-6 rounded-lg shadow-md text-center fade-in">
+                        <div class="impact-number">50K+</div>
+                        <div class="impact-label">Monthly Readers</div>
+                    </div>
+                    <div class="impact-card bg-white p-6 rounded-lg shadow-md text-center fade-in">
+                        <div class="impact-number">6</div>
+                        <div class="impact-label">Expert Writers</div>
+                    </div>
+                    <div class="impact-card bg-white p-6 rounded-lg shadow-md text-center fade-in">
+                        <div class="impact-number">95%</div>
+                        <div class="impact-label">Reader Satisfaction</div>
+                    </div>
+                </div>
+                
+                <div class="text-center fade-in">
+                    <p class="text-gray-600 max-w-3xl mx-auto">Our blog is dedicated to helping plant lovers across Nigeria succeed in their gardening journey. We publish new articles weekly with practical advice tailored to Nigerian conditions.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 7: Meet Our Writers -->
+        <section class="section-padding bg-green-100">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center text-green-800 mb-12">Meet Our Writers</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center fade-in">
+                        <img src="C:\Users\USER\Documents\plantaffairs\assets\boss\leo.jpeg" alt="Chinedu Okoro" class="w-24 h-24 rounded-full mx-auto mb-4 object-cover">
+                        <h3 class="text-xl font-semibold text-green-800 mb-2">Chinedu Okoro</h3>
+                        <p class="text-green-600 font-medium mb-3">Head Horticulturist</p>
+                        <p class="text-gray-600 text-sm mb-4">With 15 years of experience, Chinedu specializes in tropical plants and sustainable gardening practices.</p>
+                        <div class="flex justify-center space-x-3">
+                            <a href="#" class="text-gray-400 hover:text-green-600">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#" class="text-gray-400 hover:text-green-600">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="#" class="text-gray-400 hover:text-green-600">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center fade-in">
+                        <img src="C:\Users\USER\Documents\plantaffairs\assets\boss\leo.jpeg" alt="Ngozi Eze" class="w-24 h-24 rounded-full mx-auto mb-4 object-cover">
+                        <h3 class="text-xl font-semibold text-green-800 mb-2">Ngozi Eze</h3>
+                        <p class="text-green-600 font-medium mb-3">Landscape Designer</p>
+                        <p class="text-gray-600 text-sm mb-4">Ngozi creates beautiful outdoor spaces and shares design tips for Nigerian homes and businesses.</p>
+                        <div class="flex justify-center space-x-3">
+                            <a href="#" class="text-gray-400 hover:text-green-600">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#" class="text-gray-400 hover:text-green-600">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="#" class="text-gray-400 hover:text-green-600">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center fade-in">
+                        <img src="C:\Users\USER\Documents\plantaffairs\assets\boss\leo.jpeg" alt="Tunde Adeyemi" class="w-24 h-24 rounded-full mx-auto mb-4 object-cover">
+                        <h3 class="text-xl font-semibold text-green-800 mb-2">Tunde Adeyemi</h3>
+                        <p class="text-green-600 font-medium mb-3">Plant Care Specialist</p>
+                        <p class="text-gray-600 text-sm mb-4">Tunde focuses on indoor plants and troubleshooting common plant problems in urban environments.</p>
+                        <div class="flex justify-center space-x-3">
+                            <a href="#" class="text-gray-400 hover:text-green-600">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#" class="text-gray-400 hover:text-green-600">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="#" class="text-gray-400 hover:text-green-600">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 8: Newsletter -->
+        <section class="section-padding">
+            <div class="container mx-auto px-4">
+                <div class="newsletter-box rounded-lg shadow-lg p-8 md:p-12 text-center text-white fade-in">
+                    <h2 class="text-3xl font-bold mb-4">Get Plant Care Tips Delivered to Your Inbox</h2>
+                    <p class="text-xl mb-8 max-w-2xl mx-auto">Subscribe to our newsletter and receive weekly gardening advice tailored to Nigeria's climate.</p>
+                    <form class="max-w-md mx-auto flex flex-col sm:flex-row gap-4">
+                        <input type="email" placeholder="Your email address" class="px-4 py-3 rounded-lg flex-grow text-gray-800 focus:outline-none focus:ring-2 focus:ring-green-300">
+                        <button type="submit" class="bg-green-800 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-900 transition duration-300">Subscribe</button>
+                    </form>
+                    <p class="text-sm mt-4 text-green-200">We respect your privacy. Unsubscribe at any time.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 9: Blog Search -->
+        <section class="section-padding bg-green-100">
+            <div class="container mx-auto px-4">
+                <div class="max-w-3xl mx-auto text-center fade-in">
+                    <h2 class="text-3xl font-bold text-green-800 mb-4">Can't Find What You're Looking For?</h2>
+                    <p class="text-gray-600 mb-8">Search our extensive library of plant care articles and gardening guides.</p>
+                    <div class="relative max-w-xl mx-auto">
+                        <input type="text" placeholder="Search blog articles..." class="w-full px-4 py-3 pr-12 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                        <button class="absolute right-3 top-3 text-gray-400 hover:text-green-600">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 10: Call to Action -->
+        <section class="section-padding">
+            <div class="container mx-auto px-4">
+                <div class="bg-green-700 text-white rounded-lg shadow-lg p-8 md:p-12 text-center fade-in">
+                    <h2 class="text-3xl font-bold mb-4">Ready to Transform Your Space with Plants?</h2>
+                    <p class="text-xl mb-8 max-w-2xl mx-auto">Browse our plant collection or schedule a consultation with our experts.</p>
+                    <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                        <a href="categories.html" class="bg-white text-green-700 px-6 py-3 rounded-lg font-semibold hover:bg-green-100 transition duration-300">Shop Plants</a>
+                        <a href="services.html" class="bg-transparent border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-green-700 transition duration-300">Our Services</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-green-800 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- Company Info -->
+                <div>
+                    <div class="flex items-center mb-4">
+                        <img src="C:\Users\USER\Documents\plantaffairs\assets\logo.jpg" alt="Plant Affairs Logo" class="h-8 w-8 mr-2">
+                        <span class="text-xl font-bold">Plant Affairs</span>
+                    </div>
+                    <p class="text-green-200 mb-4">Your trusted partner for all plant needs. Quality plants and professional services.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-green-200 hover:text-white">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-green-200 hover:text-white">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-green-200 hover:text-white">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Quick Links -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="home.html" class="text-green-200 hover:text-white">Home</a></li>
+                        <li><a href="categories.html" class="text-green-200 hover:text-white">Categories</a></li>
+                        <li><a href="services.html" class="text-green-200 hover:text-white">Services</a></li>
+                        <li><a href="about.html" class="text-green-200 hover:text-white">About Us</a></li>
+                        <li><a href="contact.html" class="text-green-200 hover:text-white">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Categories -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Categories</h3>
+                    <ul class="space-y-2">
+                        <li><a href="categories.html#indoor" class="text-green-200 hover:text-white">Indoor Plants</a></li>
+                        <li><a href="categories.html#outdoor" class="text-green-200 hover:text-white">Outdoor Plants</a></li>
+                        <li><a href="categories.html#fruit" class="text-green-200 hover:text-white">Fruit Plants</a></li>
+                        <li><a href="categories.html#garden" class="text-green-200 hover:text-white">Garden Needs</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Contact Info -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Contact Us</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-2"></i>
+                            <span class="text-green-200">123 Green Street, Wuse, Abuja, Nigeria</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone mr-2"></i>
+                            <span class="text-green-200">+234 801 234 5678</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope mr-2"></i>
+                            <span class="text-green-200">info@plantaffairs.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-green-700 mt-8 pt-6 text-center text-green-300">
+                <p>&copy; 2023 Plant Affairs. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        hamburger.addEventListener('click', function() {
+            this.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        });
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const isClickInside = hamburger.contains(event.target) || mobileMenu.contains(event.target);
+            
+            if (!isClickInside && mobileMenu.classList.contains('active')) {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('active');
+            }
+        });
+
+        // Category filtering
+        document.querySelectorAll('.category-badge').forEach(badge => {
+            badge.addEventListener('click', function() {
+                // Remove active class from all badges
+                document.querySelectorAll('.category-badge').forEach(item => {
+                    item.classList.remove('active');
+                });
+                
+                // Add active class to clicked badge
+                this.classList.add('active');
+                
+                const category = this.getAttribute('data-category');
+                
+                // Show/hide blog posts based on category
+                document.querySelectorAll('.blog-card').forEach(card => {
+                    if (category === 'all' || card.getAttribute('data-category') === category) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Load more articles
+        document.querySelector('.bg-green-600').addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('In a real implementation, this would load more blog articles from the server.');
+        });
+
+        // Newsletter form submission
+        document.querySelector('.newsletter-box form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for subscribing to our newsletter!');
+            this.reset();
+        });
+
+        // Search functionality
+        document.querySelector('.bg-green-100 .relative button').addEventListener('click', function() {
+            const searchTerm = document.querySelector('.bg-green-100 .relative input').value;
+            if (searchTerm) {
+                alert(`Searching for: ${searchTerm}. In a real implementation, this would filter blog articles.`);
+            }
+        });
+
+        // Fade in animation on scroll
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        const fadeInObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeIn 1s ease-in-out forwards';
+                    fadeInObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        fadeElements.forEach(element => {
+            fadeInObserver.observe(element);
+        });
+    </script>
+</body>
+</html>
