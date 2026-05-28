@@ -48,10 +48,16 @@ export default function HomePage() {
             curated for discerning homes and gardens across Nigeria.
           </p>
           <div className="flex flex-wrap gap-4">
-            <Link href="/shop/indoor" className="btn-primary bg-white text-forest-800 hover:bg-warm-100 hover:text-forest-900 px-8 py-4 text-sm">
+            <Link
+              href="/shop/indoor"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-white text-forest-800 font-sans font-medium text-sm tracking-wide hover:bg-warm-100 transition-colors duration-200"
+            >
               Shop Plants <ArrowRight size={15} />
             </Link>
-            <Link href="/services/landscaping" className="btn-outline border-white text-white hover:bg-white hover:text-forest-800 px-8 py-4 text-sm">
+            <Link
+              href="/services/landscaping"
+              className="inline-flex items-center gap-2 px-8 py-4 border border-white text-white font-sans font-medium text-sm tracking-wide hover:bg-white hover:text-forest-800 transition-colors duration-200"
+            >
               Our Services
             </Link>
           </div>
@@ -103,8 +109,11 @@ export default function HomePage() {
               <p className="text-stone-400 text-xs uppercase tracking-[0.15em] mb-3">Handpicked for you</p>
               <h2 className="section-title">Staff Favourites</h2>
             </div>
-            <Link href="/shop/indoor" className="btn-ghost text-forest-700 gap-1.5 self-start md:self-auto">
-              View all plants <ArrowRight size={14} />
+            <Link
+              href="/shop/indoor"
+              className="inline-flex items-center gap-2 px-5 py-2.5 border border-forest-600 text-forest-700 font-sans font-medium text-sm hover:bg-forest-700 hover:text-white transition-colors duration-200 self-start md:self-auto"
+            >
+              Browse All Plants <ArrowRight size={14} />
             </Link>
           </div>
 
@@ -137,10 +146,16 @@ export default function HomePage() {
               scale — from a terrace pot arrangement to a full estate landscape.
             </p>
             <div className="flex flex-wrap gap-3">
-              <Link href="/services/landscaping" className="btn-primary bg-white text-forest-800 hover:bg-warm-100 px-6 py-3 text-xs">
+              <Link
+                href="/services/landscaping"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-white text-forest-800 font-sans font-medium text-xs tracking-wide hover:bg-warm-100 transition-colors duration-200"
+              >
                 View Landscaping Services <ArrowRight size={13} />
               </Link>
-              <Link href="/services/garden-needs" className="btn-outline border-white/40 text-white hover:border-white px-6 py-3 text-xs">
+              <Link
+                href="/services/garden-needs"
+                className="inline-flex items-center gap-2 px-6 py-3 border border-white/40 text-white font-sans font-medium text-xs tracking-wide hover:border-white transition-colors duration-200"
+              >
                 Garden Needs & Supplies
               </Link>
             </div>
@@ -195,7 +210,10 @@ export default function HomePage() {
         </div>
 
         <div className="text-center mt-8">
-          <Link href="/services/landscaping" className="btn-outline text-forest-700 border-forest-700 gap-2">
+          <Link
+            href="/services/landscaping"
+            className="inline-flex items-center gap-2 px-7 py-3.5 border border-forest-700 text-forest-700 font-sans font-medium text-sm hover:bg-forest-700 hover:text-white transition-colors duration-200"
+          >
             See All Projects <ArrowRight size={14} />
           </Link>
         </div>

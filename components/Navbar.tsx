@@ -64,6 +64,15 @@ const NAV = [
       { label: "Irrigation Systems", href: "/services/landscaping?sub=irrigation", desc: "Smart water management" },
     ],
   },
+  {
+    label: "Company",
+    href: "/about",
+    sub: [
+      { label: "About Us", href: "/about", desc: "Our story, values and team" },
+      { label: "FAQs", href: "/faq", desc: "Common questions answered" },
+      { label: "Contact", href: "/contact", desc: "Get in touch with our team" },
+    ],
+  },
 ];
 
 export default function Navbar() {

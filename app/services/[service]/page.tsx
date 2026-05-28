@@ -134,7 +134,10 @@ export default function ServicePage({ params, searchParams }: Props) {
                       </li>
                     ))}
                   </ul>
-                  <a href="tel:+2348066465246" className="btn-primary text-xs w-full justify-center">
+                  <a
+                    href="tel:+2348066465246"
+                    className="inline-flex items-center justify-center gap-2 w-full px-4 py-3 bg-forest-700 text-white text-xs font-medium hover:bg-forest-800 transition-colors"
+                  >
                     Book This Service <ArrowRight size={13} />
                   </a>
                 </div>
@@ -205,7 +208,7 @@ export default function ServicePage({ params, searchParams }: Props) {
                   className={
                     s.featured
                       ? "inline-flex items-center justify-center gap-2 px-6 py-3 bg-white text-forest-800 text-xs font-medium hover:bg-warm-100 transition-colors"
-                      : "btn-outline text-forest-700 border-forest-700 text-xs w-full justify-center"
+                      : "inline-flex items-center justify-center gap-2 px-6 py-3 w-full border border-forest-700 text-forest-700 text-xs font-medium hover:bg-forest-700 hover:text-white transition-colors"
                   }
                 >
                   <Phone size={12} />
@@ -228,10 +231,16 @@ export default function ServicePage({ params, searchParams }: Props) {
             your space. Call us or book a free 15-minute consultation.
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
-            <a href="tel:+2348066465246" className="btn-primary bg-white text-forest-800 hover:bg-warm-100 px-7 py-3.5 text-sm">
+            <a
+              href="tel:+2348066465246"
+              className="inline-flex items-center gap-2 px-7 py-3.5 bg-white text-forest-800 font-sans font-medium text-sm hover:bg-warm-100 transition-colors"
+            >
               <Phone size={14} /> Call Us Now
             </a>
-            <Link href="/shop/indoor" className="btn-outline border-white/40 text-white hover:border-white px-7 py-3.5 text-sm">
+            <Link
+              href="/shop/indoor"
+              className="inline-flex items-center gap-2 px-7 py-3.5 border border-white/40 text-white font-sans font-medium text-sm hover:border-white transition-colors"
+            >
               Browse Plants <ArrowRight size={14} />
             </Link>
           </div>

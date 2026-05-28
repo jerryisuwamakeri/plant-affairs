@@ -51,7 +51,9 @@ export default function Footer() {
             <li><Link href="/services/landscaping" className="hover:text-white transition-colors">Landscaping</Link></li>
             <li><Link href="/services/landscaping?sub=design" className="hover:text-white transition-colors">Garden Design</Link></li>
             <li><Link href="/services/landscaping?sub=maintenance" className="hover:text-white transition-colors">Maintenance Plans</Link></li>
-            <li><Link href="/services/landscaping?sub=irrigation" className="hover:text-white transition-colors">Irrigation Systems</Link></li>
+            <li><Link href="/about" className="hover:text-white transition-colors">About Us</Link></li>
+            <li><Link href="/faq" className="hover:text-white transition-colors">FAQs</Link></li>
+            <li><Link href="/contact" className="hover:text-white transition-colors">Contact</Link></li>
           </ul>
         </div>
 

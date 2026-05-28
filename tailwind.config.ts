@@ -24,7 +24,6 @@ const config: Config = {
         },
         sage: "#8BAF9A",
         bark: "#8B7355",
-        stone: "#9E9589",
         warm: {
           50: "#faf8f5",
           100: "#f2ede6",
