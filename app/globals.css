@@ -1,0 +1,116 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap');
+
+:root {
+  --font-cormorant: 'Cormorant Garamond', Georgia, serif;
+  --font-inter: 'Inter', system-ui, sans-serif;
+  --color-forest: #1E3D2A;
+  --color-forest-light: #2D5A40;
+  --color-ivory: #F8F5F0;
+  --color-sage: #8BAF9A;
+  --color-stone: #9E9589;
+  --color-warm: #E8E3DC;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-inter);
+  background-color: #F8F5F0;
+  color: #1C1A17;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: var(--font-cormorant);
+  letter-spacing: -0.01em;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #F8F5F0; }
+::-webkit-scrollbar-thumb { background: #C4B49E; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #A88660; }
+
+/* Hide scrollbar utility */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Tag badge base */
+.tag-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  font-size: 0.65rem;
+  font-family: var(--font-inter);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* Button utilities — plain CSS for reliability */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background-color: #1E3D2A;
+  color: #fff;
+  font-family: var(--font-inter);
+  font-weight: 500;
+  font-size: 0.875rem;
+  letter-spacing: 0.02em;
+  transition: background-color 0.2s;
+}
+.btn-primary:hover { background-color: #163020; }
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border: 1px solid #1E3D2A;
+  color: #1E3D2A;
+  font-family: var(--font-inter);
+  font-weight: 500;
+  font-size: 0.875rem;
+  letter-spacing: 0.02em;
+  transition: background-color 0.2s, color 0.2s;
+}
+.btn-outline:hover { background-color: #1E3D2A; color: #fff; }
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  color: #1E3D2A;
+  font-family: var(--font-inter);
+  font-weight: 500;
+  font-size: 0.875rem;
+  transition: background-color 0.2s;
+}
+.btn-ghost:hover { background-color: #F2EDE6; }
+
+/* Typography helpers */
+.section-title {
+  font-family: var(--font-cormorant);
+  font-size: clamp(1.75rem, 4vw, 3rem);
+  font-weight: 300;
+  color: #1E3D2A;
+  line-height: 1.15;
+}
+.section-subtitle {
+  font-family: var(--font-inter);
+  font-size: 0.9rem;
+  color: #78716c;
+  line-height: 1.7;
+}
