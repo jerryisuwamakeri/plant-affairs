@@ -1,5 +1,10 @@
 {
-  "/services/[service]/page": "app/services/[service]/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/contact/page": "app/contact/page.js",
+  "/faq/page": "app/faq/page.js",
+  "/icon.jpg/route": "app/icon.jpg/route.js",
   "/page": "app/page.js",
-  "/about/page": "app/about/page.js"
+  "/about/page": "app/about/page.js",
+  "/shop/[category]/page": "app/shop/[category]/page.js",
+  "/services/[service]/page": "app/services/[service]/page.js"
 }

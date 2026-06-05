@@ -26,7 +26,7 @@ const FAQ_SECTIONS = [
       },
       {
         q: "What if my plant arrives damaged?",
-        a: "Please photograph the plant and packaging within 24 hours of receipt and send it to hello@plantaffairs.com. We will arrange a replacement or full refund — no questions asked.",
+        a: "Please photograph the plant and packaging within 24 hours of receipt and send it to info@bmltrees.com. We will arrange a replacement or full refund — no questions asked.",
       },
     ],
   },
@@ -56,7 +56,7 @@ const FAQ_SECTIONS = [
     items: [
       {
         q: "How do I book a garden design consultation?",
-        a: "Call us on +234 806 646 5246 or email hello@plantaffairs.com. We will schedule a free 15-minute discovery call to understand your space, budget, and vision before confirming a full consultation.",
+        a: "Call us on +234 806 646 5246 or email info@bmltrees.com. We will schedule a free 15-minute discovery call to understand your space, budget, and vision before confirming a full consultation.",
       },
       {
         q: "Do you offer maintenance contracts?",
@@ -166,10 +166,10 @@ export default function FAQPage() {
                   <Phone size={12} /> +234 806 646 5246
                 </a>
                 <a
-                  href="mailto:hello@plantaffairs.com"
+                  href="mailto:info@bmltrees.com"
                   className="flex items-center gap-2 text-xs text-forest-700 font-medium hover:text-forest-900 transition-colors"
                 >
-                  <Mail size={12} /> hello@plantaffairs.com
+                  <Mail size={12} /> info@bmltrees.com
                 </a>
               </div>
             </div>

@@ -93,10 +93,10 @@ export default function ContactPage() {
                 <div>
                   <p className="font-sans font-medium text-forest-800 text-sm mb-1">Email Us</p>
                   <a
-                    href="mailto:hello@plantaffairs.com"
+                    href="mailto:info@bmltrees.com"
                     className="text-forest-700 text-sm font-medium hover:text-forest-900 transition-colors"
                   >
-                    hello@plantaffairs.com
+                    info@bmltrees.com
                   </a>
                   <p className="text-stone-400 text-xs mt-0.5">Replies within 1 business day</p>
                 </div>

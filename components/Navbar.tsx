@@ -102,9 +102,9 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <span className="flex items-center gap-4">
             <span className="flex items-center gap-1.5"><Phone size={11} /> +234 806 646 5246</span>
-            <span className="flex items-center gap-1.5"><Mail size={11} /> hello@plantaffairs.com</span>
+            <span className="flex items-center gap-1.5"><Mail size={11} /> info@bmltrees.com</span>
           </span>
-          <span>Free delivery on orders over ₦30,000 &nbsp;·&nbsp; Abuja & Lagos</span>
+          <span></span>
         </div>
       </div>
 
@@ -114,10 +114,10 @@ export default function Navbar() {
           {/* Logo */}
           <Link href="/" className="flex-shrink-0 flex items-center gap-2.5">
             <div className="w-9 h-9 relative">
-              <Image src="/images/logo.jpg" alt="Plant Affairs" fill className="object-cover rounded-full" />
+              <Image src="/images/logo.jpg" alt="BML Trees" fill className="object-cover rounded-full" />
             </div>
             <span className="font-serif text-xl text-forest-800 tracking-tight hidden sm:block">
-              Plant Affairs
+              BML Trees
             </span>
           </Link>
 
@@ -260,7 +260,7 @@ export default function Navbar() {
             ))}
             <div className="px-5 py-4 text-xs text-stone-400 space-y-1">
               <p>+234 806 646 5246</p>
-              <p>hello@plantaffairs.com</p>
+              <p>info@bmltrees.com</p>
             </div>
           </div>
         )}

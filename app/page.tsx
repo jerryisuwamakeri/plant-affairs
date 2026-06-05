@@ -29,7 +29,7 @@ export default function HomePage() {
         <div className="absolute inset-0">
           <Image
             src="/images/garden-two.webp"
-            alt="Plant Affairs hero garden"
+            alt="BML Trees hero garden"
             fill
             className="object-cover opacity-30"
             priority

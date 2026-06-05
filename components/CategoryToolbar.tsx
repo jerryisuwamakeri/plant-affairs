@@ -1,12 +1,15 @@
 "use client";
 
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
+import { Suspense } from "react";
 
 interface Sub { slug: string; label: string }
 
-export default function CategoryToolbar({ subcategories, active }: { subcategories: Sub[]; active: string }) {
+function ToolbarInner({ subcategories }: { subcategories: Sub[] }) {
   const router = useRouter();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const active = searchParams.get("sub") || "all";
 
   const navigate = (slug: string) => {
     if (slug === "all") {
@@ -39,5 +42,13 @@ export default function CategoryToolbar({ subcategories, active }: { subcategori
         </div>
       </div>
     </div>
+  );
+}
+
+export default function CategoryToolbar({ subcategories }: { subcategories: Sub[] }) {
+  return (
+    <Suspense>
+      <ToolbarInner subcategories={subcategories} />
+    </Suspense>
   );
 }

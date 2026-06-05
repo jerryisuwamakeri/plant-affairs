@@ -11,9 +11,9 @@ export default function Footer() {
         <div>
           <div className="flex items-center gap-2.5 mb-5">
             <div className="relative w-8 h-8">
-              <Image src="/images/logo.jpg" alt="Plant Affairs" fill className="object-cover rounded-full" />
+              <Image src="/images/logo.jpg" alt="BML Trees" fill className="object-cover rounded-full" />
             </div>
-            <span className="font-serif text-xl text-white">Plant Affairs</span>
+            <span className="font-serif text-xl text-white">BML Trees</span>
           </div>
           <p className="text-sm leading-relaxed mb-6">
             Premium plants, garden services and expert horticultural advice for homes and businesses across Nigeria.
@@ -71,7 +71,7 @@ export default function Footer() {
             </li>
             <li className="flex gap-2.5">
               <Mail size={14} className="flex-shrink-0 mt-0.5 text-sage" />
-              <a href="mailto:hello@plantaffairs.com" className="hover:text-white transition-colors">hello@plantaffairs.com</a>
+              <a href="mailto:info@bmltrees.com" className="hover:text-white transition-colors">info@bmltrees.com</a>
             </li>
           </ul>
           <div className="mt-5 text-sm">
@@ -85,7 +85,7 @@ export default function Footer() {
       {/* Bottom bar */}
       <div className="border-t border-white/10">
         <div className="max-w-7xl mx-auto px-4 py-5 flex flex-col sm:flex-row justify-between gap-2 text-xs text-white/40">
-          <p>© {new Date().getFullYear()} Plant Affairs. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} BML Trees. All rights reserved.</p>
           <div className="flex gap-5">
             <a href="#" className="hover:text-white/70 transition-colors">Privacy Policy</a>
             <a href="#" className="hover:text-white/70 transition-colors">Terms of Service</a>

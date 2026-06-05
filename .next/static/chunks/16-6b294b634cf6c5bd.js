@@ -1,0 +1,21 @@
+"use strict";(self.webpackChunk_N_E=self.webpackChunk_N_E||[]).push([[16],{1802:function(e,t,r){r.d(t,{CartProvider:function(){return c},RX:function(){return s},iF:function(){return d},jD:function(){return a}});var n=r(7437),i=r(2265);function u(e,t){switch(t.type){case"ADD":{let r=t.size?"".concat(t.product.id,"-").concat(t.size):t.product.id;if(e.items.find(e=>(e.selectedSize?"".concat(e.product.id,"-").concat(e.selectedSize):e.product.id)===r))return{...e,isOpen:!0,items:e.items.map(e=>(e.selectedSize?"".concat(e.product.id,"-").concat(e.selectedSize):e.product.id)===r?{...e,quantity:e.quantity+1}:e)};return{...e,isOpen:!0,items:[...e.items,{product:t.product,quantity:1,selectedSize:t.size}]}}case"REMOVE":return{...e,items:e.items.filter(e=>e.product.id!==t.id)};case"INCREMENT":return{...e,items:e.items.map(e=>e.product.id===t.id?{...e,quantity:e.quantity+1}:e)};case"DECREMENT":return{...e,items:e.items.map(e=>e.product.id===t.id?{...e,quantity:e.quantity-1}:e).filter(e=>e.quantity>0)};case"TOGGLE":return{...e,isOpen:!e.isOpen};case"CLOSE":return{...e,isOpen:!1};default:return e}}let o=(0,i.createContext)(null);function c(e){let{children:t}=e,[r,c]=(0,i.useReducer)(u,{items:[],isOpen:!1});return(0,n.jsx)(o.Provider,{value:{state:r,dispatch:c},children:t})}function a(){let e=(0,i.useContext)(o);if(!e)throw Error("useCart must be inside CartProvider");return e}function d(){let{state:e}=a();return e.items.reduce((e,t)=>e+t.quantity,0)}function s(){let{state:e}=a();return e.items.reduce((e,t)=>e+("price"in t.product?t.product.price:0)*t.quantity,0)}},8428:function(e,t,r){r.d(t,{T4:function(){return n}});function n(e){return"₦".concat(e.toLocaleString("en-NG"))}},8030:function(e,t,r){r.d(t,{Z:function(){return a}});var n=r(2265);/**
+ * @license lucide-react v0.400.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */let i=e=>e.replace(/([a-z0-9])([A-Z])/g,"$1-$2").toLowerCase(),u=function(){for(var e=arguments.length,t=Array(e),r=0;r<e;r++)t[r]=arguments[r];return t.filter((e,t,r)=>!!e&&r.indexOf(e)===t).join(" ")};/**
+ * @license lucide-react v0.400.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */var o={xmlns:"http://www.w3.org/2000/svg",width:24,height:24,viewBox:"0 0 24 24",fill:"none",stroke:"currentColor",strokeWidth:2,strokeLinecap:"round",strokeLinejoin:"round"};/**
+ * @license lucide-react v0.400.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */let c=(0,n.forwardRef)((e,t)=>{let{color:r="currentColor",size:i=24,strokeWidth:c=2,absoluteStrokeWidth:a,className:d="",children:s,iconNode:l,...f}=e;return(0,n.createElement)("svg",{ref:t,...o,width:i,height:i,stroke:r,strokeWidth:a?24*Number(c)/Number(i):c,className:u("lucide",d),...f},[...l.map(e=>{let[t,r]=e;return(0,n.createElement)(t,r)}),...Array.isArray(s)?s:[s]])}),a=(e,t)=>{let r=(0,n.forwardRef)((r,o)=>{let{className:a,...d}=r;return(0,n.createElement)(c,{ref:o,iconNode:t,className:u("lucide-".concat(i(e)),a),...d})});return r.displayName="".concat(e),r}},9715:function(e,t,r){r.d(t,{Z:function(){return n}});/**
+ * @license lucide-react v0.400.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */let n=(0,r(8030).Z)("ShoppingBag",[["path",{d:"M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z",key:"hou9p0"}],["path",{d:"M3 6h18",key:"d0wm0j"}],["path",{d:"M16 10a4 4 0 0 1-8 0",key:"1ltviw"}]])},6648:function(e,t,r){r.d(t,{default:function(){return i.a}});var n=r(5601),i=r.n(n)},5601:function(e,t,r){Object.defineProperty(t,"__esModule",{value:!0}),function(e,t){for(var r in t)Object.defineProperty(e,r,{enumerable:!0,get:t[r]})}(t,{default:function(){return a},getImageProps:function(){return c}});let n=r(9920),i=r(497),u=r(8173),o=n._(r(1241));function c(e){let{props:t}=(0,i.getImgProps)(e,{defaultLoader:o.default,imgConf:{deviceSizes:[640,750,828,1080,1200,1920,2048,3840],imageSizes:[16,32,48,64,96,128,256,384],path:"/_next/image",loader:"default",dangerouslyAllowSVG:!1,unoptimized:!0}});for(let[e,r]of Object.entries(t))void 0===r&&delete t[e];return{props:t}}let a=u.Image}}]);

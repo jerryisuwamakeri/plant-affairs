@@ -6,7 +6,7 @@ import { Leaf, Heart, Award, Users, ArrowRight, Quote } from "lucide-react";
 export const metadata: Metadata = {
   title: "About Us",
   description:
-    "Learn about Plant Affairs — our story, our philosophy, and the team behind Nigeria's premier plant and garden studio.",
+    "Learn about BML Trees — our story, our philosophy, and the team behind Nigeria's premier tree and garden studio.",
 };
 
 const VALUES = [
@@ -43,20 +43,8 @@ const TEAM = [
   {
     name: "Hon. Felix Leo Gimbason",
     role: "Founder & Head Horticulturist",
-    bio: "With over a decade of experience in tropical horticulture, Leo founded Plant Affairs to make premium plant culture accessible across Nigeria. He holds a BSc in Botany and has designed gardens from Abuja to Lagos.",
+    bio: "With over a decade of experience in tropical horticulture, Leo founded BML Trees to make premium plant and tree culture accessible across Nigeria. He holds a BSc in Botany and has designed gardens from Abuja to Lagos.",
     image: "/images/team-leo.jpg",
-  },
-  {
-    name: "Amara Okafor",
-    role: "Landscape Designer",
-    bio: "Amara brings a background in architecture and a passion for biophilic design. She leads all our residential and commercial landscape projects.",
-    image: "/images/garden-two.webp",
-  },
-  {
-    name: "Chidi Eze",
-    role: "Plant Care Specialist",
-    bio: "Chidi manages our nursery stock and leads aftercare support. His deep knowledge of West African soil conditions makes him invaluable to every project.",
-    image: "/images/formal-garden.jpg",
   },
 ];
 
@@ -68,7 +56,7 @@ export default function AboutPage() {
         <div className="absolute inset-0">
           <Image
             src="/images/garden-two.webp"
-            alt="Plant Affairs garden"
+            alt="BML Trees garden"
             fill
             className="object-cover opacity-25"
             priority
@@ -80,8 +68,8 @@ export default function AboutPage() {
             Grown from a Love of Plants
           </h1>
           <p className="text-white/65 mt-6 max-w-lg text-base md:text-lg leading-relaxed">
-            Plant Affairs began as one person's obsession with tropical botanicals and grew into
-            Nigeria's most thoughtful plant and garden studio.
+            BML Trees began as one person's obsession with tropical botanicals and grew into
+            Nigeria's most thoughtful tree, plant and garden studio.
           </p>
         </div>
       </div>
@@ -104,7 +92,7 @@ export default function AboutPage() {
           <div className="relative aspect-[4/5] overflow-hidden">
             <Image
               src="/images/team-leo.jpg"
-              alt="Leo, Founder of Plant Affairs"
+              alt="Leo, Founder of BML Trees"
               fill
               className="object-cover"
             />
@@ -116,7 +104,7 @@ export default function AboutPage() {
             </h2>
             <div className="space-y-4 text-stone-600 text-sm leading-relaxed">
               <p>
-                Plant Affairs was founded in 2019 by Hon. Felix Leo Gimbason, a botanist with an unshakeable
+                BML Trees was founded in 2019 by Hon. Felix Leo Gimbason, a botanist with an unshakeable
                 belief that access to quality plants could genuinely improve everyday life — not just
                 aesthetically, but mentally and physically.
               </p>
@@ -126,7 +114,7 @@ export default function AboutPage() {
                 offices, their event planners. The demand for a proper studio became undeniable.
               </p>
               <p>
-                Today, Plant Affairs serves hundreds of homes and businesses across Abuja and Lagos,
+                Today, BML Trees serves hundreds of homes and businesses across Abuja and Lagos,
                 offering not just plants but full landscaping design, installation, and ongoing
                 maintenance — all delivered with the same personal attention that made that first
                 stall so memorable.

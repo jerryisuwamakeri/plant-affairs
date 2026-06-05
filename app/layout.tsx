@@ -6,9 +6,9 @@ import CartSidebar from "@/components/CartSidebar";
 import { CartProvider } from "@/components/CartContext";
 
 export const metadata: Metadata = {
-  title: { default: "Plant Affairs", template: "%s | Plant Affairs" },
+  title: { default: "BML Trees", template: "%s | BML Trees" },
   description:
-    "Premium plants, landscaping services and garden expertise — curated for discerning homes and gardens across Nigeria.",
+    "Premium trees, plants, landscaping services and garden expertise — curated for discerning homes and gardens across Nigeria.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
